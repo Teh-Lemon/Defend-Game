@@ -4,7 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour 
 {
     #region Variables
-    public GameStates.States CurrentState = GameStates.States.PLAYING;
+    //public GameStates.States CurrentState = GameStates.States.PLAYING;
 
     // UI
     public HUD hud;
@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        switch (CurrentState)
+        switch (GameStates.Current)
         {
             case GameStates.States.PLAYING:
                 //hud.UpdateAmmo(playerController.AmmoCount, playerController.AMMO_CAPACITY);
