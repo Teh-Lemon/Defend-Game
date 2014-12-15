@@ -15,15 +15,17 @@ public class PlayerController : MonoBehaviour
     // Cost of big bullet
     public int BIG_BULLET_COST;
     // Bullet movement speed
-    public float BULLET_SPEED;
+    //public float BULLET_SPEED;
 
     // Bullet prefab
-    public GameObject BULLET_PREFAB;
+    //public GameObject BULLET_PREFAB;
     // Used to update ammo count
     public HUD hud;
     // Used to find out current game state
-    public GameController gameC;
+    //public GameController gameC;
     public SpriteRenderer SHIELD_SPRITE;
+    public BulletController bulletC;
+    public PlayerShield Shield;
 
     // Is the cooldown period ready
     bool readyToFire;
@@ -31,17 +33,17 @@ public class PlayerController : MonoBehaviour
     int ammoCount;
     //public int AmmoCount { get { return ammoCount; } }    
     // Whether the shield is alive
-    bool shieldOn;
+    //bool shieldOn;
     // Used to signal game over
     bool isAlive;
     #endregion
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         readyToFire = true;
         ammoCount = 50;
-        ToggleShield(true);
+        //ToggleShield(true);
         isAlive = true;
         StartCoroutine(RefillAmmo());
     }
@@ -64,9 +66,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Meteor")
         {
-            if (shieldOn)
+            if (Shield.IsOn)
             {
-                ToggleShield(false);
+                Shield.ToggleShield(false, true);
             }
             else
             {
@@ -78,11 +80,14 @@ public class PlayerController : MonoBehaviour
     // Shoot a bullet from the player position to the target
     void ShootBullet(Vector2 target, bool bigBullet = false)
     {
+        /*
         Vector2 direction = target - new Vector2(transform.position.x, transform.position.y);
 
         // Spawn and fire the bullet
         GameObject newBullet = Instantiate(BULLET_PREFAB, transform.position, Quaternion.identity) as GameObject;
         newBullet.rigidbody2D.velocity = direction.normalized * BULLET_SPEED;
+        */
+        bulletC.Fire(transform.position, target);
 
         // Set up cooldown timer
         StartCoroutine(StartCooldown());
@@ -144,9 +149,15 @@ public class PlayerController : MonoBehaviour
         hud.UpdateAmmo(ammoCount, AMMO_CAPACITY);
     }
 
+    // Signal game over and play death animation
+    void Die()
+    {
+        isAlive = false;
+    }
 
+    /*
     // Turn the shield on or off
-    void ToggleShield(bool turnOn)
+    void ToggleShield(bool turnOn, bool flash = false)
     {
         if (turnOn)
         {
@@ -156,13 +167,30 @@ public class PlayerController : MonoBehaviour
         else
         {
             shieldOn = false;
+
+            if (flash)
+            {
+                StartCoroutine(FlashSprite(SHIELD_SPRITE, false, 0.5f, 5.0f));
+            }
+
             SHIELD_SPRITE.enabled = false;
         }
     }
 
-    // Signal game over and play death animation
-    void Die()
+
+
+    // Flash a sprite on/off at a given speed and duration
+    IEnumerator FlashSprite(SpriteRenderer sprite, bool endState, float speed, float duration)
     {
-        isAlive = false;
+        // Loop the flashing effect for the length of the duration given
+        for (float timer = 0; timer < duration; timer += Time.deltaTime)
+        {
+            Debug.Log(timer);
+            sprite.enabled = !sprite.enabled;
+            yield return new WaitForSeconds(speed);
+        }
+
+        sprite.enabled = endState;
     }
+     */
 }
