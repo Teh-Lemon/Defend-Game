@@ -4,6 +4,8 @@ using MemoryManagment; // ObjectPool
 
 public class BulletController : MonoBehaviour
 {
+    public static BulletController Instance { get; set; }
+
     // Bullet movement speed
     public float BULLET_SPEED;
     // Bullet prefab
@@ -14,6 +16,7 @@ public class BulletController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        Instance = this;
         bulletPool = new GameObjectPool(100, BULLET_PREFAB, gameObject);
     }
 
@@ -25,7 +28,7 @@ public class BulletController : MonoBehaviour
         {
             // Reset the bullet variables
             var bulletScript = bulletGO.GetComponent<Bullet>();
-            bulletScript.Reset(spawnPos, bulletPool);
+            bulletScript.Spawn(spawnPos, bulletPool);
 
             // Fire the bullet towards the target
             Vector2 direction = target - new Vector2(spawnPos.x, spawnPos.y);
@@ -34,6 +37,16 @@ public class BulletController : MonoBehaviour
         else
         {
             Debug.Log("Bullet pool returned null bulletGO");
+        }
+    }
+
+    // Place bullet back into pool for later re-use
+    // Called by the bullet when it deactivates itself
+    public void StoreBullet(GameObject bullet)
+    {
+        if (bulletPool != null)
+        {
+            bulletPool.Store(bullet);
         }
     }
 }

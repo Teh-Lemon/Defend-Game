@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
+    // Used to update ammo count
+    public static PlayerController Instance { get; set; }
+
     // Fire rate
     public float FIRE_COOLDOWN;
     // Max amount of bullets player can hold
@@ -14,26 +17,16 @@ public class PlayerController : MonoBehaviour
     public int BULLET_COST;
     // Cost of big bullet
     public int BIG_BULLET_COST;
-    // Bullet movement speed
-    //public float BULLET_SPEED;
-
-    // Bullet prefab
-    //public GameObject BULLET_PREFAB;
-    // Used to update ammo count
-    public HUD hud;
-    // Used to find out current game state
-    //public GameController gameC;
+    
+    //public HUD hud;
     public SpriteRenderer SHIELD_SPRITE;
-    public BulletController bulletC;
+    //public BulletController bulletC;
     public PlayerShield Shield;
 
     // Is the cooldown period ready
     bool readyToFire;
     // How much ammo the player has
     int ammoCount;
-    //public int AmmoCount { get { return ammoCount; } }    
-    // Whether the shield is alive
-    //bool shieldOn;
     // Used to signal game over
     bool isAlive;
     #endregion
@@ -41,9 +34,9 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        Instance = this;
         readyToFire = true;
         ammoCount = 50;
-        //ToggleShield(true);
         isAlive = true;
         StartCoroutine(RefillAmmo());
     }
@@ -51,46 +44,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //  Fire a bullet at the crosshair
-        if (Input.GetButton("Fire1") && CanShootBullet())
-        {
-            // Mouse position in the world space
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            ShootBullet(mouseWorldPos);
-        }
     }
 
-    // Detect collision with meteors
-    void OnTriggerEnter2D(Collider2D other)
+    // Called by the Meteor when colliding with player Body
+    public void HitByMeteor()
     {
-        if (other.tag == "Meteor")
+        if (Shield.IsOn)
         {
-            if (Shield.IsOn)
-            {
-                Shield.ToggleShield(false, true);
-            }
-            else
-            {
-                Die();
-            }
+            Shield.ToggleShield(false, true);
+        }
+        else
+        {
+            Die();
         }
     }
 
     // Shoot a bullet from the player position to the target
-    void ShootBullet(Vector2 target, bool bigBullet = false)
+    public void ShootBullet(Vector2 target, bool bigBullet = false)
     {
-        /*
-        Vector2 direction = target - new Vector2(transform.position.x, transform.position.y);
+        // Only fire if ready to do so
+        if (!CanShootBullet)
+        {
+            return;
+        }
 
-        // Spawn and fire the bullet
-        GameObject newBullet = Instantiate(BULLET_PREFAB, transform.position, Quaternion.identity) as GameObject;
-        newBullet.rigidbody2D.velocity = direction.normalized * BULLET_SPEED;
-        */
-        bulletC.Fire(transform.position, target);
+        // Shoot a bullet out from the muzzle at the target
+        BulletController.Instance.Fire(transform.position, target);
 
         // Set up cooldown timer
-        StartCoroutine(StartCooldown());
+        StartCoroutine(StartFireCooldown());
 
         // Decrease ammo count
         if (bigBullet)
@@ -104,22 +87,31 @@ public class PlayerController : MonoBehaviour
     }
 
     // Is everything ready to shoot a bullet right now?
-    bool CanShootBullet(bool bigBullet = false)
+    bool CanShootBullet
     {
-        // Cooldown period has expired
-        // Player has the ammo
-        if (!readyToFire || ammoCount < BULLET_COST)
+        get
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            // Cooldown period has expired
+            // Player has the ammo
+            if (!readyToFire || ammoCount < BULLET_COST)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
+    // Not implemented
+    bool CanShootBigBullet
+    {
+        get { return false; }
+    }
+
     // Set timer before next bullet can be fired
-    IEnumerator StartCooldown()
+    IEnumerator StartFireCooldown()
     {
         readyToFire = false;
 
@@ -146,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
         ammoCount = Mathf.Clamp(ammoCount, 0, AMMO_CAPACITY);
 
-        hud.UpdateAmmo(ammoCount, AMMO_CAPACITY);
+        HUD.Instance.UpdateAmmo(ammoCount, AMMO_CAPACITY);
     }
 
     // Signal game over and play death animation
@@ -154,43 +146,4 @@ public class PlayerController : MonoBehaviour
     {
         isAlive = false;
     }
-
-    /*
-    // Turn the shield on or off
-    void ToggleShield(bool turnOn, bool flash = false)
-    {
-        if (turnOn)
-        {
-            shieldOn = true;
-            SHIELD_SPRITE.enabled = true;
-        }
-        else
-        {
-            shieldOn = false;
-
-            if (flash)
-            {
-                StartCoroutine(FlashSprite(SHIELD_SPRITE, false, 0.5f, 5.0f));
-            }
-
-            SHIELD_SPRITE.enabled = false;
-        }
-    }
-
-
-
-    // Flash a sprite on/off at a given speed and duration
-    IEnumerator FlashSprite(SpriteRenderer sprite, bool endState, float speed, float duration)
-    {
-        // Loop the flashing effect for the length of the duration given
-        for (float timer = 0; timer < duration; timer += Time.deltaTime)
-        {
-            Debug.Log(timer);
-            sprite.enabled = !sprite.enabled;
-            yield return new WaitForSeconds(speed);
-        }
-
-        sprite.enabled = endState;
-    }
-     */
 }

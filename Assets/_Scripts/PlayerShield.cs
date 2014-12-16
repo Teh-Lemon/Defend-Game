@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerShield : MonoBehaviour
+public class PlayerShield : CustomBehaviour
 {
     public SpriteRenderer SHIELD_SPRITE;
     public float SHIELD_FLASH_DURATION;
@@ -14,12 +14,6 @@ public class PlayerShield : MonoBehaviour
     void Start()
     {
         ToggleShield(true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void ToggleShield(bool turnOn, bool flash = false)
@@ -40,23 +34,5 @@ public class PlayerShield : MonoBehaviour
 
             SHIELD_SPRITE.enabled = false;
         }
-    }
-
-    // Flash a sprite on/off at a given speed and duration (duration not accurate)
-    IEnumerator FlashSprite(SpriteRenderer sprite, bool endState, float speed, float duration)
-    {
-        float startTime = 0f;
-        float endTime = 0f;
-
-        // Loop the flashing effect for the length of the duration given
-        for (float timer = 0; timer < duration; timer += (endTime - startTime))
-        {
-            startTime = Time.time;
-            sprite.enabled = !sprite.enabled;
-            yield return new WaitForSeconds(speed);
-            endTime = Time.time;
-        }
-
-        sprite.enabled = endState;
     }
 }

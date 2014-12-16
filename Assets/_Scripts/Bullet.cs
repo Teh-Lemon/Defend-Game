@@ -4,13 +4,10 @@ using MemoryManagment;
 
 public class Bullet : MonoBehaviour
 {
-    // Bullet stores itself back into the pool for later re-use on deactivation
-    public GameObjectPool ownPool;
-
     // Bullets are deactivated before first frame
     void Awake()
     {
-        Reset(Vector2.zero, null);
+        Spawn(Vector2.zero, null);
     }
 
     // When the bullet leaves the play area, remove from play
@@ -18,26 +15,22 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "KillBoundary")
         {
-            Disable();
+            gameObject.SetActive(false);
         }
     }
 
     // Reset the bullet, required interface declaration
-    public void Reset(Vector2 spawnPosition, GameObjectPool pool)
+    public void Spawn(Vector2 spawnPosition, GameObjectPool pool)
     {
         rigidbody2D.mass = transform.localScale.x;
         transform.position = spawnPosition;
-        ownPool = pool;
         gameObject.SetActive(true);
     }
 
     // De-activate bullet for later re-use
-    void Disable()
+    void OnDisable()
     {
-        if (ownPool != null)
-        {
-            ownPool.Store(this.gameObject);
-        }
+        BulletController.Instance.StoreBullet(this.gameObject);
     }
 
     // Change the size and mass of the bullet

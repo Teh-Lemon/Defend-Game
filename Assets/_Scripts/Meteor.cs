@@ -23,6 +23,7 @@ public class Meteor : MonoBehaviour
         // Play death animation if colliding with the player
         else if (other.tag == "Player")
         {
+            other.GetComponentInParent<PlayerController>().HitByMeteor();
             Explode();
         }
     }

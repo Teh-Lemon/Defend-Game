@@ -84,6 +84,7 @@ GameObject:
   - 4: {fileID: 43329700}
   - 50: {fileID: 43329702}
   - 114: {fileID: 43329701}
+  - 114: {fileID: 43329703}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -122,9 +123,7 @@ MonoBehaviour:
   AMMO_REFILL_COOLDOWN: .300000012
   BULLET_COST: 1
   BIG_BULLET_COST: 5
-  hud: {fileID: 2051442013}
   SHIELD_SPRITE: {fileID: 2014336281}
-  bulletC: {fileID: 961074490}
   Shield: {fileID: 2014336282}
 --- !u!50 &43329702
 Rigidbody2D:
@@ -141,6 +140,17 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!114 &43329703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 43329699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427a5b66ee4f0b94498449c8e29045be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &155511771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9fc969fe8a5f54fbe73e5174182d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hud: {fileID: 2051442013}
 --- !u!1 &2014336279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,8 +1115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SHIELD_SPRITE: {fileID: 2014336281}
-  SHIELD_FLASH_DURATION: .75
-  SHIELD_FLASH_SPEED: .200000003
+  SHIELD_FLASH_DURATION: .5
+  SHIELD_FLASH_SPEED: .119999997
 --- !u!1 &2051442012
 GameObject:
   m_ObjectHideFlags: 0
