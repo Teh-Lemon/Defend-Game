@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerShield : CustomBehaviour
+public class TurretShield : CustomBehaviour
 {
     public SpriteRenderer SHIELD_SPRITE;
     public float SHIELD_FLASH_DURATION;
@@ -13,7 +13,7 @@ public class PlayerShield : CustomBehaviour
     // Use this for initialization
     void Start()
     {
-        ToggleShield(true);
+        //ToggleShield(true);
     }
 
     public void ToggleShield(bool turnOn, bool flash = false)
@@ -22,6 +22,7 @@ public class PlayerShield : CustomBehaviour
         {
             IsOn = true;
             SHIELD_SPRITE.enabled = true;
+            Debug.Log("foo " + this.gameObject);
         }
         else
         {
@@ -33,6 +34,7 @@ public class PlayerShield : CustomBehaviour
             }
 
             SHIELD_SPRITE.enabled = false;
+            Debug.Log("boo");
         }
     }
 }

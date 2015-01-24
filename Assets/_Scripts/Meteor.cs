@@ -19,11 +19,11 @@ public class Meteor : MonoBehaviour
         if (other.tag == "KillBoundary")
         {
             Destroy(gameObject);
-        }
-        // Play death animation if colliding with the player
-        else if (other.tag == "Player")
+        }            
+        // Play death animation if colliding with a turret
+        else if (other.tag == "Turret")
         {
-            other.GetComponentInParent<PlayerController>().HitByMeteor();
+            other.GetComponentInParent<Turret>().HitByMeteor();
             Explode();
         }
     }
