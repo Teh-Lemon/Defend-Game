@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using MemoryManagment; // ObjectPool
 
 public class BulletController : MonoBehaviour
@@ -7,9 +6,10 @@ public class BulletController : MonoBehaviour
     public static BulletController Instance { get; set; }
 
     // Bullet movement speed
-    public float BULLET_SPEED;
+    [SerializeField] 
+    float BULLET_SPEED;
     // Bullet prefab
-    public GameObject BULLET_PREFAB;
+    [SerializeField] GameObject BULLET_PREFAB;
 
     GameObjectPool bulletPool;
 
@@ -47,6 +47,20 @@ public class BulletController : MonoBehaviour
         if (bulletPool != null)
         {
             bulletPool.Store(bullet);
+        }
+    }
+
+    public void Reset()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Bullet");
+
+        if (gos.Length > 0)
+        {
+            for (int i = 0; i < gos.Length; i++)
+            {
+                gos[i].SetActive(false);
+            }
         }
     }
 }

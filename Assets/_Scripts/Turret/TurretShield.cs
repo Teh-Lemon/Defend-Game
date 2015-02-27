@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class TurretShield : CustomBehaviour
 {
-    public SpriteRenderer SHIELD_SPRITE;
-    public float SHIELD_FLASH_DURATION;
-    public float SHIELD_FLASH_SPEED;
+    [SerializeField] 
+    SpriteRenderer SHIELD_SPRITE;
+    [SerializeField]
+    float SHIELD_FLASH_DURATION;
+    [SerializeField]
+    float SHIELD_FLASH_SPEED;
 
     // Is the shield activated
     public bool IsOn { get; set; }
@@ -22,7 +24,7 @@ public class TurretShield : CustomBehaviour
         {
             IsOn = true;
             SHIELD_SPRITE.enabled = true;
-            Debug.Log("foo " + this.gameObject);
+            //Debug.Log("foo " + this.gameObject);
         }
         else
         {
@@ -30,11 +32,12 @@ public class TurretShield : CustomBehaviour
 
             if (flash)
             {
-                StartCoroutine(FlashSprite(SHIELD_SPRITE, false, SHIELD_FLASH_SPEED, SHIELD_FLASH_DURATION));
+                StartCoroutine(FlashSprite(SHIELD_SPRITE, false,
+                    SHIELD_FLASH_SPEED, SHIELD_FLASH_DURATION));
             }
 
             SHIELD_SPRITE.enabled = false;
-            Debug.Log("boo");
+            //Debug.Log("boo");
         }
     }
 }

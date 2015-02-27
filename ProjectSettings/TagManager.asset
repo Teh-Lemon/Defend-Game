@@ -7,6 +7,7 @@ TagManager:
   - KillBoundary
   - Meteor
   - Turret
+  - TurretBody
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

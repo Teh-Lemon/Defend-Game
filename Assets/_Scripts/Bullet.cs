@@ -31,6 +31,7 @@ public class Bullet : MonoBehaviour
     void OnDisable()
     {
         BulletController.Instance.StoreBullet(this.gameObject);
+        Debug.Log("stored");
     }
 
     // Change the size and mass of the bullet

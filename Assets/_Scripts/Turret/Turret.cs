@@ -23,15 +23,12 @@ public class Turret : MonoBehaviour
     // How much ammo the turret has
     int ammoCount;
     // Used to signal game over
-    bool isAlive;
+    public bool IsAlive;
 
     // Use this for initialization
     void Start()
     {
-        readyToFire = true;
-        ammoCount = 50;
-        isAlive = true;
-        StartCoroutine(RefillAmmo());
+        //Shield.ToggleShield(false, false);
     }
 
     // Update is called once per frame
@@ -43,6 +40,7 @@ public class Turret : MonoBehaviour
     // Called by the Meteor when colliding with player Body
     public void HitByMeteor()
     {
+        Debug.Log("Hit by meteor");
         if (Shield.IsOn)
         {
             Shield.ToggleShield(false, true);
@@ -138,6 +136,15 @@ public class Turret : MonoBehaviour
     // Signal game over and play death animation
     void Die()
     {
-        isAlive = false;
+        IsAlive = false;
+    }
+
+    public void Reset()
+    {
+        IsAlive = true;
+        readyToFire = true;
+        ammoCount = 50;
+        IsAlive = true;
+        StartCoroutine(RefillAmmo());
     }
 }

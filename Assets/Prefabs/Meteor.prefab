@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.140000001, y: 2.79999995, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: .100000001
-  m_FixedAngle: 0
+  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -68,7 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ebbec0f1cba641aec6ea0b9f513ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MASS_SCALE_RATIO: 0
+  METEOR_SPRITE: {fileID: 21200000}
+  DEATH_FLASH_DURATION: .25
+  DEATH_FLASH_SPEED: .075000003
+  DEATH_ALPHA: .25
+  MASS_SCALE_RATIO: 7
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

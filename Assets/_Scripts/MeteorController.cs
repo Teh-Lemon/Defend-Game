@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class MeteorController : MonoBehaviour
 {
     public static MeteorController Instance { get; set; }
 
+    List<Meteor> Meteors;
+
     void Awake()
     {
         Instance = this;
+        Meteors = new List<Meteor>();
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void Reset()
     {
 
     }
