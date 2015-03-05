@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using MemoryManagment;
 
 public class Bullet : MonoBehaviour
@@ -22,7 +21,7 @@ public class Bullet : MonoBehaviour
     // Reset the bullet, required interface declaration
     public void Spawn(Vector2 spawnPosition, GameObjectPool pool)
     {
-        rigidbody2D.mass = transform.localScale.x;
+        GetComponent<Rigidbody2D>().mass = transform.localScale.x;
         transform.position = spawnPosition;
         gameObject.SetActive(true);
     }
@@ -31,13 +30,13 @@ public class Bullet : MonoBehaviour
     void OnDisable()
     {
         BulletController.Instance.StoreBullet(this.gameObject);
-        Debug.Log("stored");
+        //Debug.Log("stored");
     }
 
     // Change the size and mass of the bullet
     public void ChangeSize(float newSize)
     {
         transform.localScale = new Vector3(newSize, newSize, 1);
-        rigidbody2D.mass = transform.localScale.x;
+        GetComponent<Rigidbody2D>().mass = transform.localScale.x;
     }
 }

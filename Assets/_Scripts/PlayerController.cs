@@ -60,4 +60,9 @@ public class PlayerController : MonoBehaviour
         turret.Shield.ToggleShield(true);
         turret.Reset();
     }
+
+    public Vector2 GetPosition()
+    {
+        return turret.gameObject.transform.position;        
+    }
 }

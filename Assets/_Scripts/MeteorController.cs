@@ -17,4 +17,9 @@ public class MeteorController : MonoBehaviour
     {
 
     }
+
+    void SpawnMeteor(Vector3 Position)
+    {
+
+    }
 }

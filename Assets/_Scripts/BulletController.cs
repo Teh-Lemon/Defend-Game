@@ -9,7 +9,8 @@ public class BulletController : MonoBehaviour
     [SerializeField] 
     float BULLET_SPEED;
     // Bullet prefab
-    [SerializeField] GameObject BULLET_PREFAB;
+    [SerializeField] 
+    GameObject BULLET_PREFAB;
 
     GameObjectPool bulletPool;
 
@@ -32,7 +33,7 @@ public class BulletController : MonoBehaviour
 
             // Fire the bullet towards the target
             Vector2 direction = target - new Vector2(spawnPos.x, spawnPos.y);
-            bulletGO.rigidbody2D.velocity = direction.normalized * BULLET_SPEED;
+            bulletGO.GetComponent<Rigidbody2D>().velocity = direction.normalized * BULLET_SPEED;
         }
         else
         {
@@ -59,7 +60,10 @@ public class BulletController : MonoBehaviour
         {
             for (int i = 0; i < gos.Length; i++)
             {
-                gos[i].SetActive(false);
+                //if (!gos[i].activeInHierarchy)
+                {
+                    gos[i].SetActive(false);
+                }
             }
         }
     }

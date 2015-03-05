@@ -15,6 +15,13 @@ public class TurretBot : MonoBehaviour
     [SerializeField]
     char BulletsPerBurst;
 
+    void Start()
+    {
+        turret.Shield.ToggleShield(false);
+        //turret.AmmoCapacity = -1;
+        //turret.FireCooldown = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -22,13 +29,14 @@ public class TurretBot : MonoBehaviour
     }
 
     // Find target
+    void UpdateTarget()
+    {
 
+    }
     // Fire burst fire
 
     public void Reset()
     {
-        turret.Shield.ToggleShield(false);
-        turret.AmmoCapacity = -1;
-        turret.FireCooldown = 0;
+        gameObject.SetActive(false);
     }
 }

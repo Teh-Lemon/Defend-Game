@@ -36,7 +36,7 @@ public class Meteor : CustomBehaviour
                 break;
 
             case state.EXPLODING:
-                rigidbody2D.velocity = Vector3.zero;
+                GetComponent<Rigidbody2D>().velocity = Vector3.zero;
                 break;
         }
     }
@@ -44,7 +44,7 @@ public class Meteor : CustomBehaviour
     void UpdateSize(float newScale)
     {
         transform.localScale = new Vector3(newScale, newScale, 1);
-        rigidbody2D.mass = newScale * MASS_SCALE_RATIO;
+        GetComponent<Rigidbody2D>().mass = newScale * MASS_SCALE_RATIO;
     }
     
     void OnTriggerEnter2D(Collider2D other)

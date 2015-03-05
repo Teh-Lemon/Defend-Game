@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     {
         GameStates.Current = GameStates.States.PLAYING;
 
+        Debug.Log("Resetting!");
         PlayerController.Instance.Reset();
         TurretBotController.Instance.Reset();
         BulletController.Instance.Reset();
@@ -57,8 +58,10 @@ public class GameController : MonoBehaviour
 
     public IEnumerator GameOver()
     {
+        Debug.Log("Game over in " + TIME_TILL_GAMEOVER);
         yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
+        Debug.Log("Game over'd");
         GameStates.Current = GameStates.States.GAME_OVER;
         Time.timeScale = 0.0f;
     }

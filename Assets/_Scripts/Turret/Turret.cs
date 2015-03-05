@@ -4,31 +4,43 @@ using System.Collections;
 public class Turret : MonoBehaviour
 {
     // Fire rate
-    public float FireCooldown;
+    [SerializeField]
+    float FireCooldown;
     // Max amount of bullets turret can hold (-1 for infinite)
-    public int AmmoCapacity;
+    [SerializeField]
+    int AmmoCapacity;
     // How fast the turret's ammo recharges
-    public float AmmoRefillCooldown;
+    [SerializeField]
+    float AmmoRefillCooldown;
     // Cost of each bullet
-    public int BulletCost;
+    [SerializeField]
+    int BulletCost;
     // Cost of big bullet
-    public int BigBulletCost;
+    [SerializeField]
+    int BigBulletCost;
+    [SerializeField]
+    Vector3 MuzzlePosition;
 
     // Shield
-    public SpriteRenderer ShieldSprite;
+    [SerializeField]
+    SpriteRenderer ShieldSprite;
     public TurretShield Shield;
+
+
 
     // Is the cooldown period ready
     bool readyToFire;
     // How much ammo the turret has
     int ammoCount;
     // Used to signal game over
-    public bool IsAlive;
+    public bool IsAlive { get; set; }
 
     // Use this for initialization
     void Start()
     {
+        IsAlive = false;
         //Shield.ToggleShield(false, false);
+
     }
 
     // Update is called once per frame
@@ -61,7 +73,7 @@ public class Turret : MonoBehaviour
         }
 
         // Shoot a bullet out from the muzzle at the target
-        BulletController.Instance.Fire(transform.position, target);
+        BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
 
         // Set up cooldown timer
         StartCoroutine(StartFireCooldown());
