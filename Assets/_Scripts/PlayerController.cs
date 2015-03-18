@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Reset();
+        //Reset();
     }
 
     // Update is called once per frame
@@ -46,9 +46,10 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
+                // Game Over when the player's main turret dies
                 if (!turret.IsAlive)
                 {
-                    StartCoroutine(GameController.Instance.GameOver());
+                    //StartCoroutine(GameController.Instance.GameOver());
                 }
                 break;
 
@@ -61,8 +62,9 @@ public class PlayerController : MonoBehaviour
         turret.Reset();
     }
 
-    public Vector2 GetPosition()
+    // Position of the player's main turret
+    public Vector2 Position
     {
-        return turret.gameObject.transform.position;        
+        get { return turret.gameObject.transform.position; }
     }
 }

@@ -390,48 +390,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 634830514}
   m_Script: {fileID: 11500000, guid: 68786d57ceffa764998fd6e285f583e0, type: 3}
---- !u!1001 &725767774
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -.140000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: .0399999991
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &846037955
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,48 +420,6 @@ Transform:
   - {fileID: 961074491}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &897226602
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -.140000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.79999995
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &961074489
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,6 +708,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38b6e520c9d09844b3fcdb8891ce854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  METEOR_PREFAB: {fileID: 100000, guid: 52ed1139ab7b5c244a18eb40eb85f1df, type: 2}
+  MIN_SPAWN_X: -9
+  MAX_SPAWN_X: 9
+  SPAWN_Y: 6
+  SCREEN_SCALE_RATIO: 10
+  MIN_METEOR_SIZE: .0799999982
+  MAX_METEOR_SIZE: .200000003
+  LARGE_METEOR_SIZE: 0
 --- !u!4 &1285508155
 Transform:
   m_ObjectHideFlags: 0

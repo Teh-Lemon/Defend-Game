@@ -12,9 +12,12 @@ public class Bullet : MonoBehaviour
     // When the bullet leaves the play area, remove from play
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "KillBoundary")
+        if (this.enabled)
         {
-            gameObject.SetActive(false);
+            if (other.tag == "KillBoundary")
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

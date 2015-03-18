@@ -51,6 +51,7 @@ public class BulletController : MonoBehaviour
         }
     }
 
+    // Find and disable all the active bullets in play
     public void Reset()
     {
         GameObject[] gos;
@@ -60,8 +61,9 @@ public class BulletController : MonoBehaviour
         {
             for (int i = 0; i < gos.Length; i++)
             {
-                //if (!gos[i].activeInHierarchy)
+                if (!gos[i].activeInHierarchy)
                 {
+                    // This calls the OnDisable function which calls StoreBullet
                     gos[i].SetActive(false);
                 }
             }
