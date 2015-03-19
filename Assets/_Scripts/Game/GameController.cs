@@ -3,13 +3,11 @@ using System.Collections;
 
 public class GameController : MonoBehaviour 
 {
-    #region Variables
     public static GameController Instance { get; set; }
 
     // How long after the player dies before the game over screen
     [SerializeField]
     float TIME_TILL_GAMEOVER;
-    #endregion
 
 	// Use this for initialization
 	void Awake() 
@@ -32,7 +30,7 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    StartGame();
+                    StartMenu();
                 }
                 break;
 
@@ -40,6 +38,11 @@ public class GameController : MonoBehaviour
                 break;
         }
 	}
+
+    void StartMenu()
+    {
+        GameStates.Current = GameStates.States.MENU;
+    }
 
     void StartGame()
     {
@@ -56,7 +59,7 @@ public class GameController : MonoBehaviour
         //System.GC.Collect();
     }
 
-    public IEnumerator GameOver()
+    public IEnumerator StartGameOver()
     {
         Debug.Log("Game over in " + TIME_TILL_GAMEOVER);
         yield return new WaitForSeconds(TIME_TILL_GAMEOVER);

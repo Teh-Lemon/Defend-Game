@@ -34,7 +34,7 @@ public class Meteor : CustomBehaviour
     state currentState = state.ACTIVE;
 
     // Attract the meteor to the player when first spawned
-    bool attractingToPlayer = false;
+    //bool attractingToPlayer = false;
 
     void Update()
     {
@@ -49,12 +49,12 @@ public class Meteor : CustomBehaviour
                 break;
         }
     }
-
+    /*
     void FixedUpdate()
     {
         if (attractingToPlayer)
         {
-            /*
+            
             // Push meteor towards player
             // Get the direction
             Vector2 forceToPlayer = PlayerController.Instance.Position;
@@ -63,9 +63,9 @@ public class Meteor : CustomBehaviour
             forceToPlayer = Vector2.Scale(forceToPlayer.normalized, new Vector2(FORCE_TO_PLAYER, 0));
             // Add the force
             GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Force);
-            //Debug.Log(forceToPlayer);*/
+            //Debug.Log(forceToPlayer);
         }
-    }
+    }*/
 
     // Change the size and mass of the meteor
     void UpdateSize(float newScale)
@@ -113,8 +113,7 @@ public class Meteor : CustomBehaviour
     {
         currentState = state.EXPLODING;
 
-        METEOR_SPRITE.color = new Color(METEOR_SPRITE.color.r,
-            METEOR_SPRITE.color.g, METEOR_SPRITE.color.b, DEATH_ALPHA);
+        SetTransparency(DEATH_ALPHA);
 
         // Start flashing
         StartCoroutine(FlashSprite(METEOR_SPRITE, true,
@@ -122,7 +121,7 @@ public class Meteor : CustomBehaviour
         // Freeze the meteor in position
         yield return new WaitForSeconds(DEATH_FLASH_DURATION);
         // Remove from play after animation is finished
-        Destroy(gameObject);
+        MeteorController.Instance.StoreMeteor(this.gameObject);
     }
 
     // Reset the meteor, update it's starting position and size
@@ -131,11 +130,12 @@ public class Meteor : CustomBehaviour
     {
         currentState = state.ACTIVE;
         gameObject.SetActive(true);
-        attractingToPlayer = true;
+        //attractingToPlayer = true;
 
         // Set up meteor
         UpdateSize(newSize);
         transform.position = newPosition;
+        SetTransparency(1.0f);
 
         // Push meteor towards player
         // Get the direction
@@ -146,5 +146,12 @@ public class Meteor : CustomBehaviour
         // Add the force
         GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Impulse);
         //Debug.Log(forceToPlayer);
+    }
+
+    // Change the transparency of the meteor sprite
+    void SetTransparency(float newTrans)
+    {
+            METEOR_SPRITE.color = new Color(METEOR_SPRITE.color.r,
+        METEOR_SPRITE.color.g, METEOR_SPRITE.color.b, newTrans);        
     }
 }
