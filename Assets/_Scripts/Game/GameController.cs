@@ -5,6 +5,9 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; set; }
 
+    // Does the game go on forever despite being hit?
+    [SerializeField]
+    bool CAN_GAME_OVER;
     // How long after the player dies before the game over screen
     [SerializeField]
     float TIME_TILL_GAMEOVER;
@@ -61,11 +64,13 @@ public class GameController : MonoBehaviour
 
     public IEnumerator StartGameOver()
     {
-        Debug.Log("Game over in " + TIME_TILL_GAMEOVER);
-        yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
+        if (!CAN_GAME_OVER)
+        {            
+            yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
-        Debug.Log("Game over'd");
-        GameStates.Current = GameStates.States.GAME_OVER;
-        Time.timeScale = 0.0f;
+            Debug.Log("Game over'd");
+            GameStates.Current = GameStates.States.GAME_OVER;
+            Time.timeScale = 0.0f;
+        }
     }
 }

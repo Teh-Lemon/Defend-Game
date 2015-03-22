@@ -16,6 +16,7 @@ public class Meteor : CustomBehaviour
     float DEATH_FLASH_SPEED;
     [SerializeField]
     float DEATH_ALPHA;
+
     // How strong the meteor is attracted to the player on spawn
     [SerializeField]
     float FORCE_TO_PLAYER;
@@ -25,7 +26,7 @@ public class Meteor : CustomBehaviour
     float MASS_SCALE_RATIO;
 #endregion
 
-    // Current state of meteor
+    // Current state of meteor, used to handle behaviour while "dying"
     enum state
     {
         ACTIVE,
@@ -33,9 +34,10 @@ public class Meteor : CustomBehaviour
     }
     state currentState = state.ACTIVE;
 
-    // Attract the meteor to the player when first spawned
-    //bool attractingToPlayer = false;
+    // Is the meteor a big meteor? Affects conditions when to remove from play
+    bool type = false;
 
+// Functions
     void Update()
     {
         switch (currentState)
@@ -49,23 +51,6 @@ public class Meteor : CustomBehaviour
                 break;
         }
     }
-    /*
-    void FixedUpdate()
-    {
-        if (attractingToPlayer)
-        {
-            
-            // Push meteor towards player
-            // Get the direction
-            Vector2 forceToPlayer = PlayerController.Instance.Position;
-            forceToPlayer -= new Vector2(transform.position.x, transform.position.y);
-            // Get the force
-            forceToPlayer = Vector2.Scale(forceToPlayer.normalized, new Vector2(FORCE_TO_PLAYER, 0));
-            // Add the force
-            GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Force);
-            //Debug.Log(forceToPlayer);
-        }
-    }*/
 
     // Change the size and mass of the meteor
     void UpdateSize(float newScale)
@@ -84,7 +69,7 @@ public class Meteor : CustomBehaviour
                 // Remove meteor from play once it has left the screen
                 if (other.tag == "KillBoundary")
                 {
-                    Destroy(gameObject);
+                    MeteorController.Instance.StoreMeteor(this.gameObject);
                 }
                 // Play death animation if colliding with a turret
                 else if (other.tag == "TurretBody")
@@ -97,16 +82,6 @@ public class Meteor : CustomBehaviour
                 break;
         }
     }
-
-    /*
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.tag == "Bullet")
-        {
-            attractingToPlayer = false;
-            Debug.Log("Meteor hit by bullet");
-        }
-    }*/
 
     // Play death animation
     IEnumerator Explode()
@@ -126,16 +101,16 @@ public class Meteor : CustomBehaviour
 
     // Reset the meteor, update it's starting position and size
     // Move towards the player
-    public void Spawn(Vector2 newPosition, float newSize)
+    public GameObject Spawn(Vector2 newPosition, float newSize, bool isBig)
     {
         currentState = state.ACTIVE;
         gameObject.SetActive(true);
-        //attractingToPlayer = true;
 
         // Set up meteor
         UpdateSize(newSize);
         transform.position = newPosition;
         SetTransparency(1.0f);
+        type = isBig;
 
         // Push meteor towards player
         // Get the direction
@@ -146,6 +121,8 @@ public class Meteor : CustomBehaviour
         // Add the force
         GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Impulse);
         //Debug.Log(forceToPlayer);
+
+        return this.gameObject;
     }
 
     // Change the transparency of the meteor sprite

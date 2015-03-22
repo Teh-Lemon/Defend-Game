@@ -31,7 +31,7 @@ public class MeteorController : MonoBehaviour
     [SerializeField]
     float METEOR_SPAWN_INTERVAL;
     // Spawn a big meteor every x wave
-    [Tooltip("Spawn a big meteor every x wave")]
+    [Tooltip("Spawn a big meteor every x wave, -1 to disable")]
     [SerializeField]
     int BIG_METEOR_WAVE;
     // How many meteors are spawned per regular wave
@@ -39,6 +39,12 @@ public class MeteorController : MonoBehaviour
     int MIN_NUM_METEORS;
     [SerializeField]
     int MAX_NUM_METEORS;
+    // How fast the waves get difficult, in percent
+    [Tooltip("How fast the waves get difficult, in percent")]
+    [SerializeField]
+    float DIFFICULTY_SCALING;
+    //[SerializeField]
+    //AnimationCurve WaveRandomBias;
 
     [Header("Size")]
     [Tooltip("Ratio between screen space co-ordinates and meteor scale")]
@@ -59,14 +65,18 @@ public class MeteorController : MonoBehaviour
 
     // Wave number
     int waveNumber = 0;
-
-    //List<Meteor> Meteors;
+    // Used to adjust the difficulty curve
+    //Keyframe[] difficultyKeys;
+    LinerBiGraph difficultyCurve;
 
     void Awake()
     {
         Instance = this;
-        //Meteors = new List<Meteor>();
-        meteorPool = new GameObjectPool(10, METEOR_PREFAB, gameObject);
+        meteorPool = new GameObjectPool(15, METEOR_PREFAB, gameObject);
+
+        // Set up the difficulty curve
+        difficultyCurve = new LinerBiGraph(new Vector2(0.0f, MIN_NUM_METEORS)
+            , new Vector2(1.0f, MAX_NUM_METEORS));
     }
 
     public void Reset()
@@ -76,7 +86,7 @@ public class MeteorController : MonoBehaviour
     }
 
     // Spawn a new regular meteor at a randomise point and size
-    void SpawnMeteor(bool bigMeteor)
+    GameObject SpawnMeteor(bool bigMeteor)
     {
         // Grab an inactive meteor from the pool
         GameObject meteorGO = meteorPool.New();
@@ -84,7 +94,7 @@ public class MeteorController : MonoBehaviour
         {
             // Used to set up and spawn the meteor
             var meteorScript = meteorGO.GetComponent<Meteor>();
-                        
+
             float spawnSize = 0;
             float spawnPointX = 0;
 
@@ -103,13 +113,17 @@ public class MeteorController : MonoBehaviour
                 // centre of screen
                 spawnPointX = 0;
             }
-            
+
             // Bottom of the meteor + the radius in world co-ordinates
             float spawnPointY = SPAWN_Y + (spawnSize * SCREEN_SCALE_RATIO);
             Vector2 spawnPoint = new Vector2(spawnPointX, spawnPointY);
-            
+
             // Spawn the meteor
-            meteorScript.Spawn(spawnPoint, spawnSize);
+            return meteorScript.Spawn(spawnPoint, spawnSize, bigMeteor);
+        }
+        else
+        {
+            return null;
         }
     }
 
@@ -123,11 +137,15 @@ public class MeteorController : MonoBehaviour
             waveNumber++;
 
             // Check whether it's a big meteor wave
-            if (waveNumber % BIG_METEOR_WAVE != 0)
+            // Regular wave
+            if (BIG_METEOR_WAVE == -1 || waveNumber % BIG_METEOR_WAVE != 0)
             {
                 // Spawn a random number of meteors each wave
-                // TODO: Include a bias so higher waves spawn more meteors
-                int numMeteors = Random.Range(MIN_NUM_METEORS, MAX_NUM_METEORS);
+                //int numMeteors = Random.Range(MIN_NUM_METEORS, MAX_NUM_METEORS);
+                int numMeteors = 
+                    Mathf.RoundToInt(difficultyCurve.Evaluate(Random.value));
+
+                Debug.Log("Wave " + waveNumber + ": " + numMeteors + "meteors");
                 for (int i = 0; i < numMeteors; i++)
                 {
                     SpawnMeteor(false);
@@ -136,12 +154,29 @@ public class MeteorController : MonoBehaviour
                     yield return new WaitForSeconds(METEOR_SPAWN_INTERVAL);
                 }
             }
+            // Big meteor wave
             else
             {
-                SpawnMeteor(true);
-                
-                // TODO: Wait for big meteor to leave before continuing
+                GameObject bigM = SpawnMeteor(true);
+
+                // Don't spawn anymore waves until the big meteor is gone
+                if (bigM != null)
+                {
+                    while (bigM.activeInHierarchy)
+                    {
+                        Debug.Log("big meteor still active");
+                        yield return new WaitForSeconds(1);
+                    }
+                    Debug.Log("BigM gone");
+                }
+                else
+                {
+                    Debug.Log("No bigm");
+                }                
             }
+
+            // Increase the wave difficulty
+            difficultyCurve.ScaleMidPoint(-DIFFICULTY_SCALING, DIFFICULTY_SCALING);
 
             // Wait before starting the next wave
             yield return new WaitForSeconds(WAVE_REST_PERIOD);
