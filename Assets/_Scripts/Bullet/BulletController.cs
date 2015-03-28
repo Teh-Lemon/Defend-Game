@@ -64,7 +64,7 @@ public class BulletController : MonoBehaviour
                 if (!gos[i].activeInHierarchy)
                 {
                     // This calls the OnDisable function which calls StoreBullet
-                    gos[i].SetActive(false);
+                    StoreBullet(gos[i]);
                 }
             }
         }

@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.tag == "KillBoundary")
             {
-                gameObject.SetActive(false);
+                BulletController.Instance.StoreBullet(this.gameObject);
             }
         }
     }
@@ -24,16 +24,9 @@ public class Bullet : MonoBehaviour
     // Reset the bullet, required interface declaration
     public void Spawn(Vector2 spawnPosition, GameObjectPool pool)
     {
-        GetComponent<Rigidbody2D>().mass = transform.localScale.x;
+        //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
         transform.position = spawnPosition;
         gameObject.SetActive(true);
-    }
-
-    // De-activate bullet for later re-use
-    void OnDisable()
-    {
-        BulletController.Instance.StoreBullet(this.gameObject);
-        //Debug.Log("stored");
     }
 
     // Change the size and mass of the bullet

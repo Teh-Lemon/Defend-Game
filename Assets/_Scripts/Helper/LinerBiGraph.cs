@@ -58,7 +58,7 @@ public class LinerBiGraph
 
         midPoint = new Vector2(newX, newY);
 
-        Debug.Log("midPoint " + midPoint);
+        //Debug.Log("midPoint " + midPoint);
     }
 
     // Adjust the midpoint position based on the relative percentage given

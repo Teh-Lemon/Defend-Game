@@ -52,7 +52,7 @@ public class Turret : MonoBehaviour
     // Called by the Meteor when colliding with player Body
     public void HitByMeteor()
     {
-        Debug.Log("Hit by meteor");
+        //Debug.Log("Hit by meteor");
         if (Shield.IsOn)
         {
             Shield.ToggleShield(false, true);
@@ -156,7 +156,6 @@ public class Turret : MonoBehaviour
         IsAlive = true;
         readyToFire = true;
         ammoCount = 50;
-        IsAlive = true;
         StartCoroutine(RefillAmmo());
     }
 }
