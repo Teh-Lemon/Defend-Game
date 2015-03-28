@@ -17,6 +17,11 @@ public class GameController : MonoBehaviour
 	{
         Instance = this;
 	}
+
+    void Start()
+    {
+        ChangeState(GameStates.States.MENU);
+    }
 	
 	// Update is called once per frame
 	void Update() 
@@ -24,7 +29,7 @@ public class GameController : MonoBehaviour
         switch (GameStates.Current)
         {
             case GameStates.States.MENU:
-                StartGame();
+                //ChangeState(GameStates.States.PLAYING);
                 break;
 
             case GameStates.States.PLAYING:
@@ -33,7 +38,7 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    StartMenu();
+                    ChangeState(GameStates.States.MENU);
                 }
                 break;
 
@@ -42,35 +47,95 @@ public class GameController : MonoBehaviour
         }
 	}
 
-    void StartMenu()
+    void ChangeMenuState(bool entering)
     {
-        GameStates.Current = GameStates.States.MENU;
+        if (entering)
+        {
+            GameStates.Current = GameStates.States.MENU;
+            HUD.Instance.SetUpMainMenu(true);
+        }
+        else
+        {
+            HUD.Instance.SetUpMainMenu(false);
+        }
     }
 
-    void StartGame()
+    public void ChangePlayingState(bool entering)
     {
-        GameStates.Current = GameStates.States.PLAYING;
+        if (entering)
+        {
+            GameStates.Current = GameStates.States.PLAYING;
 
-        Debug.Log("Resetting!");
-        PlayerController.Instance.Reset();
-        TurretBotController.Instance.Reset();
-        BulletController.Instance.Reset();
-        MeteorController.Instance.Reset();
-        
-        Time.timeScale = 1.0f;
+            Debug.Log("Resetting!");
+            PlayerController.Instance.Reset();
+            TurretBotController.Instance.Reset();
+            BulletController.Instance.Reset();
+            MeteorController.Instance.Reset();
+        }
+        //Time.timeScale = 1.0f;
 
         //System.GC.Collect();
     }
 
-    public IEnumerator StartGameOver()
+    public IEnumerator ChangeGameOverState(bool entering)
     {
-        if (!CAN_GAME_OVER)
-        {            
-            yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
+        if (entering)
+        {
+            if (CAN_GAME_OVER)
+            {
+                yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
-            Debug.Log("Game over'd");
-            GameStates.Current = GameStates.States.GAME_OVER;
-            Time.timeScale = 0.0f;
+                Debug.Log("Game over'd");
+                GameStates.Current = GameStates.States.GAME_OVER;
+                HUD.Instance.SetUpGameOver(true);
+
+                //BulletController.Instance.Stop();
+                //MeteorController.Instance.Stop();
+
+                //Time.timeScale = 0.0f;
+            }
+        }
+        else
+        {
+            HUD.Instance.SetUpGameOver(false);
+        }
+    }
+
+    // Handles leaving the current state and changing into the new one
+    public void ChangeState(GameStates.States newState)
+    {
+        // Don't do anything if the newState is a duplicate
+        if (GameStates.Current == newState)
+        {
+            return;
+        }
+
+        // Clean up current state
+        switch (GameStates.Current)
+        {
+            case GameStates.States.MENU:
+                ChangeMenuState(false);
+                break;
+
+            case GameStates.States.GAME_OVER:
+                StartCoroutine(ChangeGameOverState(false));
+                break;
+        }
+
+        // Enter new state
+        switch (newState)
+        {
+            case GameStates.States.MENU:
+                ChangeMenuState(true);
+                break;
+
+            case GameStates.States.PLAYING:
+                ChangePlayingState(true);
+                break;
+
+            case GameStates.States.GAME_OVER:
+                StartCoroutine(ChangeGameOverState(true));
+                break;
         }
     }
 }

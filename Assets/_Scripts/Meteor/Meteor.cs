@@ -81,7 +81,7 @@ public class Meteor : CustomBehaviour
                 }
                 break;
         }
-    }
+    }    
 
     // Play death animation
     IEnumerator Explode()

@@ -49,7 +49,8 @@ public class PlayerController : MonoBehaviour
                 // Game Over when the player's main turret dies
                 if (!turret.IsAlive)
                 {
-                    StartCoroutine(GameController.Instance.StartGameOver());
+                    GameController.Instance.ChangeState(GameStates.States.GAME_OVER);
+                    Debug.Log("turret died");
                 }
                 break;
         }
