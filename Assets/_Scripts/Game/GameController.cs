@@ -17,11 +17,6 @@ public class GameController : MonoBehaviour
 	{
         Instance = this;
 	}
-
-    void Start()
-    {
-        ChangeState(GameStates.States.MENU);
-    }
 	
 	// Update is called once per frame
 	void Update() 
@@ -29,7 +24,7 @@ public class GameController : MonoBehaviour
         switch (GameStates.Current)
         {
             case GameStates.States.MENU:
-                //ChangeState(GameStates.States.PLAYING);
+                StartGame();
                 break;
 
             case GameStates.States.PLAYING:
@@ -38,7 +33,7 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    ChangeState(GameStates.States.MENU);
+                    StartMenu();
                 }
                 break;
 
@@ -47,95 +42,35 @@ public class GameController : MonoBehaviour
         }
 	}
 
-    void ChangeMenuState(bool entering)
+    void StartMenu()
     {
-        if (entering)
-        {
-            GameStates.Current = GameStates.States.MENU;
-            HUD.Instance.SetUpMainMenu(true);
-        }
-        else
-        {
-            HUD.Instance.SetUpMainMenu(false);
-        }
+        GameStates.Current = GameStates.States.MENU;
     }
 
-    public void ChangePlayingState(bool entering)
+    void StartGame()
     {
-        if (entering)
-        {
-            GameStates.Current = GameStates.States.PLAYING;
+        GameStates.Current = GameStates.States.PLAYING;
 
-            Debug.Log("Resetting!");
-            PlayerController.Instance.Reset();
-            TurretBotController.Instance.Reset();
-            BulletController.Instance.Reset();
-            MeteorController.Instance.Reset();
-        }
-        //Time.timeScale = 1.0f;
+        Debug.Log("Resetting!");
+        PlayerController.Instance.Reset();
+        TurretBotController.Instance.Reset();
+        BulletController.Instance.Reset();
+        MeteorController.Instance.Reset();
+        
+        Time.timeScale = 1.0f;
 
         //System.GC.Collect();
     }
 
-    public IEnumerator ChangeGameOverState(bool entering)
+    public IEnumerator StartGameOver()
     {
-        if (entering)
-        {
-            if (CAN_GAME_OVER)
-            {
-                yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
+        if (!CAN_GAME_OVER)
+        {            
+            yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
-                Debug.Log("Game over'd");
-                GameStates.Current = GameStates.States.GAME_OVER;
-                HUD.Instance.SetUpGameOver(true);
-
-                //BulletController.Instance.Stop();
-                //MeteorController.Instance.Stop();
-
-                //Time.timeScale = 0.0f;
-            }
-        }
-        else
-        {
-            HUD.Instance.SetUpGameOver(false);
-        }
-    }
-
-    // Handles leaving the current state and changing into the new one
-    public void ChangeState(GameStates.States newState)
-    {
-        // Don't do anything if the newState is a duplicate
-        if (GameStates.Current == newState)
-        {
-            return;
-        }
-
-        // Clean up current state
-        switch (GameStates.Current)
-        {
-            case GameStates.States.MENU:
-                ChangeMenuState(false);
-                break;
-
-            case GameStates.States.GAME_OVER:
-                StartCoroutine(ChangeGameOverState(false));
-                break;
-        }
-
-        // Enter new state
-        switch (newState)
-        {
-            case GameStates.States.MENU:
-                ChangeMenuState(true);
-                break;
-
-            case GameStates.States.PLAYING:
-                ChangePlayingState(true);
-                break;
-
-            case GameStates.States.GAME_OVER:
-                StartCoroutine(ChangeGameOverState(true));
-                break;
+            Debug.Log("Game over'd");
+            GameStates.Current = GameStates.States.GAME_OVER;
+            Time.timeScale = 0.0f;
         }
     }
 }

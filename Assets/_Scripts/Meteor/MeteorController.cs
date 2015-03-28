@@ -81,25 +81,6 @@ public class MeteorController : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("Resetting meteor controller");
-
-        // Remove any meteors still left in play
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Meteor");
-
-        if (gos.Length > 0)
-        {
-            for (int i = 0; i < gos.Length; i++)
-            {
-                if (!gos[i].activeInHierarchy)
-                {
-                    Debug.Log("Stored meteor");
-                    // This calls the OnDisable function which calls StoreMeteor
-                    StoreMeteor(gos[i]);
-                }
-            }
-        }
-
         waveNumber = 0;
         StartCoroutine(SpawnWaves());
     }
@@ -161,11 +142,10 @@ public class MeteorController : MonoBehaviour
             {
                 // Spawn a random number of meteors each wave
                 //int numMeteors = Random.Range(MIN_NUM_METEORS, MAX_NUM_METEORS);
-                int numMeteors =
-                        Mathf.RoundToInt(difficultyCurve.Evaluate(Random.value));
+                int numMeteors = 
+                    Mathf.RoundToInt(difficultyCurve.Evaluate(Random.value));
 
-                    Debug.Log("Wave " + waveNumber + ": " + numMeteors + " meteors");
-                                
+                Debug.Log("Wave " + waveNumber + ": " + numMeteors + "meteors");
                 for (int i = 0; i < numMeteors; i++)
                 {
                     SpawnMeteor(false);
@@ -197,7 +177,6 @@ public class MeteorController : MonoBehaviour
 
             // Increase the wave difficulty
             difficultyCurve.ScaleMidPoint(-DIFFICULTY_SCALING, DIFFICULTY_SCALING);
-            
 
             // Wait before starting the next wave
             yield return new WaitForSeconds(WAVE_REST_PERIOD);
