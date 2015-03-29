@@ -61,7 +61,7 @@ public class BulletController : MonoBehaviour
         {
             for (int i = 0; i < gos.Length; i++)
             {
-                if (!gos[i].activeInHierarchy)
+                if (gos[i].activeInHierarchy)
                 {
                     // This calls the OnDisable function which calls StoreBullet
                     StoreBullet(gos[i]);

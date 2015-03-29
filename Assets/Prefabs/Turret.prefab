@@ -129,7 +129,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10.2399998
+  m_Radius: 10
 --- !u!114 &11455600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,6 +163,9 @@ MonoBehaviour:
   SHIELD_SPRITE: {fileID: 21290552}
   SHIELD_FLASH_DURATION: .5
   SHIELD_FLASH_SPEED: .119999997
+  PULSE_RATE: 4
+  PULSE_SCALE_GROWTH: .00300000003
+  DEFAULT_SCALE: .5
 --- !u!212 &21242974
 SpriteRenderer:
   m_ObjectHideFlags: 1

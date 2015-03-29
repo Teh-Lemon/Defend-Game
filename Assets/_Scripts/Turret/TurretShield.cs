@@ -2,20 +2,45 @@
 
 public class TurretShield : CustomBehaviour
 {
+    #region Inspector variables
+    // Sprite used
     [SerializeField] 
     SpriteRenderer SHIELD_SPRITE;
+    // Death animation
+    // How long the death animation plays for 
     [SerializeField]
     float SHIELD_FLASH_DURATION;
+    // How fast the shield flashes while dying
     [SerializeField]
     float SHIELD_FLASH_SPEED;
+
+    // How fast the shield pulses
+    [SerializeField]
+    float PULSE_RATE;
+    // How small/big the shield pulses
+    [SerializeField]
+    float PULSE_SCALE_GROWTH;
+    // Default size
+    [SerializeField]
+    float DEFAULT_SCALE;
+    #endregion
 
     // Is the shield activated
     public bool IsOn { get; set; }
 
-    // Use this for initialization
-    void Start()
+    void Update()
     {
-        //ToggleShield(true);
+        // Pulse shield
+        // Take the default size, scale it up and down using a sine graph
+        // Move along the sine graph using the current time
+        // Scale the time with the pulse rate to change the speed of the pulsing
+        // Multiply with the scale growth to affect how large the pulse is
+        float newScale = (DEFAULT_SCALE + 
+            (Mathf.Sin(Time.time * PULSE_RATE) * PULSE_SCALE_GROWTH));
+
+        // Possibly need to make sure z doesn't change if bugs with sprite
+        // ordering occur
+        transform.localScale = Vector3.one * newScale;
     }
 
     public void ToggleShield(bool turnOn, bool flash = false)
@@ -24,7 +49,6 @@ public class TurretShield : CustomBehaviour
         {
             IsOn = true;
             SHIELD_SPRITE.enabled = true;
-            //Debug.Log("foo " + this.gameObject);
         }
         else
         {
@@ -37,7 +61,6 @@ public class TurretShield : CustomBehaviour
             }
 
             SHIELD_SPRITE.enabled = false;
-            //Debug.Log("boo");
         }
     }
 }

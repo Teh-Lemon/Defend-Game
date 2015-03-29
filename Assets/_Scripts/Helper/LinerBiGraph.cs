@@ -17,6 +17,11 @@ public class LinerBiGraph
         MoveMidPoint(endPoint.x, startPoint.y);        
     }
 
+    public void ResetMidPoint()
+    {
+        MoveMidPoint(endPoint.x, startPoint.y);     
+    }
+
     // Return the value of Y at that point on the graph
     public float Evaluate(float x)
     {

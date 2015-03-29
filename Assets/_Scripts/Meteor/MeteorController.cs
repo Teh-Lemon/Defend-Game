@@ -43,8 +43,6 @@ public class MeteorController : MonoBehaviour
     [Tooltip("How fast the waves get difficult, in percent")]
     [SerializeField]
     float DIFFICULTY_SCALING;
-    //[SerializeField]
-    //AnimationCurve WaveRandomBias;
 
     [Header("Size")]
     [Tooltip("Ratio between screen space co-ordinates and meteor scale")]
@@ -66,7 +64,6 @@ public class MeteorController : MonoBehaviour
     // Wave number
     int waveNumber = 0;
     // Used to adjust the difficulty curve
-    //Keyframe[] difficultyKeys;
     LinerBiGraph difficultyCurve;
 
     void Awake()
@@ -81,27 +78,32 @@ public class MeteorController : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("Resetting meteor controller");
+        ClearMeteors();
+        waveNumber = 0;
+        difficultyCurve.ResetMidPoint();
+        StartCoroutine(SpawnWaves());
+    }
 
+    // Store away all the meteors in-play
+    public void ClearMeteors()
+    {
         // Remove any meteors still left in play
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Meteor");
 
         if (gos.Length > 0)
         {
+            Debug.Log("Found meteors");
+
             for (int i = 0; i < gos.Length; i++)
             {
-                if (!gos[i].activeInHierarchy)
+                if (gos[i].activeInHierarchy)
                 {
                     Debug.Log("Stored meteor");
-                    // This calls the OnDisable function which calls StoreMeteor
                     StoreMeteor(gos[i]);
                 }
             }
-        }
-
-        waveNumber = 0;
-        StartCoroutine(SpawnWaves());
+        }   
     }
 
     // Spawn a new regular meteor at a randomise point and size
@@ -165,9 +167,15 @@ public class MeteorController : MonoBehaviour
                         Mathf.RoundToInt(difficultyCurve.Evaluate(Random.value));
 
                     Debug.Log("Wave " + waveNumber + ": " + numMeteors + " meteors");
-                                
+
                 for (int i = 0; i < numMeteors; i++)
                 {
+                    // Stop spawning once the game is over
+                    if (GameStates.Current != GameStates.States.PLAYING)
+                    {
+                        yield break;
+                    }
+
                     SpawnMeteor(false);
 
                     // Don't spawn them all at once

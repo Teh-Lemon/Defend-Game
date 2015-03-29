@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     {
         if (this.enabled)
         {
-            if (other.tag == "KillBoundary")
+            if (other.CompareTag("KillBoundary"))
             {
                 BulletController.Instance.StoreBullet(this.gameObject);
             }
@@ -33,6 +33,6 @@ public class Bullet : MonoBehaviour
     public void ChangeSize(float newSize)
     {
         transform.localScale = new Vector3(newSize, newSize, 1);
-        GetComponent<Rigidbody2D>().mass = transform.localScale.x;
+        //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
     }
 }

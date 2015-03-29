@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
         {
             GameStates.Current = GameStates.States.MENU;
             HUD.Instance.SetUpMainMenu(true);
+            MeteorController.Instance.ClearMeteors();
         }
         else
         {

@@ -20,6 +20,8 @@ public class Meteor : CustomBehaviour
     // How strong the meteor is attracted to the player on spawn
     [SerializeField]
     float FORCE_TO_PLAYER;
+    [SerializeField]
+    float ANGULAR_FORCE_TO_PLAYER;
 
     // Relation of meteor mass to it's size
     [SerializeField]
@@ -67,12 +69,12 @@ public class Meteor : CustomBehaviour
         {
             case state.ACTIVE:
                 // Remove meteor from play once it has left the screen
-                if (other.tag == "KillBoundary")
+                if (other.CompareTag("KillBoundary"))
                 {
                     MeteorController.Instance.StoreMeteor(this.gameObject);
                 }
                 // Play death animation if colliding with a turret
-                else if (other.tag == "TurretBody")
+                else if (other.CompareTag("TurretBody"))
                 {
                     // Tell the turret it has been hit
                     other.GetComponentInParent<Turret>().HitByMeteor();
@@ -121,6 +123,16 @@ public class Meteor : CustomBehaviour
         // Add the force
         GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Impulse);
         //Debug.Log(forceToPlayer);
+
+        // Rotate the meteor towards the player
+        if (transform.position.x > 0)
+        {
+            GetComponent<Rigidbody2D>().AddTorque(ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+        }
 
         return this.gameObject;
     }

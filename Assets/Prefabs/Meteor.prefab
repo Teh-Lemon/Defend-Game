@@ -41,7 +41,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: .100000001
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -75,7 +75,8 @@ MonoBehaviour:
   DEATH_FLASH_SPEED: .075000003
   DEATH_ALPHA: .25
   FORCE_TO_PLAYER: 9
-  MASS_SCALE_RATIO: 21
+  ANGULAR_FORCE_TO_PLAYER: 3
+  MASS_SCALE_RATIO: 28
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -100,8 +101,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7967a9963556bf349a207cb5d4409dc4, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d05d3ae4d8ebb704b95a83f84051e938, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
