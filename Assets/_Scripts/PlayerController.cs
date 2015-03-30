@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
+                // Update the player HUD
+                HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
+
                 // Game Over when the player's main turret dies
                 if (!turret.IsAlive)
                 {

@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour
     float FireCooldown;
     // Max amount of bullets turret can hold (-1 for infinite)
     [SerializeField]
-    int AmmoCapacity;
+    public int AmmoCapacity;
     // How fast the turret's ammo recharges
     [SerializeField]
     float AmmoRefillCooldown;
@@ -31,7 +31,7 @@ public class Turret : MonoBehaviour
     // Is the cooldown period ready
     bool readyToFire;
     // How much ammo the turret has
-    int ammoCount;
+    public int AmmoCount { get; set; }
     // Used to signal game over
     public bool IsAlive { get; set; }
 
@@ -97,7 +97,7 @@ public class Turret : MonoBehaviour
             // Cooldown period has expired
             // Either Player has enough ammo or ammo isn't required
             if (readyToFire &&
-                (ammoCount >= BulletCost || AmmoCapacity < 0))
+                (AmmoCount >= BulletCost || AmmoCapacity < 0))
             {
                 return true;
             }
@@ -138,11 +138,9 @@ public class Turret : MonoBehaviour
     // Update the player's ammo count and the HUD
     void UpdateAmmo(int ammoChange)
     {
-        ammoCount += ammoChange;
+        AmmoCount += ammoChange;
 
-        ammoCount = Mathf.Clamp(ammoCount, 0, AmmoCapacity);
-
-        HUD.Instance.UpdateAmmo(ammoCount, AmmoCapacity);
+        AmmoCount = Mathf.Clamp(AmmoCount, 0, AmmoCapacity);        
     }
 
     // Signal game over and play death animation
@@ -155,7 +153,7 @@ public class Turret : MonoBehaviour
     {
         IsAlive = true;
         readyToFire = true;
-        ammoCount = 50;
+        AmmoCount = 50;
         StartCoroutine(RefillAmmo());
     }
 }
