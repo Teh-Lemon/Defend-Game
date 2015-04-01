@@ -7,8 +7,10 @@ public class HUD : MonoBehaviour
     public static HUD Instance { get; set; }
 
     #region Inspector Variables
+    // Displays the score
     [SerializeField] 
-    Text AmmoText;
+    Text ScoreText;
+
     // Menu Buttons
     [SerializeField] 
     Button RetryButton;
@@ -16,14 +18,15 @@ public class HUD : MonoBehaviour
     Button StartGameButton;
     [SerializeField]
     Button MainMenuButton;
+    // Title screen title image
     [SerializeField]
-    GameObject Title;
+    GameObject TitleGO;
 
     // Player HUD
     [SerializeField]
     float AMMOBAR_MAX_SCALE;
     [SerializeField]
-    GameObject AMMOBAR_OBJECT;
+    GameObject AmmoBarGO;
     // Scoring
 
     // Title screen
@@ -35,6 +38,7 @@ public class HUD : MonoBehaviour
         Instance = this;
     }
 
+    // Update the size of the ammo bar
     public void UpdateAmmo(float current, float max)
     {
         //AmmoText.text = current.ToString();
@@ -42,12 +46,18 @@ public class HUD : MonoBehaviour
         // Find how long the ammo bar should be
         float newScale = AMMOBAR_MAX_SCALE * (current / max);
         // Reverse it since the ammo bar represents the empty part
-        newScale = AMMOBAR_MAX_SCALE - newScale;
+        //newScale = AMMOBAR_MAX_SCALE - newScale;
         // Apply the new scale to the gameobject
-        Vector3 oldScale = AMMOBAR_OBJECT.transform.localScale;
-        AMMOBAR_OBJECT.transform.localScale = new Vector3(newScale, oldScale.y, oldScale.z);
+        Vector3 oldScale = AmmoBarGO.transform.localScale;
+        AmmoBarGO.transform.localScale = new Vector3(newScale, oldScale.y, oldScale.z);
 
         //Debug.Log(newScale);
+    }
+
+    // Update the score display
+    public void UpdateScore(int newScore)
+    {       
+        ScoreText.text = newScore.ToString();
     }
 
     // Show/Hide the game over buttons
@@ -72,12 +82,12 @@ public class HUD : MonoBehaviour
     {
         if (entering)
         {
-            Title.SetActive(true);
+            TitleGO.SetActive(true);
             StartGameButton.gameObject.SetActive(true);
         }
         else
         {
-            Title.SetActive(false);
+            TitleGO.SetActive(false);
             StartGameButton.gameObject.SetActive(false);
         }
     }

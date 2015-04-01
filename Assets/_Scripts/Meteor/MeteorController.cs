@@ -93,13 +93,13 @@ public class MeteorController : MonoBehaviour
 
         if (gos.Length > 0)
         {
-            Debug.Log("Found meteors");
+            //Debug.Log("Found meteors");
 
             for (int i = 0; i < gos.Length; i++)
             {
                 if (gos[i].activeInHierarchy)
                 {
-                    Debug.Log("Stored meteor");
+                    //Debug.Log("Stored meteor");
                     StoreMeteor(gos[i]);
                 }
             }

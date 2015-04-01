@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; set; }
 
+    #region Inspector Variables
     // Does the game go on forever despite being hit?
     [SerializeField]
     bool CAN_GAME_OVER;
@@ -12,10 +13,22 @@ public class GameController : MonoBehaviour
     [SerializeField]
     float TIME_TILL_GAMEOVER;
 
+    // How much score is added per increase
+    [SerializeField]
+    int SCORE_INCREASE_RATE;
+    // How fast the score will increment
+    [SerializeField]
+    float SCORE_INCREASE_INTERVAL;
+    #endregion
+
+    // Player's current score
+    int score;
+
 	// Use this for initialization
 	void Awake() 
 	{
         Instance = this;
+        score = 0;
 	}
 
     void Start()
@@ -33,6 +46,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case GameStates.States.PLAYING:
+                
                 break;
 
             case GameStates.States.GAME_OVER:
@@ -71,7 +85,9 @@ public class GameController : MonoBehaviour
             PlayerController.Instance.Reset();
             TurretBotController.Instance.Reset();
             BulletController.Instance.Reset();
-            MeteorController.Instance.Reset();
+            MeteorController.Instance.Reset();           
+
+            StartCoroutine(StartScoring());
         }
         //Time.timeScale = 1.0f;
 
@@ -86,7 +102,7 @@ public class GameController : MonoBehaviour
             {
                 yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
-                Debug.Log("Game over'd");
+                //Debug.Log("Game over'd");
                 GameStates.Current = GameStates.States.GAME_OVER;
                 HUD.Instance.SetUpGameOver(true);
 
@@ -137,6 +153,20 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 StartCoroutine(ChangeGameOverState(true));
                 break;
+        }
+    }
+
+    // Start the scoring system, it ends itself on game over
+    IEnumerator StartScoring()
+    {
+        score = 0;
+
+        while (GameStates.Current == GameStates.States.PLAYING)
+        {
+            score += SCORE_INCREASE_RATE;
+            HUD.Instance.UpdateScore(score);
+                        
+            yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);            
         }
     }
 }

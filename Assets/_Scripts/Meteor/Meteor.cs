@@ -105,12 +105,13 @@ public class Meteor : CustomBehaviour
     // Move towards the player
     public GameObject Spawn(Vector2 newPosition, float newSize, bool isBig)
     {
-        currentState = state.ACTIVE;
         gameObject.SetActive(true);
 
+        currentState = state.ACTIVE;        
+
         // Set up meteor
-        UpdateSize(newSize);
         transform.position = newPosition;
+        UpdateSize(newSize);
         SetTransparency(1.0f);
         type = isBig;
 
@@ -132,7 +133,7 @@ public class Meteor : CustomBehaviour
         else
         {
             GetComponent<Rigidbody2D>().AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
-        }
+        }        
 
         return this.gameObject;
     }
@@ -141,6 +142,6 @@ public class Meteor : CustomBehaviour
     void SetTransparency(float newTrans)
     {
             METEOR_SPRITE.color = new Color(METEOR_SPRITE.color.r,
-        METEOR_SPRITE.color.g, METEOR_SPRITE.color.b, newTrans);        
+        METEOR_SPRITE.color.g, METEOR_SPRITE.color.b, newTrans);         
     }
 }

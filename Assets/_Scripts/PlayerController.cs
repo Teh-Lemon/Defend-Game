@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
                 if (!turret.IsAlive)
                 {
                     GameController.Instance.ChangeState(GameStates.States.GAME_OVER);
-                    Debug.Log("turret died");
+                    //Debug.Log("turret died");
                 }
                 break;
         }
