@@ -47,7 +47,7 @@ public class HUD : MonoBehaviour
     {
         Instance = this;
 
-        //digitsFont = Resources.LoadAll<Sprite>("digitSheet");
+        digitsFont = Resources.LoadAll<Sprite>("DigitsSheet");
     }
 
     // Update the size of the ammo bar
