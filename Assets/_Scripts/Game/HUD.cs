@@ -6,36 +6,48 @@ public class HUD : MonoBehaviour
 {
     public static HUD Instance { get; set; }
 
+    Sprite[] digitsFont;
+
     #region Inspector Variables
-    // Displays the score
+    // Displays the debug score
     [SerializeField] 
     Text ScoreText;
 
-    // Menu Buttons
-    [SerializeField] 
-    Button RetryButton;
-    [SerializeField] 
-    Button StartGameButton;
-    [SerializeField]
-    Button MainMenuButton;
+    [Header("Main Menu")]
     // Title screen title image
     [SerializeField]
     GameObject TitleGO;
+    [SerializeField]
+    Button MainMenuButton;
 
-    // Player HUD
+    [Header("Playing")]
     [SerializeField]
     float AMMOBAR_MAX_SCALE;
     [SerializeField]
     GameObject AmmoBarGO;
-    // Scoring
 
-    // Title screen
+    [Header("Game Over")]
+    // Menu Buttons
+    [SerializeField]
+    Button RetryButton;
+    [SerializeField]
+    Button StartGameButton;
+    // Score message, both parts. "You have survived for" "seconds"
+    [SerializeField]
+    GameObject ScoreMsg1GO;
+    [SerializeField]
+    GameObject ScoreMsg2GO;
+
+//    [Header("Other")] 
+
     #endregion
 
 
     void Awake()
     {
         Instance = this;
+
+        //digitsFont = Resources.LoadAll<Sprite>("digitSheet");
     }
 
     // Update the size of the ammo bar
@@ -64,16 +76,23 @@ public class HUD : MonoBehaviour
     public void SetUpGameOver(bool entering)
     {
         if (entering)
-        {
-            //Debug.Log("UI Game Over");
+        {         
             RetryButton.gameObject.SetActive(true);
             MainMenuButton.gameObject.SetActive(true);
+
+            // Score message
+            ScoreMsg1GO.SetActive(true);
+            ScoreMsg2GO.SetActive(true);
         }
         else
         {
             //Debug.Log("UI Leaving Game Over");
             RetryButton.gameObject.SetActive(false);
             MainMenuButton.gameObject.SetActive(false);
+
+            // Score message
+            ScoreMsg1GO.SetActive(false);
+            ScoreMsg2GO.SetActive(false);
         }
     }
 

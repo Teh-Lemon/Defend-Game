@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Turret : MonoBehaviour
+public class Turret : CustomBehaviour
 {
+    #region Inspector Variables
     // Fire rate
     [SerializeField]
     float FireCooldown;
@@ -26,7 +27,14 @@ public class Turret : MonoBehaviour
     SpriteRenderer ShieldSprite;
     public TurretShield Shield;
 
-
+    // Death animation
+    [SerializeField]
+    float DEATH_FLASH_DURATION;
+    [SerializeField]
+    float DEATH_FLASH_SPEED;
+    [SerializeField]
+    SpriteRenderer TURRET_BODY_SPRITE;
+    #endregion
 
     // Is the cooldown period ready
     bool readyToFire;
@@ -55,11 +63,15 @@ public class Turret : MonoBehaviour
         //Debug.Log("Hit by meteor");
         if (Shield.IsOn)
         {
-            Shield.ToggleShield(false, true);
+            Shield.ToggleShield(false, true);            
         }
         else
         {
-            Die();
+            // Die
+            StartCoroutine(FlashSprite(TURRET_BODY_SPRITE, true,
+                    DEATH_FLASH_SPEED, DEATH_FLASH_DURATION));
+
+            IsAlive = false;
         }
     }
 
@@ -143,11 +155,12 @@ public class Turret : MonoBehaviour
         AmmoCount = Mathf.Clamp(AmmoCount, 0, AmmoCapacity);        
     }
 
+    /*
     // Signal game over and play death animation
     void Die()
     {
-        IsAlive = false;
-    }
+        
+    }*/
 
     public void Reset()
     {

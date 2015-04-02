@@ -11,4 +11,11 @@
         PLAYING,
         GAME_OVER
     }
+
+    public enum MeteorTypes
+    {
+        NORMAL,
+        BIG,
+        FAST
+    }
 }

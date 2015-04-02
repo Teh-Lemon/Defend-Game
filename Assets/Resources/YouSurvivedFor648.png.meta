@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: d22af2d73762406498e93bc11cd7147d
-timeCreated: 1427682786
+guid: 0df487f885f9c7e48a64297839161ab8
+timeCreated: 1427943513
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: StartButtonSheet_0
-    21300002: StartButtonSheet_1
-    21300004: StartButtonSheet_2
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,7 +27,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -40,10 +37,10 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 4
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -51,37 +48,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: StartButtonSheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 251
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: StartButtonSheet_1
-      rect:
-        serializedVersion: 2
-        x: 251
-        y: 0
-        width: 251
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: StartButtonSheet_2
-      rect:
-        serializedVersion: 2
-        x: 502
-        y: 0
-        width: 251
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

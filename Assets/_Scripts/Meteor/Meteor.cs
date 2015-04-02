@@ -37,7 +37,16 @@ public class Meteor : CustomBehaviour
     state currentState = state.ACTIVE;
 
     // Is the meteor a big meteor? Affects conditions when to remove from play
-    bool type = false;
+
+    GameStates.MeteorTypes type = GameStates.MeteorTypes.NORMAL;
+
+    Rigidbody2D rigidBody2D;
+
+    // Functions
+    void Awake()
+    {
+        rigidBody2D = GetComponent<Rigidbody2D>();
+    }
 
 // Functions
     void Update()
@@ -49,7 +58,7 @@ public class Meteor : CustomBehaviour
 
             case state.EXPLODING:
                 // Freeze the meteor in place as the death animation plays
-                GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                rigidBody2D.velocity = Vector3.zero;
                 break;
         }
     }
@@ -58,7 +67,7 @@ public class Meteor : CustomBehaviour
     void UpdateSize(float newScale)
     {
         transform.localScale = new Vector3(newScale, newScale, 1);
-        GetComponent<Rigidbody2D>().mass = newScale * MASS_SCALE_RATIO;
+        rigidBody2D.mass = newScale * MASS_SCALE_RATIO;
     }
 
     // Collision events
@@ -103,36 +112,36 @@ public class Meteor : CustomBehaviour
 
     // Reset the meteor, update it's starting position and size
     // Move towards the player
-    public GameObject Spawn(Vector2 newPosition, float newSize, bool isBig)
+    public GameObject Spawn(Vector2 newPosition, float newSize, GameStates.MeteorTypes newType)
     {
-        gameObject.SetActive(true);
-
-        currentState = state.ACTIVE;        
-
         // Set up meteor
         transform.position = newPosition;
         UpdateSize(newSize);
         SetTransparency(1.0f);
-        type = isBig;
+        type = newType;
+
+        gameObject.SetActive(true);
+        currentState = state.ACTIVE;
 
         // Push meteor towards player
         // Get the direction
         Vector2 forceToPlayer = PlayerController.Instance.Position;
         forceToPlayer -= new Vector2(transform.position.x, transform.position.y);
         // Get the force
-        forceToPlayer = Vector2.Scale(forceToPlayer.normalized, new Vector2(FORCE_TO_PLAYER, 0));
+        // Direction horizontally * (Force, adjusted with meteor mass)
+        forceToPlayer = Vector2.Scale(forceToPlayer.normalized
+            , new Vector2(FORCE_TO_PLAYER * rigidBody2D.mass, 0));
         // Add the force
-        GetComponent<Rigidbody2D>().AddForce(forceToPlayer, ForceMode2D.Impulse);
-        //Debug.Log(forceToPlayer);
+        rigidBody2D.AddForce(forceToPlayer, ForceMode2D.Impulse);
 
         // Rotate the meteor towards the player
         if (transform.position.x > 0)
         {
-            GetComponent<Rigidbody2D>().AddTorque(ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+            rigidBody2D.AddTorque(ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
         }
         else
         {
-            GetComponent<Rigidbody2D>().AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+            rigidBody2D.AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
         }        
 
         return this.gameObject;

@@ -107,7 +107,7 @@ public class MeteorController : MonoBehaviour
     }
 
     // Spawn a new regular meteor at a randomise point and size
-    GameObject SpawnMeteor(bool bigMeteor)
+    GameObject SpawnMeteor(GameStates.MeteorTypes meteorType)
     {
         // Grab an inactive meteor from the pool
         GameObject meteorGO = meteorPool.New();
@@ -120,7 +120,7 @@ public class MeteorController : MonoBehaviour
             float spawnPointX = 0;
 
             // Regular meteor
-            if (!bigMeteor)
+            if (meteorType == GameStates.MeteorTypes.NORMAL)
             {
                 // Randomise a meteor size
                 spawnSize = Random.Range(MIN_METEOR_SIZE, MAX_METEOR_SIZE);
@@ -128,7 +128,7 @@ public class MeteorController : MonoBehaviour
                 spawnPointX = Random.Range(MIN_SPAWN_X, MAX_SPAWN_X);
             }
             // big meteor
-            else
+            else if (meteorType == GameStates.MeteorTypes.BIG)
             {
                 spawnSize = BIG_METEOR_SIZE;
                 // centre of screen
@@ -140,7 +140,7 @@ public class MeteorController : MonoBehaviour
             Vector2 spawnPoint = new Vector2(spawnPointX, spawnPointY);
 
             // Spawn the meteor
-            return meteorScript.Spawn(spawnPoint, spawnSize, bigMeteor);
+            return meteorScript.Spawn(spawnPoint, spawnSize, GameStates.MeteorTypes.NORMAL);                 
         }
         else
         {
@@ -176,7 +176,7 @@ public class MeteorController : MonoBehaviour
                         yield break;
                     }
 
-                    SpawnMeteor(false);
+                    SpawnMeteor(GameStates.MeteorTypes.NORMAL);
 
                     // Don't spawn them all at once
                     yield return new WaitForSeconds(METEOR_SPAWN_INTERVAL);
@@ -185,7 +185,7 @@ public class MeteorController : MonoBehaviour
             // Big meteor wave
             else
             {
-                GameObject bigM = SpawnMeteor(true);
+                GameObject bigM = SpawnMeteor(GameStates.MeteorTypes.BIG);
 
                 // Don't spawn anymore waves until the big meteor is gone
                 if (bigM != null)
