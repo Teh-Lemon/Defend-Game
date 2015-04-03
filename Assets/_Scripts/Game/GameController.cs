@@ -46,7 +46,10 @@ public class GameController : MonoBehaviour
                 break;
 
             case GameStates.States.PLAYING:
-                
+                if (PlayerController.Instance.HasDied)
+                {
+                    ChangeState(GameStates.States.GAME_OVER);
+                }
                 break;
 
             case GameStates.States.GAME_OVER:
@@ -100,10 +103,12 @@ public class GameController : MonoBehaviour
         {
             if (CAN_GAME_OVER)
             {
+                GameStates.Current = GameStates.States.GAME_OVER;
+
                 yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
                 //Debug.Log("Game over'd");
-                GameStates.Current = GameStates.States.GAME_OVER;
+                
                 HUD.Instance.SetUpGameOver(true);
 
                 //BulletController.Instance.Stop();
@@ -120,13 +125,13 @@ public class GameController : MonoBehaviour
 
     // Handles leaving the current state and changing into the new one
     public void ChangeState(GameStates.States newState)
-    {
+    {        
         // Don't do anything if the newState is a duplicate
         if (GameStates.Current == newState)
         {
             return;
         }
-
+        
         // Clean up current state
         switch (GameStates.Current)
         {
@@ -160,7 +165,11 @@ public class GameController : MonoBehaviour
     IEnumerator StartScoring()
     {
         score = 0;
-
+		
+		// Prevent the score increasing immediately
+		yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);
+		
+		// Keep adding score until the player dies
         while (GameStates.Current == GameStates.States.PLAYING)
         {
             score += SCORE_INCREASE_RATE;

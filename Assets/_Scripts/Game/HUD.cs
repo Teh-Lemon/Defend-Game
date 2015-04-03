@@ -72,6 +72,13 @@ public class HUD : MonoBehaviour
         ScoreText.text = newScore.ToString();
     }
 
+    void DisplayEndScore()
+    {
+        float startX = ScoreMsg1GO.transform.position.x + ScoreMsg1GO.GetComponent<SpriteRenderer>().bounds.size.x;
+        
+        ScoreMsg2GO.transform.position = new Vector3(startX, ScoreMsg1GO.transform.position.y, 1.0f);
+    }
+
     // Show/Hide the game over buttons
     public void SetUpGameOver(bool entering)
     {
@@ -83,6 +90,9 @@ public class HUD : MonoBehaviour
             // Score message
             ScoreMsg1GO.SetActive(true);
             ScoreMsg2GO.SetActive(true);
+
+            Helper.SeparateDigits(int.Parse(ScoreText.text));
+            DisplayEndScore();
         }
         else
         {

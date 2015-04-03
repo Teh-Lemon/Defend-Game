@@ -49,12 +49,6 @@ public class PlayerController : MonoBehaviour
                 // Update the player HUD
                 HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
 
-                // Game Over when the player's main turret dies
-                if (!turret.IsAlive)
-                {
-                    GameController.Instance.ChangeState(GameStates.States.GAME_OVER);
-                    //Debug.Log("turret died");
-                }
                 break;
         }
     }
@@ -69,5 +63,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 Position
     {
         get { return turret.gameObject.transform.position; }
+    }
+
+    public bool HasDied
+    {
+        get { return !turret.IsAlive; }
     }
 }
