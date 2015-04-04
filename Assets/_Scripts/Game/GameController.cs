@@ -108,8 +108,8 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
                 //Debug.Log("Game over'd");
-                
-                HUD.Instance.SetUpGameOver(true);
+
+                HUD.Instance.SetUpGameOver(true, score);
 
                 //BulletController.Instance.Stop();
                 //MeteorController.Instance.Stop();
@@ -119,7 +119,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            HUD.Instance.SetUpGameOver(false);
         }
     }
 
@@ -173,7 +172,7 @@ public class GameController : MonoBehaviour
         while (GameStates.Current == GameStates.States.PLAYING)
         {
             score += SCORE_INCREASE_RATE;
-            HUD.Instance.UpdateScore(score);
+            //HUD.Instance.UpdateScore(score);
                         
             yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);            
         }

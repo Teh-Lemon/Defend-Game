@@ -83,6 +83,7 @@ public class HUD : MonoBehaviour
         ScoreText.text = newScore.ToString();
     }
 
+    // Sets up the score message on the game over screen
     void DisplayEndScore(int score)
     {
         // Length of the whole score message
@@ -92,7 +93,8 @@ public class HUD : MonoBehaviour
         float ScoreMsg1Size = ScoreMsg1GO
             .GetComponent<SpriteRenderer>().bounds.size.x;
         // Width of the space
-        float SpaceWidth = digitsFont[FONT_SPACE_INDEX].bounds.size.x;
+        float SpaceWidth = digitsFont[FONT_SPACE_INDEX].bounds.size.x
+            / ScoreMsg1GO.transform.localScale.x;
 
         // Where the first space after the message starts
         float scoreStartX = (ScoreMsg1Size / ScoreMsg1GO.transform.localScale.x)
@@ -150,13 +152,13 @@ public class HUD : MonoBehaviour
         // Centre the whole line
         totalWidth += ScoreMsg1Size + (2 * SpaceWidth) + 
             ScoreMsg2GO.GetComponent<SpriteRenderer>().bounds.size.x;
-
         ScoreMsg1GO.transform.position = 
-            new Vector3(0 - (totalWidth / 2), ScoreMsg1GO.transform.position.y, ScoreMsg1GO.transform.position.z);
+            new Vector3(0 - (totalWidth / 2), ScoreMsg1GO.transform.position.y
+                , ScoreMsg1GO.transform.position.z);
     }
 
     // Show/Hide the game over buttons
-    public void SetUpGameOver(bool entering)
+    public void SetUpGameOver(bool entering, int score)
     {
         if (entering)
         {         
@@ -166,8 +168,8 @@ public class HUD : MonoBehaviour
             // Score message
             ScoreMsg1GO.SetActive(true);
             //ScoreMsg2GO.SetActive(true);
-            
-            DisplayEndScore(6);
+
+            DisplayEndScore(score);
         }
         else
         {
