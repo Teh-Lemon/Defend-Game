@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 093d51e5cf712c142ace925b63d26112
-timeCreated: 1428032349
+timeCreated: 1428104641
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -68,7 +68,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_1
       rect:
@@ -78,7 +78,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_2
       rect:
@@ -88,7 +88,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_3
       rect:
@@ -98,7 +98,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_4
       rect:
@@ -108,7 +108,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_5
       rect:
@@ -118,7 +118,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_6
       rect:
@@ -128,7 +128,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_7
       rect:
@@ -138,7 +138,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_8
       rect:
@@ -148,7 +148,7 @@ TextureImporter:
         width: 47
         height: 68
       alignment: 4
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: DigitsSheet_9
       rect:
@@ -165,7 +165,7 @@ TextureImporter:
         serializedVersion: 2
         x: 470
         y: 0
-        width: 47
+        width: 33
         height: 68
       alignment: 4
       pivot: {x: 0, y: .5}

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
                     // Mouse position in the world space
                     Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                    turret.ShootBullet(worldPos);
+                    turret.ShootBullet(ref worldPos);
                 }
                 // or touchs their phone screen
                 else if (Input.touchSupported)
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
                     {
                         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
-                        turret.ShootBullet(worldPos);
+                        turret.ShootBullet(ref worldPos);
                     }
                 }
 

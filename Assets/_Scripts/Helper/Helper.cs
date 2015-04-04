@@ -8,7 +8,7 @@ public static class Helper
     public static List<int> SeparateDigits(int number)
     {
         var digitsList = new List<int>();
-
+        
         while (number > 0)
         {
             digitsList.Add(number % 10);

@@ -76,7 +76,7 @@ public class Turret : CustomBehaviour
     }
 
     // Shoot a bullet from the player position to the target
-    public void ShootBullet(Vector2 target, bool bigBullet = false)
+    public void ShootBullet(ref Vector2 target, bool bigBullet = false)
     {
         // Only fire if ready to do so
         if (!CanShootBullet)
@@ -85,7 +85,7 @@ public class Turret : CustomBehaviour
         }
 
         // Shoot a bullet out from the muzzle at the target
-        BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
+        BulletController.Instance.Fire(transform.position + MuzzlePosition, ref target);
 
         // Set up cooldown timer
         StartCoroutine(StartFireCooldown());
