@@ -79,9 +79,10 @@ public class MeteorController : MonoBehaviour
     public void Reset()
     {
         ClearMeteors();
+        StopCoroutine("SpawnWaves");
         waveNumber = 0;
         difficultyCurve.ResetMidPoint();
-        StartCoroutine(SpawnWaves());
+        StartCoroutine("SpawnWaves");
     }
 
     // Store away all the meteors in-play
@@ -93,13 +94,10 @@ public class MeteorController : MonoBehaviour
 
         if (gos.Length > 0)
         {
-            //Debug.Log("Found meteors");
-
             for (int i = 0; i < gos.Length; i++)
             {
                 if (gos[i].activeInHierarchy)
                 {
-                    //Debug.Log("Stored meteor");
                     StoreMeteor(gos[i]);
                 }
             }
@@ -170,16 +168,10 @@ public class MeteorController : MonoBehaviour
 
                 for (int i = 0; i < numMeteors; i++)
                 {
-                    // Stop spawning once the game is over
-                    if (GameStates.Current != GameStates.States.PLAYING)
-                    {
-                        yield break;
-                    }
-
                     SpawnMeteor(GameStates.MeteorTypes.NORMAL);
 
                     // Don't spawn them all at once
-                    yield return new WaitForSeconds(METEOR_SPAWN_INTERVAL);
+                    yield return new WaitForSeconds(METEOR_SPAWN_INTERVAL);                                        
                 }
             }
             // Big meteor wave

@@ -194,14 +194,8 @@ public class HUD : MonoBehaviour
     {
         if (entering)
         {
-            
-            //ScoreMsg1GO.SetActive(true);
-            //ScoreMsg2GO.SetActive(true);
-
-            //TitleGO.SetActive(true);
-            StartGameButton.gameObject.SetActive(true);
-
-            //DisplayEndScore(123456);
+            TitleGO.SetActive(true);
+            StartGameButton.gameObject.SetActive(true);            
         }
         else
         {

@@ -2,22 +2,26 @@
 
 public class PlayerController : MonoBehaviour
 {
-    #region Variables
-    // Used to update ammo count
     public static PlayerController Instance { get; set; }
 
-    [SerializeField] Turret turret;
+
+    #region Variables
+    // Used to update ammo count
+
+    [SerializeField] 
+    Turret turret;
     #endregion
 
     // Use this for initialization
     void Awake()
     {
         Instance = this;
-    }
 
-    void Start()
-    {
-        //Reset();
+        // Set the custom mouse cursor
+        Texture2D mouseCursor = Resources.Load<Texture2D>("Cursor");
+        // Centre it
+        Vector2 hotspot = Vector2.one * (mouseCursor.height / 2);
+        Cursor.SetCursor(mouseCursor, hotspot, CursorMode.Auto);
     }
 
     // Update is called once per frame
@@ -33,7 +37,7 @@ public class PlayerController : MonoBehaviour
                     // Mouse position in the world space
                     Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                    turret.ShootBullet(ref worldPos);
+                    turret.ShootBullet(ref worldPos);                    
                 }
                 // or touchs their phone screen
                 else if (Input.touchSupported)
@@ -48,9 +52,10 @@ public class PlayerController : MonoBehaviour
 
                 // Update the player HUD
                 HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
-
                 break;
         }
+
+
     }
 
     public void Reset()

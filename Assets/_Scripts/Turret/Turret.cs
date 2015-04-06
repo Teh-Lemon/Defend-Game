@@ -43,12 +43,14 @@ public class Turret : CustomBehaviour
     // Used to signal game over
     public bool IsAlive { get; set; }
 
+    CameraScript mainCamera;
+
     // Use this for initialization
     void Start()
     {
         IsAlive = false;
         //Shield.ToggleShield(false, false);
-
+        mainCamera = Camera.main.GetComponent<CameraScript>();
     }
 
     // Update is called once per frame
@@ -60,6 +62,8 @@ public class Turret : CustomBehaviour
     // Called by the Meteor when colliding with player Body
     public void HitByMeteor()
     {
+        StartCoroutine(mainCamera.Shake());
+
         //Debug.Log("Hit by meteor");
         if (Shield.IsOn)
         {

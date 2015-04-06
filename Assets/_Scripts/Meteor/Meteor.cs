@@ -31,6 +31,7 @@ public class Meteor : CustomBehaviour
     // Current state of meteor, used to handle behaviour while "dying"
     enum state
     {
+        SETUP,
         ACTIVE,
         EXPLODING
     }
@@ -114,14 +115,15 @@ public class Meteor : CustomBehaviour
     // Move towards the player
     public GameObject Spawn(Vector2 newPosition, float newSize, GameStates.MeteorTypes newType)
     {
+        currentState = state.SETUP;
+
         // Set up meteor
         transform.position = newPosition;
         UpdateSize(newSize);
         SetTransparency(1.0f);
         type = newType;
 
-        gameObject.SetActive(true);
-        currentState = state.ACTIVE;
+        gameObject.SetActive(true);        
 
         // Push meteor towards player
         // Get the direction
@@ -142,7 +144,9 @@ public class Meteor : CustomBehaviour
         else
         {
             rigidBody2D.AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
-        }        
+        }
+
+        currentState = state.ACTIVE;
 
         return this.gameObject;
     }

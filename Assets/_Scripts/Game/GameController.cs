@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
         {
             case GameStates.States.MENU:
                 //ChangeState(GameStates.States.PLAYING);
+                
                 break;
 
             case GameStates.States.PLAYING:
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
         {
             GameStates.Current = GameStates.States.PLAYING;
 
-            Debug.Log("Resetting!");
+            
             PlayerController.Instance.Reset();
             TurretBotController.Instance.Reset();
             BulletController.Instance.Reset();
@@ -107,8 +108,6 @@ public class GameController : MonoBehaviour
 
                 yield return new WaitForSeconds(TIME_TILL_GAMEOVER);
 
-                //Debug.Log("Game over'd");
-
                 HUD.Instance.SetUpGameOver(true, score);
 
                 //BulletController.Instance.Stop();
@@ -119,6 +118,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            HUD.Instance.SetUpGameOver(false, 1);            
         }
     }
 
