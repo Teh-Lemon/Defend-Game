@@ -89,7 +89,8 @@ public class GameController : MonoBehaviour
             PlayerController.Instance.Reset();
             TurretBotController.Instance.Reset();
             BulletController.Instance.Reset();
-            MeteorController.Instance.Reset();           
+            MeteorController.Instance.Reset();
+            TurretBotController.Instance.Spawn();
 
             StartCoroutine(StartScoring());
         }

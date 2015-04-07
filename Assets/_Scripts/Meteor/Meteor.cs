@@ -54,7 +54,7 @@ public class Meteor : CustomBehaviour
     {
         switch (currentState)
         {
-            case state.ACTIVE:
+            case state.ACTIVE:                
                 break;
 
             case state.EXPLODING:

@@ -6,7 +6,7 @@ public class Turret : CustomBehaviour
     #region Inspector Variables
     // Fire rate
     [SerializeField]
-    float FireCooldown;
+    public float FireCooldown;
     // Max amount of bullets turret can hold (-1 for infinite)
     [SerializeField]
     public int AmmoCapacity;
@@ -79,17 +79,23 @@ public class Turret : CustomBehaviour
         }
     }
 
+    public void ShootBullets(Vector2 target, int totalBullets)
+    {
+        ShootBullet(target);
+    }
+
     // Shoot a bullet from the player position to the target
-    public void ShootBullet(ref Vector2 target, bool bigBullet = false)
+    public void ShootBullet(Vector2 target, bool bigBullet = false)
     {
         // Only fire if ready to do so
         if (!CanShootBullet)
         {
+            Debug.Log("Can't shoot bullets");
             return;
         }
-
+        Debug.Log("Can shoot bullets");
         // Shoot a bullet out from the muzzle at the target
-        BulletController.Instance.Fire(transform.position + MuzzlePosition, ref target);
+        BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
 
         // Set up cooldown timer
         StartCoroutine(StartFireCooldown());

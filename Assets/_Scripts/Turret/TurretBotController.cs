@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class TurretBotController : MonoBehaviour 
 {
     [SerializeField]
-    List<TurretBot> TurretBots;
+    TurretBot[] turretBots;
 
     public static TurretBotController Instance {get;set;}
 
@@ -25,11 +25,23 @@ public class TurretBotController : MonoBehaviour
 	
 	}
 
+    // Find and spawn the first inactive turret bot
+    public void Spawn()
+    {        
+        for (int i = 0; i < turretBots.Length; i++)
+        {
+            if (!turretBots[i].gameObject.activeInHierarchy)
+            {
+                turretBots[i].Spawn();
+            }
+        }
+    }
+
     public void Reset()
     {
-        for (int i = 0; i < TurretBots.Count; i++)
+        for (int i = 0; i < turretBots.Length; i++)
         {
-            TurretBots[i].Reset();
+            turretBots[i].Disable();
         }
     }
 }

@@ -2,6 +2,7 @@
 //using System.Collections.Generic;
 using MemoryManagment; // Object pools
 using System.Collections; // IEnumerator
+using System.Collections.Generic; // IEnumerator
 
 public class MeteorController : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class MeteorController : MonoBehaviour
 
     // Meteor gameobjects to use
     GameObjectPool meteorPool;
+    List<GameObject> activeMeteors;
 
     // Wave number
     int waveNumber = 0;
@@ -70,6 +72,7 @@ public class MeteorController : MonoBehaviour
     {
         Instance = this;
         meteorPool = new GameObjectPool(15, METEOR_PREFAB, gameObject);
+        activeMeteors = new List<GameObject>();
 
         // Set up the difficulty curve
         difficultyCurve = new LinerBiGraph(new Vector2(0.0f, MIN_NUM_METEORS)
@@ -88,6 +91,7 @@ public class MeteorController : MonoBehaviour
     // Store away all the meteors in-play
     public void ClearMeteors()
     {
+        /*
         // Remove any meteors still left in play
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Meteor");
@@ -101,7 +105,13 @@ public class MeteorController : MonoBehaviour
                     StoreMeteor(gos[i]);
                 }
             }
-        }   
+        }*/
+   
+        for (int i = 0; i < activeMeteors.Count; i++)
+        {
+            StoreMeteor(activeMeteors[i]);
+        }
+        activeMeteors.Clear();
     }
 
     // Spawn a new regular meteor at a randomise point and size
@@ -137,8 +147,12 @@ public class MeteorController : MonoBehaviour
             float spawnPointY = SPAWN_Y + (spawnSize * SCREEN_SCALE_RATIO);
             Vector2 spawnPoint = new Vector2(spawnPointX, spawnPointY);
 
+            
+
             // Spawn the meteor
-            return meteorScript.Spawn(spawnPoint, spawnSize, GameStates.MeteorTypes.NORMAL);                 
+            meteorScript.Spawn(spawnPoint, spawnSize, GameStates.MeteorTypes.NORMAL);
+            activeMeteors.Add(meteorGO);
+            return meteorGO;
         }
         else
         {
@@ -210,6 +224,50 @@ public class MeteorController : MonoBehaviour
         if (meteorPool != null)
         {
             meteorPool.Store(meteor);
+        }
+    }
+
+    // Return the meteor closest to the provided position
+    // onlyOnScreen, only choose meteors that are onScreen
+    public GameObject GetClosestMeteor(Vector2 sourcePos, bool onlyOnScreen)
+    {
+        // No meteors in play
+        if (activeMeteors.Count == 0)
+        {
+            return null;
+        }
+
+        // index in activeMeteors
+        int closestMeteor = 0;
+        // current closest meteor distance to source
+        float closestDist = Vector2.Distance(sourcePos, activeMeteors[0].transform.position);
+        float newDist = 0.0f;
+
+        // Start at 2nd index
+        for (int i = 1; i < activeMeteors.Count; i++)
+        {
+            // If onlyOnScreen is specified, check whether meteor is on screen
+            if (!onlyOnScreen || activeMeteors[i].GetComponent<Renderer>().isVisible)
+            {
+                newDist = Vector2.Distance(sourcePos, activeMeteors[i].transform.position);
+
+                if (newDist < closestDist)
+                {
+                    closestDist = newDist;
+                    closestMeteor = i;
+                }
+            }
+        }
+
+        // Catch for when there's only 1 meteor in play
+        if (!onlyOnScreen || activeMeteors[closestMeteor].GetComponent<Renderer>().isVisible)
+        {
+            Debug.Log(activeMeteors[closestMeteor].GetComponent<SpriteRenderer>().isVisible);
+            return activeMeteors[closestMeteor];
+        }
+        else
+        {
+            return null;
         }
     }
 }

@@ -21,7 +21,7 @@ public class BulletController : MonoBehaviour
         bulletPool = new GameObjectPool(100, BULLET_PREFAB, gameObject);
     }
 
-    public void Fire(Vector2 spawnPos, ref Vector2 target)
+    public void Fire(Vector2 spawnPos, Vector2 target)
     {
         // Recycle from an old bullet
         GameObject bulletGO = bulletPool.New();

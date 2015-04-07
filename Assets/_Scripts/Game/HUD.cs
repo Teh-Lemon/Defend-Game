@@ -99,7 +99,7 @@ public class HUD : MonoBehaviour
         // Where the first space after the message starts
         float scoreStartX = (ScoreMsg1Size / ScoreMsg1GO.transform.localScale.x)
             + SpaceWidth;
-        Debug.Log(scoreStartX);
+
         // Digits
         // The player's final score, each digit separated into an individual
         List<int> scoreSeparated = Helper.SeparateDigits(score);
