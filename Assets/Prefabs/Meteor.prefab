@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ebbec0f1cba641aec6ea0b9f513ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  METEOR_SPRITE: {fileID: 21200000}
+  Sprite: {fileID: 21200000}
   DEATH_FLASH_DURATION: .25
   DEATH_FLASH_SPEED: .075000003
   DEATH_ALPHA: .25

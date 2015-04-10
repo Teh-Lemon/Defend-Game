@@ -5,6 +5,7 @@ public class TurretBot : MonoBehaviour
 {
     GameObject target;
     bool updatingTarget;
+    bool firing;
 
     #region Inspector Variables
     [SerializeField]
@@ -27,11 +28,18 @@ public class TurretBot : MonoBehaviour
     float REACTION_TIME;
     #endregion
 
+    void Awake()
+    {
+        updatingTarget = false;
+        firing = false;
+    }
+
     void Start()
     {
         turretScript.Shield.ToggleShield(false);
         turretScript.AmmoCapacity = -1;
         turretScript.FireCooldown = FireRate;
+        turretScript.Reset();
     }
 
     // Update is called once per frame
@@ -40,13 +48,23 @@ public class TurretBot : MonoBehaviour
         switch (GameStates.Current)
         {
             case GameStates.States.PLAYING:
+                // Firing
                 if (!updatingTarget)
                 {
                     StartCoroutine(UpdateTarget());
                 }
                 if (target != null)
                 {
-                    BurstFire();   
+                    if (!firing)
+                    {
+                        //StartCoroutine(BurstFire());
+                    }
+                }
+
+                // Death check
+                if (!turretScript.IsAlive)
+                {
+                    Disable();
                 }
                 break;
         }
@@ -63,9 +81,23 @@ public class TurretBot : MonoBehaviour
     }
 
     // Fire burst fire
-    void BurstFire()
+    IEnumerator BurstFire()
     {
-        turretScript.ShootBullets(target.transform.position, BulletsPerBurst);
+        firing = true;
+        for (int i = 0; i < BulletsPerBurst; i++)
+        {
+            if (target == null)
+            {
+                firing = false;
+                yield break;
+            }
+
+            turretScript.ShootBullet(target.transform.position);
+
+            yield return new WaitForSeconds(FireRate);
+        }
+        yield return new WaitForSeconds(BurstRate);
+        firing = false;
     }
 
 
@@ -76,7 +108,9 @@ public class TurretBot : MonoBehaviour
 
     public void Spawn()
     {
+        Awake();        
         gameObject.SetActive(true);
+        turretScript.Reset();
     }
 
 

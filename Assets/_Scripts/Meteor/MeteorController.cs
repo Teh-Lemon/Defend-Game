@@ -90,23 +90,7 @@ public class MeteorController : MonoBehaviour
 
     // Store away all the meteors in-play
     public void ClearMeteors()
-    {
-        /*
-        // Remove any meteors still left in play
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Meteor");
-
-        if (gos.Length > 0)
-        {
-            for (int i = 0; i < gos.Length; i++)
-            {
-                if (gos[i].activeInHierarchy)
-                {
-                    StoreMeteor(gos[i]);
-                }
-            }
-        }*/
-   
+    {   
         for (int i = 0; i < activeMeteors.Count; i++)
         {
             StoreMeteor(activeMeteors[i]);
@@ -261,8 +245,7 @@ public class MeteorController : MonoBehaviour
 
         // Catch for when there's only 1 meteor in play
         if (!onlyOnScreen || activeMeteors[closestMeteor].GetComponent<Renderer>().isVisible)
-        {
-            Debug.Log(activeMeteors[closestMeteor].GetComponent<SpriteRenderer>().isVisible);
+        {            
             return activeMeteors[closestMeteor];
         }
         else

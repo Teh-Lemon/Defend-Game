@@ -18,12 +18,6 @@ public class TurretBotController : MonoBehaviour
 	{
         Reset();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
 
     // Find and spawn the first inactive turret bot
     public void Spawn()

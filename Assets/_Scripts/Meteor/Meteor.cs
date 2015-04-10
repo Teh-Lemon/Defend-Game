@@ -7,7 +7,7 @@ public class Meteor : CustomBehaviour
     // Death animation
     // Sprite to flash
     [SerializeField]
-    SpriteRenderer METEOR_SPRITE;
+    SpriteRenderer Sprite;
     // How long the animation lasts
     [SerializeField]
     float DEATH_FLASH_DURATION;
@@ -103,7 +103,7 @@ public class Meteor : CustomBehaviour
         SetTransparency(DEATH_ALPHA);
 
         // Start flashing
-        StartCoroutine(FlashSprite(METEOR_SPRITE, true,
+        StartCoroutine(FlashSprite(Sprite, true,
             DEATH_FLASH_SPEED, DEATH_FLASH_DURATION));
         // Freeze the meteor in position
         yield return new WaitForSeconds(DEATH_FLASH_DURATION);
@@ -120,6 +120,7 @@ public class Meteor : CustomBehaviour
         // Set up meteor
         transform.position = newPosition;
         UpdateSize(newSize);
+        Sprite.enabled = true;
         SetTransparency(1.0f);
         type = newType;
 
@@ -154,7 +155,7 @@ public class Meteor : CustomBehaviour
     // Change the transparency of the meteor sprite
     void SetTransparency(float newTrans)
     {
-            METEOR_SPRITE.color = new Color(METEOR_SPRITE.color.r,
-        METEOR_SPRITE.color.g, METEOR_SPRITE.color.b, newTrans);         
+            Sprite.color = new Color(Sprite.color.r,
+        Sprite.color.g, Sprite.color.b, newTrans);         
     }
 }

@@ -51,13 +51,15 @@ public class GameController : MonoBehaviour
                 {
                     ChangeState(GameStates.States.GAME_OVER);
                 }
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    TurretBotController.Instance.Spawn();
+                }
                 break;
 
             case GameStates.States.GAME_OVER:
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    ChangeState(GameStates.States.MENU);
-                }
+
                 break;
 
             default:
@@ -85,12 +87,12 @@ public class GameController : MonoBehaviour
         {
             GameStates.Current = GameStates.States.PLAYING;
 
-            
             PlayerController.Instance.Reset();
-            TurretBotController.Instance.Reset();
             BulletController.Instance.Reset();
             MeteorController.Instance.Reset();
-            TurretBotController.Instance.Spawn();
+
+            TurretBotController.Instance.Reset();
+            TurretBotController.Instance.Spawn();           
 
             StartCoroutine(StartScoring());
         }

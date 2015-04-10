@@ -19,7 +19,7 @@ public class Turret : CustomBehaviour
     // Cost of big bullet
     [SerializeField]
     int BigBulletCost;
-    [SerializeField]
+    //[SerializeField]
     Vector3 MuzzlePosition;
 
     // Shield
@@ -45,11 +45,14 @@ public class Turret : CustomBehaviour
 
     CameraScript mainCamera;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         IsAlive = false;
-        //Shield.ToggleShield(false, false);
+    }
+
+    // Use this for initialization
+    void Start()
+    {        
         mainCamera = Camera.main.GetComponent<CameraScript>();
     }
 
@@ -64,7 +67,6 @@ public class Turret : CustomBehaviour
     {
         StartCoroutine(mainCamera.Shake());
 
-        //Debug.Log("Hit by meteor");
         if (Shield.IsOn)
         {
             Shield.ToggleShield(false, true);            
@@ -90,12 +92,11 @@ public class Turret : CustomBehaviour
         // Only fire if ready to do so
         if (!CanShootBullet)
         {
-            Debug.Log("Can't shoot bullets");
             return;
         }
-        Debug.Log("Can shoot bullets");
         // Shoot a bullet out from the muzzle at the target
-        BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
+        //BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
+        BulletController.Instance.Fire(MuzzlePosition, target);
 
         // Set up cooldown timer
         StartCoroutine(StartFireCooldown());
@@ -149,11 +150,14 @@ public class Turret : CustomBehaviour
     // Continously refill the player's ammo as the game is running
     IEnumerator RefillAmmo()
     {
-        while (GameStates.Current == GameStates.States.PLAYING)
+        if (AmmoCapacity > 0)
         {
-            yield return new WaitForSeconds(AmmoRefillCooldown);
+            while (GameStates.Current == GameStates.States.PLAYING)
+            {
+                yield return new WaitForSeconds(AmmoRefillCooldown);
 
-            UpdateAmmo(1);
+                UpdateAmmo(1);
+            }
         }
     }
 
@@ -165,18 +169,14 @@ public class Turret : CustomBehaviour
         AmmoCount = Mathf.Clamp(AmmoCount, 0, AmmoCapacity);        
     }
 
-    /*
-    // Signal game over and play death animation
-    void Die()
-    {
-        
-    }*/
-
     public void Reset()
     {
         IsAlive = true;
         readyToFire = true;
-        AmmoCount = 50;
+        AmmoCount = AmmoCapacity / 2;
+        //MuzzlePosition
+        MuzzlePosition = transform.FindChild("Muzzle").position;
+        TURRET_BODY_SPRITE.enabled = true;
         StartCoroutine(RefillAmmo());
     }
 }
