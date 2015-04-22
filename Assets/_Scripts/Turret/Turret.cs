@@ -33,7 +33,7 @@ public class Turret : CustomBehaviour
     [SerializeField]
     float DEATH_FLASH_SPEED;
     [SerializeField]
-    SpriteRenderer TURRET_BODY_SPRITE;
+    public SpriteRenderer TURRET_BODY_SPRITE;
     #endregion
 
     // Is the cooldown period ready

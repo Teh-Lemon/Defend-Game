@@ -1711,10 +1711,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretGO: {fileID: 346564582}
   turretScript: {fileID: 1700119666}
-  FireRate: .075000003
-  BurstRate: .75
-  BulletsPerBurst: 3
+  FIRE_RATE: .075000003
+  BURST_RATE: .75
+  BULLETS_PER_BURST: 3
   REACTION_TIME: 1
+  SPAWN_ANIM_LENGTH: 1
 --- !u!1 &1393961644 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 165082, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}

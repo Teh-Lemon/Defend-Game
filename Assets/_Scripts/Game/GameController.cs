@@ -96,9 +96,6 @@ public class GameController : MonoBehaviour
 
             StartCoroutine(StartScoring());
         }
-        //Time.timeScale = 1.0f;
-
-        //System.GC.Collect();
     }
 
     public IEnumerator ChangeGameOverState(bool entering)
