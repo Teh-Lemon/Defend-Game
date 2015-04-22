@@ -8,7 +8,7 @@ Defend (WIP)
 - Your shield is good for 1 meteor
 - Don't get hit by the meteors or it's game over
 
-Video link: Coming soon
+Video link: After I get some more features done
 
 ![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Defend%20Game/2015-04-06_04-42-18.png "")
  
