@@ -1,7 +1,7 @@
 Defend (WIP)
 ==============
 
-2D Game made with Unity 5.0 in C#, done in my spare time after work.
+2D Game made with Unity 5 using C#, done in my spare time after work.
 
 - Use the mouse to aim and fire to defend your base
 - Don't forget to watch your ammo

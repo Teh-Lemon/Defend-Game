@@ -10,10 +10,12 @@ public class TurretBot : MonoBehaviour
     bool updatingTarget;
     // Is the turret in the middle of a burst fire
     bool firing;
+    // Default position
+    Vector3 defaultPos;
 
     // Spawn animation
     bool spawnAnimPlaying;
-    float turretHeight;
+    //float turretHeight;
 
     #region Inspector Variables
     [SerializeField]
@@ -39,26 +41,14 @@ public class TurretBot : MonoBehaviour
     float SPAWN_ANIM_LENGTH;
     #endregion
 
-    void Awake()
-    {      
-        
-    }
-
     void Start()
     {
         turretScript.Shield.ToggleShield(false);
         turretScript.AmmoCapacity = -1;
         turretScript.FireCooldown = FIRE_RATE;
-        turretHeight = turretScript.TURRET_BODY_SPRITE.bounds.size.y;
-    }
-
-    void OnEnable()
-    {
-        updatingTarget = false;
-        firing = false;
-        spawnAnimPlaying = false;
-        turretScript.Reset();
-        StartCoroutine(PlaySpawnAnim());
+        defaultPos = transform.position;
+        //turretCollider = turretGO.GetComponent<Collider2D>();
+        //turretHeight = turretScript.TURRET_BODY_SPRITE.bounds.size.y;
     }
 
     // Update is called once per frame
@@ -67,21 +57,28 @@ public class TurretBot : MonoBehaviour
         switch (GameStates.Current)
         {
             case GameStates.States.PLAYING:
-                // Firing
-                if (!updatingTarget)
+                if (spawnAnimPlaying)
                 {
-                    StartCoroutine(UpdateTarget());
-                }
-                if (target != null)
-                {
-                    if (!firing)
-                    {
-                        //StartCoroutine(BurstFire());
-                    }
+                    break;
                 }
 
+                if (turretScript.IsAlive)
+                {
+                    // Firing
+                    if (!updatingTarget)
+                    {
+                        StartCoroutine(UpdateTarget());
+                    }
+                    if (target != null)
+                    {
+                        if (!firing)
+                        {
+                            StartCoroutine(BurstFire());
+                        }
+                    }
+                }
                 // Death check
-                if (!turretScript.IsAlive)
+                else
                 {
                     Disable();
                 }
@@ -91,7 +88,7 @@ public class TurretBot : MonoBehaviour
 
     // Find the next target, the closest on-screen meteor to the turret bot
     IEnumerator UpdateTarget()
-    {        
+    {
         updatingTarget = true;
         yield return new WaitForSeconds(REACTION_TIME);
 
@@ -124,15 +121,11 @@ public class TurretBot : MonoBehaviour
     {
         spawnAnimPlaying = true;
         float timePassed = 0.0f;
-
-        Vector3 endPos = transform.position;
-        //Debug.Log("endpos " + endPos);
-        // Move to animation start position
-        transform.Translate(0, -(turretHeight / 2), 0);
+        
+        transform.Translate(0, -(turretScript.GetHeight() / 2), 0);
         Vector3 startPos = transform.position;
-        //Debug.Log("startPos " + startPos);
 
-        while (transform.position != endPos)
+        while (transform.position != defaultPos)
         {
             // Move the animation along every frame
             timePassed += Time.deltaTime;
@@ -149,7 +142,7 @@ public class TurretBot : MonoBehaviour
             //t = t * t * (3f - 2f * t);            
             // Smootherstep
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            transform.position = Vector3.Lerp(startPos, endPos, t);
+            transform.position = Vector3.Lerp(startPos, defaultPos, t);
 
             // Resume next frame
             yield return null;
@@ -161,15 +154,30 @@ public class TurretBot : MonoBehaviour
 
     public void Disable()
     {
-        gameObject.SetActive(false);
+        turretScript.IsAlive = false;
+        //turretScript.GetSprite().enabled = false;
+        turretScript.ToggleVisibility(false);
+        //transform.Translate(0f, -100f, 0f);
+        turretScript.GetCollider().enabled = false;
+        //gameObject.SetActive(false);
     }
 
     public void Spawn()
     {
-        Awake();        
-        gameObject.SetActive(true);
+        //Awake();
+        //gameObject.SetActive(true);
         turretScript.Reset();
+        spawnAnimPlaying = false;
+        updatingTarget = false;
+        firing = false;
+        Debug.Log("spawning");        
+        turretScript.GetCollider().enabled = true;
+        transform.position = defaultPos;
+        StartCoroutine(PlaySpawnAnim());
     }
 
-
+    public bool IsAlive
+    {
+        get { return turretScript.IsAlive; }
+    }
 }

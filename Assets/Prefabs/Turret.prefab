@@ -81,7 +81,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &165082
 GameObject:
   m_ObjectHideFlags: 1
@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &198276
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 165082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.4000001, y: 0, z: 0}
-  m_LocalScale: {x: .949999988, y: .800000012, z: 1}
+  m_LocalScale: {x: .699999988, y: .800000012, z: 1}
   m_Children:
   - {fileID: 433064}
   m_Father: {fileID: 404050}
@@ -289,12 +289,13 @@ MonoBehaviour:
   AmmoRefillCooldown: .300000012
   BulletCost: 1
   BigBulletCost: 5
-  MuzzlePosition: {x: 0, y: 1.74000001, z: 0}
   ShieldSprite: {fileID: 21290552}
   Shield: {fileID: 11486110}
   DEATH_FLASH_DURATION: .109999999
   DEATH_FLASH_SPEED: .100000001
   TURRET_BODY_SPRITE: {fileID: 21242974}
+  TURRET_MUZZLE_SPRITE: {fileID: 21287802}
+  BodyCollider: {fileID: 5887614}
 --- !u!114 &11486110
 MonoBehaviour:
   m_ObjectHideFlags: 1

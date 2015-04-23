@@ -321,9 +321,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 482274, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_LocalScale.x
-      value: .699999988
+    - target: {fileID: 158860, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 177516, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
@@ -1693,7 +1697,7 @@ Transform:
   m_GameObject: {fileID: 1382157841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: -5.23999977, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children:
   - {fileID: 1700119665}
   m_Father: {fileID: 1697031389}
@@ -1712,7 +1716,7 @@ MonoBehaviour:
   turretGO: {fileID: 346564582}
   turretScript: {fileID: 1700119666}
   FIRE_RATE: .075000003
-  BURST_RATE: .75
+  BURST_RATE: 1
   BULLETS_PER_BURST: 3
   REACTION_TIME: 1
   SPAWN_ANIM_LENGTH: 1
@@ -2310,6 +2314,10 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
@@ -2331,26 +2339,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 158860, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_LocalScale.x
-      value: .5
-      objectReference: {fileID: 0}
-    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_LocalScale.y
-      value: .5
-      objectReference: {fileID: 0}
-    - target: {fileID: 177516, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

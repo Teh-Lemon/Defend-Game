@@ -33,7 +33,11 @@ public class Turret : CustomBehaviour
     [SerializeField]
     float DEATH_FLASH_SPEED;
     [SerializeField]
-    public SpriteRenderer TURRET_BODY_SPRITE;
+    SpriteRenderer TURRET_BODY_SPRITE;
+    [SerializeField]
+    SpriteRenderer TURRET_MUZZLE_SPRITE;
+    [SerializeField]
+    CircleCollider2D BodyCollider;
     #endregion
 
     // Is the cooldown period ready
@@ -66,6 +70,7 @@ public class Turret : CustomBehaviour
     public void HitByMeteor()
     {
         StartCoroutine(mainCamera.Shake());
+        //mainCamera.ResetPosition();
 
         if (Shield.IsOn)
         {
@@ -176,7 +181,31 @@ public class Turret : CustomBehaviour
         AmmoCount = AmmoCapacity / 2;
         //MuzzlePosition
         MuzzlePosition = transform.FindChild("Muzzle").position;
-        TURRET_BODY_SPRITE.enabled = true;
+        ToggleVisibility(true);
         StartCoroutine(RefillAmmo());
+    }
+
+    public float GetHeight()
+    {
+        return TURRET_BODY_SPRITE.bounds.size.y;
+    }
+
+    public void ToggleVisibility(bool on)
+    {
+        if (on)
+        {
+            TURRET_BODY_SPRITE.enabled = true;
+            TURRET_MUZZLE_SPRITE.enabled = true;
+        }
+        else
+        {
+            TURRET_BODY_SPRITE.enabled = false;
+            TURRET_MUZZLE_SPRITE.enabled = false;
+        }
+    }
+
+    public CircleCollider2D GetCollider()
+    {
+        return BodyCollider;
     }
 }

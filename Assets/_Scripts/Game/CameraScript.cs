@@ -45,7 +45,12 @@ public class CameraScript : MonoBehaviour
 
             yield return null;
         }
-        
+
+        ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
         transform.position = origPosition;
     }
 }

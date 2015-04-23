@@ -24,9 +24,10 @@ public class TurretBotController : MonoBehaviour
     {        
         for (int i = 0; i < turretBots.Length; i++)
         {
-            if (!turretBots[i].gameObject.activeInHierarchy)
-            {
+            if (!turretBots[i].IsAlive)
+            {             
                 turretBots[i].Spawn();
+                break;
             }
         }
     }

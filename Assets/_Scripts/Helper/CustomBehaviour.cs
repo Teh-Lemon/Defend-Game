@@ -5,6 +5,13 @@ using System.Collections;
 
 public class CustomBehaviour : MonoBehaviour
 {
+    bool IsFlashing;
+
+    public CustomBehaviour()
+    {
+        IsFlashing = false;
+    }
+
     // Flash a sprite on/off at a given speed and duration (duration not accurate)
     public IEnumerator FlashSprite(SpriteRenderer sprite, bool endState, float speed, float duration)
     {
