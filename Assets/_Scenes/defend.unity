@@ -515,6 +515,48 @@ BoxCollider2D:
 GameObject:
   m_PrefabParentObject: {fileID: 198276, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
   m_PrefabInternal: {fileID: 1700119664}
+--- !u!1001 &418814268
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 865637332}
+    m_Modifications:
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &438940606
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,6 +1017,53 @@ Transform:
   - {fileID: 1697031389}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &865637331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 865637332}
+  - 114: {fileID: 865637333}
+  m_Layer: 0
+  m_Name: TurretBot 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865637332
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 865637331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5, y: -5.23999977, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: 1}
+  m_Children:
+  - {fileID: 1486245703}
+  m_Father: {fileID: 1697031389}
+  m_RootOrder: 1
+--- !u!114 &865637333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 865637331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e46d083b866b0440805d350f6b03989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretGO: {fileID: 1486245702}
+  turretScript: {fileID: 1486245704}
+  FIRE_RATE: .075000003
+  BURST_RATE: 1
+  BULLETS_PER_BURST: 3
+  REACTION_TIME: 1
+  SPAWN_ANIM_LENGTH: 1
 --- !u!1 &875965920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,6 +1842,20 @@ Transform:
   - {fileID: 268988290}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1 &1486245702 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 198276, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+  m_PrefabInternal: {fileID: 418814268}
+--- !u!4 &1486245703 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 473964, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
+  m_PrefabInternal: {fileID: 418814268}
+--- !u!114 &1486245704 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11455600, guid: 18999216b088f6a43bb7cf2c3c6fe5a5,
+    type: 2}
+  m_PrefabInternal: {fileID: 418814268}
+  m_Script: {fileID: 11500000, guid: 68786d57ceffa764998fd6e285f583e0, type: 3}
 --- !u!1 &1560687212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2390,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1382157842}
+  - {fileID: 865637332}
   m_Father: {fileID: 846037956}
   m_RootOrder: 3
 --- !u!114 &1697031390
@@ -2302,6 +2406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretBots:
   - {fileID: 1382157843}
+  - {fileID: 865637333}
 --- !u!1001 &1700119664
 Prefab:
   m_ObjectHideFlags: 0
