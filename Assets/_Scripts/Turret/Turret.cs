@@ -38,6 +38,8 @@ public class Turret : CustomBehaviour
     SpriteRenderer TURRET_MUZZLE_SPRITE;
     [SerializeField]
     CircleCollider2D BodyCollider;
+    [SerializeField]
+    AudioSource HitAudio;
     #endregion
 
     // Is the cooldown period ready
@@ -69,6 +71,8 @@ public class Turret : CustomBehaviour
     // Called by the Meteor when colliding with player Body
     public void HitByMeteor()
     {
+        HitAudio.Play();
+
         StartCoroutine(mainCamera.Shake());
         //mainCamera.ResetPosition();
 

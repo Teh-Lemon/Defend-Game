@@ -54,6 +54,8 @@ public class HUD : MonoBehaviour
     // Displays the debug score
     [SerializeField]
     Text ScoreText;
+    [SerializeField]
+    AudioSource AudioSelect;
 
     #endregion
 
@@ -209,19 +211,22 @@ public class HUD : MonoBehaviour
     // Start Game button event handler
     public void ClickStartGameButton()
     {
-            GameController.Instance.ChangeState(GameStates.States.PLAYING);        
+            GameController.Instance.ChangeState(GameStates.States.PLAYING);
+            AudioSelect.Play();
     }
 
     // Main menu button event handler
     public void ClickMainMenuButton()
     {
-            GameController.Instance.ChangeState(GameStates.States.MENU);        
+            GameController.Instance.ChangeState(GameStates.States.MENU);
+            AudioSelect.Play();
     }
 
     // Restart button event handler
     public void ClickRetryButton()
     {
             GameController.Instance.ChangeState(GameStates.States.PLAYING);
+            AudioSelect.Play();
     }
     #endregion
 }
