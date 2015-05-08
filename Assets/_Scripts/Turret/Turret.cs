@@ -161,7 +161,7 @@ public class Turret : CustomBehaviour
     {
         if (AmmoCapacity > 0)
         {
-            while (GameStates.Current == GameStates.States.PLAYING)
+            while (GameController.Instance.InGame)
             {
                 yield return new WaitForSeconds(AmmoRefillCooldown);
 

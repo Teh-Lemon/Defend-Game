@@ -206,12 +206,24 @@ public class HUD : MonoBehaviour
         }
     }
 
+    public void SetUpPaused(bool entering)
+    {
+        if (entering)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
 
     #region Button event handlers
     // Start Game button event handler
     public void ClickStartGameButton()
     {
-            GameController.Instance.ChangeState(GameStates.States.PLAYING);
+            GameController.Instance.ChangeState(GameStates.States.GAME_START);
             AudioSelect.Play();
     }
 

@@ -8,8 +8,10 @@
     {
         LAUNCH,
         MENU,
+        GAME_START,
         PLAYING,
-        GAME_OVER
+        GAME_OVER,
+        PAUSED
     }
 
     public enum MeteorTypes

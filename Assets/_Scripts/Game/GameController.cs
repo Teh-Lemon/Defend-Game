@@ -50,11 +50,15 @@ public class GameController : MonoBehaviour
                 if (PlayerController.Instance.HasDied)
                 {
                     ChangeState(GameStates.States.GAME_OVER);
-                }
+                }                
 
-                if (Input.GetKeyDown(KeyCode.R))
+                // Manually spawn AI turrets
+                if (Debug.isDebugBuild)
                 {
-                    TurretBotController.Instance.Spawn();
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        TurretBotController.Instance.Spawn();
+                    }
                 }
                 break;
 
@@ -67,6 +71,38 @@ public class GameController : MonoBehaviour
         }
 	}
 
+    // Start the scoring system, it ends itself on game over
+    IEnumerator StartScoring()
+    {
+        score = 0;
+
+        // Prevent the score increasing immediately
+        yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);
+
+        // Keep adding score until the player dies
+        while (InGame)
+        {
+            score += SCORE_INCREASE_RATE;
+            //HUD.Instance.UpdateScore(score);
+
+            yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);
+        }
+    }
+
+    
+    /// <summary>
+    /// Whether the game is in session or while paused
+    /// </summary>
+    public bool InGame
+    {
+        get
+        {
+            return (GameStates.Current == GameStates.States.PLAYING
+                || GameStates.Current == GameStates.States.PAUSED);
+        }
+    }
+
+    #region State changing
     void ChangeMenuState(bool entering)
     {
         if (entering)
@@ -81,8 +117,31 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ChangeGameStartState(bool entering)
+    {
+        if (entering)
+        {
+            // Current state to PLAYING to avoid Controllers prematurely shutting down
+            GameStates.Current = GameStates.States.PLAYING;
+
+            PlayerController.Instance.Reset();
+            BulletController.Instance.Reset();
+            MeteorController.Instance.Reset();
+
+            TurretBotController.Instance.Reset();
+            //TurretBotController.Instance.Spawn();           
+
+            StartCoroutine(StartScoring());
+
+            ChangeState(GameStates.States.PLAYING);
+        }
+    }
+
     public void ChangePlayingState(bool entering)
     {
+        GameStates.Current = GameStates.States.PLAYING;
+
+        /*
         if (entering)
         {
             GameStates.Current = GameStates.States.PLAYING;
@@ -96,6 +155,7 @@ public class GameController : MonoBehaviour
 
             StartCoroutine(StartScoring());
         }
+         * */
     }
 
     public IEnumerator ChangeGameOverState(bool entering)
@@ -122,6 +182,24 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ChangePausedState(bool entering)
+    {
+        GameStates.Current = GameStates.States.PAUSED;
+
+        HUD.Instance.SetUpPaused(entering);
+
+        if (entering)
+        {
+            Debug.Log("pausing");
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Debug.Log("unpausing");
+            Time.timeScale = 1.0f;
+        }
+    }
+
     // Handles leaving the current state and changing into the new one
     public void ChangeState(GameStates.States newState)
     {        
@@ -141,6 +219,10 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 StartCoroutine(ChangeGameOverState(false));
                 break;
+
+            case GameStates.States.PAUSED:
+                ChangePausedState(false);
+                break;
         }
 
         // Enter new state
@@ -157,24 +239,17 @@ public class GameController : MonoBehaviour
             case GameStates.States.GAME_OVER:
                 StartCoroutine(ChangeGameOverState(true));
                 break;
-        }
-    }
 
-    // Start the scoring system, it ends itself on game over
-    IEnumerator StartScoring()
-    {
-        score = 0;
-		
-		// Prevent the score increasing immediately
-		yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);
-		
-		// Keep adding score until the player dies
-        while (GameStates.Current == GameStates.States.PLAYING)
-        {
-            score += SCORE_INCREASE_RATE;
-            //HUD.Instance.UpdateScore(score);
-                        
-            yield return new WaitForSeconds(SCORE_INCREASE_INTERVAL);            
+            case GameStates.States.PAUSED:
+                ChangePausedState(true);
+                break;
+
+            case GameStates.States.GAME_START:
+                ChangeGameStartState(true);
+                break;
         }
     }
+    #endregion
+
+
 }

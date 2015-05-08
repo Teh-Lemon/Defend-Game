@@ -51,8 +51,23 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
+                // Pausing the game
+                // Paused button clicked
+                if (Input.GetButtonDown("Pause"))
+                {
+                    GameController.Instance.ChangeState(GameStates.States.PAUSED);
+                }
+
                 // Update the player HUD
                 HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
+                break;
+
+            case GameStates.States.PAUSED:
+                // Paused button clicked
+                if (Input.GetButtonDown("Pause"))
+                {
+                    GameController.Instance.ChangeState(GameStates.States.PLAYING);
+                }
                 break;
         }
 

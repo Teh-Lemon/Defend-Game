@@ -148,7 +148,7 @@ public class MeteorController : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         // Keep going until game over
-        while (GameStates.Current == GameStates.States.PLAYING)
+        while (GameController.Instance.InGame)
         {
             // Increase the wave number
             waveNumber++;
