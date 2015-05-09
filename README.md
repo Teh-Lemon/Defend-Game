@@ -14,18 +14,19 @@ Video link: After I get some more features done
  
 Progress
 ------------
-All the core features are complete so far except for sound/music.  
+All the core features are complete so far except for music.  
 Done:
 - Spawning meteors, size and spawn positions are random.
-- Meteor waves. The chance of a large wave increases as the game progresses.
+- Meteor waves. The chance of larger waves increases as the game progresses.
 - UI - Menu buttons, in-game UI, custom mouse cursor.
 - Player turret with a working animated shield and limited fire-able ammo. Camera shakes when hit.
-- Game states: Can start, end with scoring and restart the game.
+- Game states: Can start, end with score and restart the game.
+- Options and pause menu
+- AI friendly turrets (still needs a way to spawn them, like via power ups)
+- Sound effects (button select still needs work)
 
 Potential future updates:
-- Different meteor types. The code has already been structured with this feature in mind.
 - Power ups
-- AI friendly turrets (As seen in the screenshot)
+- Mobile port. Already supported in the code though I haven't been directly testing it.
+- Different meteor types. The code has already been structured with this feature in mind.
 - Environmental changes
-- Options menu
-- Mobile port. This is already supported in the code though I haven't been testing it.
