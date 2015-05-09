@@ -4,6 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour 
 {
     public static GameController Instance { get; set; }
+    const float DEFAULT_VOLUME = 0.5f;
 
     #region Inspector Variables
     // Does the game go on forever despite being hit?
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
 	{
         Instance = this;
         score = 0;
+        AudioListener.volume = DEFAULT_VOLUME;
 	}
 
     void Start()

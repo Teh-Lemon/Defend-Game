@@ -27,7 +27,17 @@ public class HUD : MonoBehaviour
     GameObject PausedGO;
     // Buttons
     [SerializeField]
-    Button MainMenuButton;
+    Button OptionsButton;
+    [SerializeField]
+    Button StartGameButton;
+
+    [Header("Options")]
+    [SerializeField]
+    GameObject VolumeGO;
+    [SerializeField]
+    Slider VolumeSlider;
+    [SerializeField]
+    Button OptionsBackButton;
 
     [Header("Playing")]
     // Scale of the ammo bar meter when it's at 100%
@@ -42,7 +52,7 @@ public class HUD : MonoBehaviour
     [SerializeField]
     Button RetryButton;
     [SerializeField]
-    Button StartGameButton;
+    Button MainMenuButton;
     // Score message, both parts. "You have survived for" 
     [SerializeField]
     GameObject ScoreMsg1GO;
@@ -69,6 +79,9 @@ public class HUD : MonoBehaviour
         digitsFont = Resources.LoadAll<Sprite>("DigitsSheet");
         activeDigits = new List<GameObject>();
         digitsPool = new GameObjectPool(3, DIGIT_PREFAB, ScoreMsg1GO);
+
+        //Adds a listener to the main slider and invokes a method when the value changes.
+        VolumeSlider.onValueChanged.AddListener(delegate { VolumeSliderChanged(); });
     }
 
     // Update the size of the ammo bar
@@ -162,6 +175,39 @@ public class HUD : MonoBehaviour
                 , ScoreMsg1GO.transform.position.z);
     }
 
+    // Event handler for options button and options back button
+    void ShowOptionsMenu(bool entering)
+    {
+        if (entering)
+        {
+            // Hide main menu
+            StartGameButton.gameObject.SetActive(false);
+            OptionsButton.gameObject.SetActive(false);
+
+            // Show options menu
+            VolumeGO.gameObject.SetActive(true);
+            VolumeSlider.gameObject.SetActive(true);
+            OptionsBackButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            // Hide options menu
+            VolumeGO.gameObject.SetActive(false);
+            VolumeSlider.gameObject.SetActive(false);
+            OptionsBackButton.gameObject.SetActive(false);
+
+            // Show main menu
+            StartGameButton.gameObject.SetActive(true);
+            OptionsButton.gameObject.SetActive(true);
+        }
+    }
+
+    // Update the volume as the volume slider is changed
+    void VolumeSliderChanged()
+    {
+        AudioListener.volume = VolumeSlider.value;
+    }
+
     #region states
     // Show/Hide the game over buttons
     public void SetUpGameOver(bool entering, int score)
@@ -201,12 +247,14 @@ public class HUD : MonoBehaviour
         if (entering)
         {
             TitleGO.SetActive(true);
-            StartGameButton.gameObject.SetActive(true);            
+            StartGameButton.gameObject.SetActive(true);
+            OptionsButton.gameObject.SetActive(true);
         }
         else
         {
             TitleGO.SetActive(false);
             StartGameButton.gameObject.SetActive(false);
+            OptionsButton.gameObject.SetActive(false);
         }
     }
 
@@ -245,6 +293,20 @@ public class HUD : MonoBehaviour
     {
             GameController.Instance.ChangeState(GameStates.States.PLAYING);
             AudioSelect.Play();
+    }
+
+    // Options button on main menu
+    public void ClickOptionsButton()
+    {
+        AudioSelect.Play();
+        ShowOptionsMenu(true);
+    }
+
+    // Back to main menu button in options menu
+    public void ClickOptionsBackButton()
+    {
+        AudioSelect.Play();
+        ShowOptionsMenu(false);
     }
     #endregion
 }
