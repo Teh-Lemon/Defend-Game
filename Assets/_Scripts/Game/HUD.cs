@@ -22,6 +22,9 @@ public class HUD : MonoBehaviour
     // Title screen title image
     [SerializeField]
     GameObject TitleGO;
+    // Paused image
+    [SerializeField]
+    GameObject PausedGO;
     // Buttons
     [SerializeField]
     Button MainMenuButton;
@@ -159,6 +162,7 @@ public class HUD : MonoBehaviour
                 , ScoreMsg1GO.transform.position.z);
     }
 
+    #region states
     // Show/Hide the game over buttons
     public void SetUpGameOver(bool entering, int score)
     {
@@ -206,17 +210,19 @@ public class HUD : MonoBehaviour
         }
     }
 
+    // Show/Hide pause indicator
     public void SetUpPaused(bool entering)
     {
         if (entering)
         {
-
+            PausedGO.SetActive(true);
         }
         else
         {
-
+            PausedGO.SetActive(false);
         }
     }
+    #endregion
 
 
     #region Button event handlers
