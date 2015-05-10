@@ -291,7 +291,7 @@ public class HUD : MonoBehaviour
     // Restart button event handler
     public void ClickRetryButton()
     {
-            GameController.Instance.ChangeState(GameStates.States.PLAYING);
+            GameController.Instance.ChangeState(GameStates.States.GAME_START);
             AudioSelect.Play();
     }
 

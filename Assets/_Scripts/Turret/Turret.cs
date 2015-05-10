@@ -48,8 +48,11 @@ public class Turret : CustomBehaviour
     public int AmmoCount { get; set; }
     // Used to signal game over
     public bool IsAlive { get; set; }
+    // Is the turret firing big bullets
+    public bool BigBullet { get; set; }
 
     CameraScript mainCamera;
+
 
     void Awake()
     {
@@ -105,7 +108,7 @@ public class Turret : CustomBehaviour
         }
         // Shoot a bullet out from the muzzle at the target
         //BulletController.Instance.Fire(transform.position + MuzzlePosition, target);
-        BulletController.Instance.Fire(MuzzlePosition, target);
+        BulletController.Instance.Fire(MuzzlePosition, target, BigBullet);
 
         // Set up cooldown timer
         StartCoroutine(StartFireCooldown());

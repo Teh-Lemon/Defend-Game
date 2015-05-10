@@ -5,7 +5,7 @@ using System.Collections;
 
 public class CustomBehaviour : MonoBehaviour
 {
-    bool IsFlashing;
+    protected bool IsFlashing;
 
     public CustomBehaviour()
     {
@@ -17,6 +17,7 @@ public class CustomBehaviour : MonoBehaviour
     {
         float startTime = 0f;
         float endTime = 0f;
+        IsFlashing = true;
 
         // Loop the flashing effect for the length of the duration given
         for (float timer = 0; timer < duration; timer += (endTime - startTime))
@@ -28,5 +29,6 @@ public class CustomBehaviour : MonoBehaviour
         }
 
         sprite.enabled = endState;
+        IsFlashing = false;
     }
 }

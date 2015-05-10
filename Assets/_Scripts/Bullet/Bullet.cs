@@ -3,10 +3,22 @@ using MemoryManagment;
 
 public class Bullet : MonoBehaviour
 {
+    Rigidbody2D rigidBody2D;
+
+    float defaultScale;
+    float defaultMass;
+
     // Bullets are deactivated before first frame
     void Awake()
     {
-        Spawn(Vector2.zero, null);
+        rigidBody2D = GetComponent<Rigidbody2D>();
+
+        //Spawn(Vector2.zero, null);
+        
+        defaultScale = transform.localScale.x;
+        defaultMass = rigidBody2D.mass;
+
+        Debug.Log(defaultScale + " " + defaultMass);
     }
 
     // When the bullet leaves the play area, remove from play
@@ -25,14 +37,16 @@ public class Bullet : MonoBehaviour
     public void Spawn(Vector2 spawnPosition, GameObjectPool pool)
     {
         //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
-        transform.position = spawnPosition;
-        gameObject.SetActive(true);
+        ChangeSize(defaultScale, defaultMass);
+        transform.position = spawnPosition;        
+        gameObject.SetActive(true);        
     }
 
     // Change the size and mass of the bullet
-    public void ChangeSize(float newSize)
+    public void ChangeSize(float newSize, float newMass)
     {
         transform.localScale = new Vector3(newSize, newSize, 1);
+        rigidBody2D.mass = newMass;
         //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
     }
 }

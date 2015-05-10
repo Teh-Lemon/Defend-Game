@@ -12,6 +12,8 @@ public class MeteorController : MonoBehaviour
     // Prefab to spawn
     [SerializeField]
     GameObject METEOR_PREFAB;
+    [SerializeField]
+    bool ENABLED;
 
     [Header("Spawning")]
     // Range of where the meteor can spawn
@@ -85,7 +87,11 @@ public class MeteorController : MonoBehaviour
         StopCoroutine("SpawnWaves");
         waveNumber = 0;
         difficultyCurve.ResetMidPoint();
-        StartCoroutine("SpawnWaves");
+
+        if (ENABLED)
+        {
+            StartCoroutine("SpawnWaves");
+        }
     }
 
     // Store away all the meteors in-play

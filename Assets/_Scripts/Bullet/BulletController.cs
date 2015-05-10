@@ -6,11 +6,16 @@ public class BulletController : MonoBehaviour
     public static BulletController Instance { get; set; }
 
     // Bullet movement speed
-    [SerializeField] 
+    [SerializeField]
     float BULLET_SPEED;
     // Bullet prefab
-    [SerializeField] 
+    [SerializeField]
     GameObject BULLET_PREFAB;
+
+    [SerializeField]
+    float BigScale;
+    [SerializeField]
+    float BigMass;
 
     GameObjectPool bulletPool;
 
@@ -21,23 +26,26 @@ public class BulletController : MonoBehaviour
         bulletPool = new GameObjectPool(100, BULLET_PREFAB, gameObject);
     }
 
-    public void Fire(Vector2 spawnPos, Vector2 target)
+    public void Fire(Vector2 spawnPos, Vector2 target, bool big = false)
     {
         // Recycle from an old bullet
         GameObject bulletGO = bulletPool.New();
-        if (bulletGO != null)
+        if (bulletGO == null)
         {
-            // Reset the bullet variables
-            var bulletScript = bulletGO.GetComponent<Bullet>();
-            bulletScript.Spawn(spawnPos, bulletPool);
-
-            // Fire the bullet towards the target
-            Vector2 direction = target - new Vector2(spawnPos.x, spawnPos.y);
-            bulletGO.GetComponent<Rigidbody2D>().velocity = direction.normalized * BULLET_SPEED;
+            Debug.LogError("Bullet pool returned null bulletGO");
         }
-        else
+
+        // Reset the bullet variables
+        var bulletScript = bulletGO.GetComponent<Bullet>();
+        bulletScript.Spawn(spawnPos, bulletPool);
+
+        // Fire the bullet towards the target
+        Vector2 direction = target - new Vector2(spawnPos.x, spawnPos.y);
+        bulletGO.GetComponent<Rigidbody2D>().velocity = direction.normalized * BULLET_SPEED;
+
+        if (big)
         {
-            Debug.Log("Bullet pool returned null bulletGO");
+            bulletScript.ChangeSize(BigScale, BigMass);
         }
     }
 

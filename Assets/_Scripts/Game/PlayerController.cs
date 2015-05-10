@@ -5,12 +5,15 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; set; }
 
-
     #region Variables
-    // Used to update ammo count
+    // Used for big bullet mode power up    
+    float bigBulletTimer;
 
     [SerializeField] 
     Turret turret;
+
+    [SerializeField]
+    float BigBulletLength;
     #endregion
 
     // Use this for initialization
@@ -60,6 +63,17 @@ public class PlayerController : MonoBehaviour
 
                 // Update the player HUD
                 HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
+
+                // Disable big bullet after timer is up
+                if (turret.BigBullet)
+                {
+                    bigBulletTimer += Time.deltaTime;
+
+                    if (bigBulletTimer > BigBulletLength)
+                    {
+                        turret.BigBullet = false;
+                    }
+                }
                 break;
 
             case GameStates.States.PAUSED:
@@ -89,5 +103,29 @@ public class PlayerController : MonoBehaviour
     public bool HasDied
     {
         get { return !turret.IsAlive; }
+    }
+
+    public void RestoreShield()
+    {
+        turret.Shield.ToggleShield(true);
+    }
+
+    public void RefillAmmo()
+    {
+        turret.AmmoCount = turret.AmmoCapacity;
+    }
+
+    // Turns the big bullet mode on/off
+    public void BigBulletMode(bool on = true)
+    {
+        if (on)
+        {
+            bigBulletTimer = 0;
+            turret.BigBullet = true;
+        }
+        else
+        {
+            turret.BigBullet = false;
+        }
     }
 }

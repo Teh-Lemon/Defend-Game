@@ -3,8 +3,11 @@ using System.Collections.Generic;
 
 public static class Helper
 {
-    // Separates out the individual digits in an integer into a list
-    // Requires a positive number
+    /// <summary>
+    /// Separates out the individual digits in an integer into a list
+    /// Requires a positive number
+    /// </summary>
+    /// <param name="number"></param>
     public static List<int> SeparateDigits(int number)
     {
         var digitsList = new List<int>();
@@ -17,5 +20,13 @@ public static class Helper
         digitsList.Reverse();
 
         return digitsList;
+    }
+
+    /// <summary>
+    /// Returns either -1.0f or 1.0f
+    /// </summary>
+    public static float RandomSign()
+    {
+        return Random.value < .5 ? 1.0f : -1.0f;
     }
 }

@@ -47,6 +47,13 @@ public class TurretShield : CustomBehaviour
     {
         if (turnOn)
         {
+            // Quick disable/re-enable to stop the flashing coroutine
+            if (IsFlashing)
+            {                
+                gameObject.SetActive(false);
+                gameObject.SetActive(true);
+            }
+
             IsOn = true;
             SHIELD_SPRITE.enabled = true;
         }

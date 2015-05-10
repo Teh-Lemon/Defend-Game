@@ -112,6 +112,7 @@ public class GameController : MonoBehaviour
             GameStates.Current = GameStates.States.MENU;
             HUD.Instance.SetUpMainMenu(true);
             MeteorController.Instance.ClearMeteors();
+            PowerUpController.Instance.Clear();
         }
         else
         {
@@ -129,6 +130,7 @@ public class GameController : MonoBehaviour
             PlayerController.Instance.Reset();
             BulletController.Instance.Reset();
             MeteorController.Instance.Reset();
+            PowerUpController.Instance.Reset();
 
             TurretBotController.Instance.Reset();
             //TurretBotController.Instance.Spawn();           
