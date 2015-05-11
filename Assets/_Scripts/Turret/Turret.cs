@@ -40,6 +40,11 @@ public class Turret : CustomBehaviour
     CircleCollider2D BodyCollider;
     [SerializeField]
     AudioSource HitAudio;
+
+    // Big Bullet Mode
+    // Muzzle overlay activated when in big bullet mode
+    [SerializeField]
+    SpriteRenderer MuzzleFlashSpr;
     #endregion
 
     // Is the cooldown period ready
@@ -49,7 +54,16 @@ public class Turret : CustomBehaviour
     // Used to signal game over
     public bool IsAlive { get; set; }
     // Is the turret firing big bullets
-    public bool BigBullet { get; set; }
+    bool bigBullet;
+    public bool BigBullet
+    {
+        get { return bigBullet; }
+        set
+        {
+            bigBullet = value;
+            MuzzleFlashSpr.enabled = value;
+        }
+    }
 
     CameraScript mainCamera;
 
@@ -57,6 +71,7 @@ public class Turret : CustomBehaviour
     void Awake()
     {
         IsAlive = false;
+        bigBullet = false;
     }
 
     // Use this for initialization
@@ -114,14 +129,8 @@ public class Turret : CustomBehaviour
         StartCoroutine(StartFireCooldown());
 
         // Decrease ammo count
-        if (bigBullet)
-        {
-            UpdateAmmo(-BigBulletCost);
-        }
-        else
-        {
-            UpdateAmmo(-BulletCost);
-        }
+        UpdateAmmo(-BulletCost);
+        
     }
 
     // Is everything ready to shoot a bullet right now?
@@ -141,12 +150,6 @@ public class Turret : CustomBehaviour
                 return false;
             }
         }
-    }
-
-    // Not implemented
-    bool CanShootBigBullet
-    {
-        get { return false; }
     }
 
     // Set timer before next bullet can be fired
@@ -190,6 +193,8 @@ public class Turret : CustomBehaviour
         MuzzlePosition = transform.FindChild("Muzzle").position;
         ToggleVisibility(true);
         StartCoroutine(RefillAmmo());
+        MuzzleFlashSpr.enabled = false;
+        bigBullet = false;
     }
 
     public float GetHeight()
@@ -207,12 +212,37 @@ public class Turret : CustomBehaviour
         else
         {
             TURRET_BODY_SPRITE.enabled = false;
-            TURRET_MUZZLE_SPRITE.enabled = false;
+            TURRET_MUZZLE_SPRITE.enabled = false;;
         }
     }
 
     public CircleCollider2D GetCollider()
     {
         return BodyCollider;
+    }
+
+    public IEnumerator FlashMuzzle(float length, float speed)
+    {
+        float totalTime = 0.0f;
+        float startTime = 0.0f;
+
+        // Flash
+        while (totalTime < length)
+        {
+            startTime = Time.time;
+
+            MuzzleFlashSpr.enabled = !MuzzleFlashSpr.enabled;
+            Debug.Log("flash " + MuzzleFlashSpr.enabled);
+
+            yield return new WaitForSeconds(speed);            
+            // Keep track for how long the flashing has been running
+            totalTime += (Time.time - startTime);
+            Debug.Log("total time " + totalTime);
+        }
+
+        if (!bigBullet)
+        {
+            MuzzleFlashSpr.enabled = false;
+        }
     }
 }

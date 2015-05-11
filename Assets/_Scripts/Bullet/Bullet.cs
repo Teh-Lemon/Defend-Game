@@ -17,8 +17,6 @@ public class Bullet : MonoBehaviour
         
         defaultScale = transform.localScale.x;
         defaultMass = rigidBody2D.mass;
-
-        Debug.Log(defaultScale + " " + defaultMass);
     }
 
     // When the bullet leaves the play area, remove from play

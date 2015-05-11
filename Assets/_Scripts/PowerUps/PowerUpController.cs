@@ -5,21 +5,11 @@ public class PowerUpController : MonoBehaviour
 {
     public static PowerUpController Instance { get; set; }
 
-    // Power up sprites
-    // In order of sprite sheet
-    enum ID
-    {
-        Shield,
-        Turret,
-        BigBullet,
-        AmmoRefill
-    }
-
+    // Is there a power up on screen
     bool PowerUpActive;
 
-    //Sprite[] spriteSheet;
-
     #region Inspector Variables
+    // List of all the power up game objects
     [SerializeField]
     GameObject[] PowerUpGOs;
 
@@ -27,6 +17,7 @@ public class PowerUpController : MonoBehaviour
     // Where the power up will spawn
     [SerializeField]
     float MinSpawnHeight, MaxSpawnHeight;
+    // How far from the centre of the screen the power up spawns
     [SerializeField]
     float SpawnX;
     // How often the spawn diceroll is made
@@ -37,10 +28,13 @@ public class PowerUpController : MonoBehaviour
     float DiceRollChance;
 
     [Header("Properties")]
+    // How fast the power up moves across the screen
     [SerializeField]
     float MoveSpeed;
+    // How fast the power up moves up and down
     [SerializeField]
     float FloatSpeed;
+    // How far the power up moves up and down
     [SerializeField]
     float FloatDeviation;
     #endregion
@@ -49,21 +43,6 @@ public class PowerUpController : MonoBehaviour
     {
         Instance = this;
         PowerUpActive = false;
-
-        /*
-        // Load power up sprites
-        spriteSheet = Resources.LoadAll<Sprite>("PowerUpSheet");
-        
-        powerUpGOs = new GameObject[spriteSheet.Length];
-
-        for (int i = 0; i < powerUpGOs.Length; i++)
-        {
-            powerUpGOs[i] = new GameObject(i.ToString());
-            SpriteRenderer newSpr = powerUpGOs[i].AddComponent<SpriteRenderer>();
-            newSpr.sprite = spriteSheet[i];
-            CircleCollider2D newCol = powerUpGOs[i].AddComponent<CircleCollider2D>();
-        }
-         * */
     }
 
     // Use this for initialization
@@ -96,14 +75,13 @@ public class PowerUpController : MonoBehaviour
         }
     }
 
+    // Spawn power ups while the game is playing
     IEnumerator SpawnNewPowerUp()
     {
         // Keep running while game is playing
         while (GameController.Instance.InGame)
         {
             yield return new WaitForSeconds(DiceRollInterval);
-
-            Debug.Log("checking");
 
             // Don't spawn anything if there's already a powerup on the field
             // Don't spawn if diceroll fails
@@ -112,12 +90,10 @@ public class PowerUpController : MonoBehaviour
                 continue;
             }
 
-            Debug.Log("spawning");
-
             // Randomise which power up
-            int newPUP = Random.Range(0, PowerUpGOs.Length);
+            int newPUp = Random.Range(0, PowerUpGOs.Length);
             // DEBUG ONLY
-            newPUP = 2;
+            //newPUp = 0;
 
             // Set spawn position
             float spawnY = Random.Range(MinSpawnHeight, MaxSpawnHeight);
@@ -125,13 +101,12 @@ public class PowerUpController : MonoBehaviour
 
             // Spawn power up
             PowerUpActive = true;
-            PowerUpGOs[newPUP].transform.position = new Vector3(spawnX, spawnY, 1.0f);
-            
-            PowerUpGOs[newPUP].SetActive(true);
-            
+            PowerUpGOs[newPUp].transform.position = new Vector3(spawnX, spawnY, 1.0f);            
+            PowerUpGOs[newPUp].SetActive(true);            
         }
     }
 
+    
     public void Reset()
     {
         Clear();
@@ -140,6 +115,11 @@ public class PowerUpController : MonoBehaviour
 
     public void Clear()
     {
+        // Extra precaution for stopping spawning coroutines
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+
+        // Remove all active power ups from play
         for (int i = 0; i < PowerUpGOs.Length; i++)
         {
             PowerUpGOs[i].SetActive(false);

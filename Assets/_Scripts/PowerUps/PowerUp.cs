@@ -13,14 +13,14 @@ public class PowerUp : MonoBehaviour
     // Which direction to move in, set on spawn
     int direction;
     // Baseline to float around, set on spawn
-    float baseY;
+    //float baseY;
 
     void Awake()
     {
         moveSpeed = 0;
         floatSpeed = 0;
         floatDeviation = 0;
-        baseY = 0;
+        //baseY = 0;
         direction = 0;
     }
 
@@ -43,14 +43,12 @@ public class PowerUp : MonoBehaviour
             // If hit by bullet, remove bullet and activate power up
             if (other.CompareTag("Bullet"))
             {
-                Debug.Log("hit bullet");
                 BulletController.Instance.StoreBullet(other.gameObject);
                 Activate();
             }
             // If left the stage, disable power up
             else if (other.CompareTag("PUpBoundary"))
             {
-                Debug.Log("hit wall");
                 gameObject.SetActive(false);
             }
         }
@@ -83,7 +81,7 @@ public class PowerUp : MonoBehaviour
             direction = 1;
         }
 
-        baseY = transform.position.y;
-        Debug.Log("BaseY " + baseY);
+        //baseY = transform.position.y;
+//        Debug.Log("BaseY " + baseY);
     }
 }

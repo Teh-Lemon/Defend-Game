@@ -8,12 +8,21 @@ public class PlayerController : MonoBehaviour
     #region Variables
     // Used for big bullet mode power up    
     float bigBulletTimer;
+    // Is the warning currently playing
+    bool bigBulletWarnOn;
 
     [SerializeField] 
     Turret turret;
 
+    // How long the big bullet power up lasts
     [SerializeField]
     float BigBulletLength;
+    // How much time is left when the warning is triggered
+    [SerializeField]
+    float BigBulletWarning;
+    // Warning flash speed
+    [SerializeField]
+    float BigBulletFlashSpeed;
     #endregion
 
     // Use this for initialization
@@ -64,13 +73,23 @@ public class PlayerController : MonoBehaviour
                 // Update the player HUD
                 HUD.Instance.UpdateAmmo(turret.AmmoCount, turret.AmmoCapacity);
 
-                // Disable big bullet after timer is up
+                // Disable big bullet after the power up expires
                 if (turret.BigBullet)
                 {
                     bigBulletTimer += Time.deltaTime;
 
+                    // Start warning the player 1 sec before the power up expires
+                    if (bigBulletTimer > (BigBulletLength - BigBulletWarning)
+                        && !bigBulletWarnOn)
+                    {
+                        bigBulletWarnOn = true;
+                        StartCoroutine(turret.FlashMuzzle(BigBulletWarning, BigBulletFlashSpeed));
+                    }
+
+                    // Disable big bullet mode when timer is up
                     if (bigBulletTimer > BigBulletLength)
                     {
+                        Debug.Log("BB OFF");
                         turret.BigBullet = false;
                     }
                 }
@@ -89,7 +108,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Reset()
-    {        
+    {
         turret.Shield.ToggleShield(true);
         turret.Reset();
     }
@@ -110,7 +129,7 @@ public class PlayerController : MonoBehaviour
         turret.Shield.ToggleShield(true);
     }
 
-    public void RefillAmmo()
+    public void FillUpAmmo()
     {
         turret.AmmoCount = turret.AmmoCapacity;
     }
@@ -120,12 +139,14 @@ public class PlayerController : MonoBehaviour
     {
         if (on)
         {
-            bigBulletTimer = 0;
+            bigBulletTimer = 0;            
             turret.BigBullet = true;
+            bigBulletWarnOn = false;
         }
         else
-        {
+        {            
             turret.BigBullet = false;
+            bigBulletWarnOn = false;
         }
     }
 }

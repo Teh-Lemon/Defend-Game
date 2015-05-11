@@ -5,7 +5,7 @@ public class AmmoRefillPowerUp : PowerUp
 {
     public override void Activate()
     {
-        PlayerController.Instance.RefillAmmo();
+        PlayerController.Instance.FillUpAmmo();
         base.Activate();
     }
 }
