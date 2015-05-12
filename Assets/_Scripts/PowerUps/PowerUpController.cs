@@ -8,6 +8,9 @@ public class PowerUpController : MonoBehaviour
     // Is there a power up on screen
     bool PowerUpActive;
 
+    // Activation sound effect
+    AudioSource activateAudioSource;
+
     #region Inspector Variables
     // List of all the power up game objects
     [SerializeField]
@@ -53,6 +56,8 @@ public class PowerUpController : MonoBehaviour
         {
             PowerUpGOs[i].GetComponent<PowerUp>().SetUp(MoveSpeed, FloatSpeed, FloatDeviation);
         }
+
+        activateAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -93,7 +98,7 @@ public class PowerUpController : MonoBehaviour
             // Randomise which power up
             int newPUp = Random.Range(0, PowerUpGOs.Length);
             // DEBUG ONLY
-            //newPUp = 0;
+            newPUp = 2;
 
             // Set spawn position
             float spawnY = Random.Range(MinSpawnHeight, MaxSpawnHeight);
@@ -124,5 +129,10 @@ public class PowerUpController : MonoBehaviour
         {
             PowerUpGOs[i].SetActive(false);
         }
+    }
+
+    public void PlayActivateSound()
+    {
+        activateAudioSource.Play();
     }
 }

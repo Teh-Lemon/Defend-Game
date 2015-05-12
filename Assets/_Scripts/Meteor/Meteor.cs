@@ -100,7 +100,7 @@ public class Meteor : CustomBehaviour
     {
         currentState = state.EXPLODING;
 
-        SetTransparency(DEATH_ALPHA);
+        Helper.SetTransparency(Sprite, DEATH_ALPHA);
 
         // Start flashing
         StartCoroutine(FlashSprite(Sprite, true,
@@ -121,7 +121,7 @@ public class Meteor : CustomBehaviour
         transform.position = newPosition;
         UpdateSize(newSize);
         Sprite.enabled = true;
-        SetTransparency(1.0f);
+        Helper.SetTransparency(Sprite, 1.0f);
         type = newType;
 
         gameObject.SetActive(true);        
@@ -152,10 +152,12 @@ public class Meteor : CustomBehaviour
         return this.gameObject;
     }
 
+    /*
     // Change the transparency of the meteor sprite
     void SetTransparency(float newTrans)
     {
             Sprite.color = new Color(Sprite.color.r,
         Sprite.color.g, Sprite.color.b, newTrans);         
     }
+     * */
 }

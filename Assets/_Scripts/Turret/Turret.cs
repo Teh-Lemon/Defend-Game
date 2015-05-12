@@ -45,6 +45,9 @@ public class Turret : CustomBehaviour
     // Muzzle overlay activated when in big bullet mode
     [SerializeField]
     SpriteRenderer MuzzleFlashSpr;
+    // How much does the camera recoil when shooting a big bullet
+    [SerializeField]
+    float BIG_CAMERA_SHAKE_MAGNITUDE;
     #endregion
 
     // Is the cooldown period ready
@@ -91,7 +94,7 @@ public class Turret : CustomBehaviour
     {
         HitAudio.Play();
 
-        StartCoroutine(mainCamera.Shake());
+        StartCoroutine(mainCamera.RandomShake());
         //mainCamera.ResetPosition();
 
         if (Shield.IsOn)
@@ -131,6 +134,12 @@ public class Turret : CustomBehaviour
         // Decrease ammo count
         UpdateAmmo(-BulletCost);
         
+        // Camera shake with big bullets
+        if (BigBullet)
+        {
+            Vector3 fromDirection = MuzzlePosition - new Vector3(target.x, target.y, 0.0f);
+            mainCamera.ShakeDirection(fromDirection, BIG_CAMERA_SHAKE_MAGNITUDE);
+        }
     }
 
     // Is everything ready to shoot a bullet right now?

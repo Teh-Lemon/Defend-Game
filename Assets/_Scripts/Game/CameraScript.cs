@@ -4,12 +4,16 @@ using System.Collections;
 public class CameraScript : MonoBehaviour
 {
     #region Inspector Variables
-    // How much the camera shakes when shaking
+    // How much the camera shakes when randomly shaking
     [SerializeField]
     float SHAKE_MAGNITUDE;
-
+    // How long the random shake lasts
     [SerializeField]
     float SHAKE_DURATION;
+
+    // How smoothly the camera resets to the original position
+    [SerializeField]
+    float SMOOTHNESS;
     #endregion
 
     // Used to reset the camera at the end
@@ -20,7 +24,16 @@ public class CameraScript : MonoBehaviour
         origPosition = transform.position;
     }
 
-    public IEnumerator Shake()
+    // How far the camera currently is from the original positon
+    //Vector3 distance = Vector3.zero;
+    void FixedUpdate()
+    {
+        // constantly bring the camera back to the original position
+        transform.position = Vector3.Lerp(transform.position, origPosition,
+            SMOOTHNESS * Time.deltaTime);
+    }
+
+    public IEnumerator RandomShake()
     {
         // How long the camera has been shaking
         float elapsed = 0.0f;
@@ -46,7 +59,13 @@ public class CameraScript : MonoBehaviour
             yield return null;
         }
 
-        ResetPosition();
+        //ResetPosition();
+    }
+
+    // Bump the camera towards the direction
+    public void ShakeDirection(Vector3 direction, float magnitude)
+    {
+        transform.position += (direction.normalized * magnitude);
     }
 
     public void ResetPosition()
