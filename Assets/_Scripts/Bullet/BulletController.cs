@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour
 
     // Bullet movement speed
     [SerializeField]
-    float BULLET_SPEED;
+    public float BULLET_SPEED;
     // Bullet prefab
     [SerializeField]
     GameObject BULLET_PREFAB;

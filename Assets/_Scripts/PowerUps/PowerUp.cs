@@ -4,25 +4,14 @@ using System.Collections;
 public class PowerUp : MonoBehaviour
 {
     // How fast the power up moves across the screen
-    float moveSpeed;
+    float moveSpeed = 0.0f;
     // How fast the power up moves up and down
-    float floatSpeed;
+    float floatSpeed = 0.0f;
     // How far the power up moves up and down
-    float floatDeviation;
+    float floatDeviation = 0.0f;
 
     // Which direction to move in, set on spawn
-    int direction;
-    // Baseline to float around, set on spawn
-    //float baseY;
-
-    void Awake()
-    {
-        moveSpeed = 0;
-        floatSpeed = 0;
-        floatDeviation = 0;
-        //baseY = 0;
-        direction = 0;
-    }
+    int direction = 0;
 
     // Update is called once per frame
     void Update()
@@ -70,8 +59,7 @@ public class PowerUp : MonoBehaviour
 
     // Set the direction on spawn
     void OnEnable()
-    {
-        
+    {        
         if (transform.position.x > 0)
         {
             direction = -1;
@@ -80,8 +68,5 @@ public class PowerUp : MonoBehaviour
         {
             direction = 1;
         }
-
-        //baseY = transform.position.y;
-//        Debug.Log("BaseY " + baseY);
     }
 }

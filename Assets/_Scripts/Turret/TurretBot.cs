@@ -170,7 +170,7 @@ public class TurretBot : MonoBehaviour
         spawnAnimPlaying = false;
         updatingTarget = false;
         firing = false;
-        Debug.Log("spawning");        
+        //Debug.Log("spawning");        
         turretScript.GetCollider().enabled = true;
         transform.position = defaultPos;
         StartCoroutine(PlaySpawnAnim());

@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
                     // Disable big bullet mode when timer is up
                     if (bigBulletTimer > BigBulletLength)
                     {
-                        Debug.Log("BB OFF");
+                        //Debug.Log("BB OFF");
                         turret.BigBullet = false;
                     }
                 }

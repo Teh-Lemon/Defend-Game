@@ -232,12 +232,12 @@ public class Turret : CustomBehaviour
             startTime = Time.time;
 
             MuzzleFlashSpr.enabled = !MuzzleFlashSpr.enabled;
-            Debug.Log("flash " + MuzzleFlashSpr.enabled);
+            //Debug.Log("flash " + MuzzleFlashSpr.enabled);
 
             yield return new WaitForSeconds(speed);            
             // Keep track for how long the flashing has been running
             totalTime += (Time.time - startTime);
-            Debug.Log("total time " + totalTime);
+            //Debug.Log("total time " + totalTime);
         }
 
         if (!bigBullet)

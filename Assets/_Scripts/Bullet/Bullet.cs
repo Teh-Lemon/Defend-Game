@@ -3,7 +3,7 @@ using MemoryManagment;
 
 public class Bullet : MonoBehaviour
 {
-    Rigidbody2D rigidBody2D;
+    Rigidbody2D bulletRB;
 
     float defaultScale;
     float defaultMass;
@@ -11,12 +11,18 @@ public class Bullet : MonoBehaviour
     // Bullets are deactivated before first frame
     void Awake()
     {
-        rigidBody2D = GetComponent<Rigidbody2D>();
+        bulletRB = GetComponent<Rigidbody2D>();
 
         //Spawn(Vector2.zero, null);
         
         defaultScale = transform.localScale.x;
-        defaultMass = rigidBody2D.mass;
+        defaultMass = bulletRB.mass;
+    }
+
+    void FixedUpdate()
+    {
+        bulletRB.velocity =
+            bulletRB.velocity.normalized * BulletController.Instance.BULLET_SPEED;            
     }
 
     // When the bullet leaves the play area, remove from play
@@ -44,7 +50,7 @@ public class Bullet : MonoBehaviour
     public void ChangeSize(float newSize, float newMass)
     {
         transform.localScale = new Vector3(newSize, newSize, 1);
-        rigidBody2D.mass = newMass;
+        bulletRB.mass = newMass;
         //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
     }
 }
