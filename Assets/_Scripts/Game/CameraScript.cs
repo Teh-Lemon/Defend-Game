@@ -68,8 +68,10 @@ public class CameraScript : MonoBehaviour
         transform.position += (direction.normalized * magnitude);
     }
 
+    // Deprecated
+    /*
     public void ResetPosition()
     {
         transform.position = origPosition;
-    }
+    }*/
 }

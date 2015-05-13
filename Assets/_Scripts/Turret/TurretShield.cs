@@ -80,7 +80,7 @@ public class TurretShield : CustomBehaviour
                 isFading = false;
             }           
 
-            Helper.SetTransparency(SHIELD_SPRITE, newA);
+            SetTransparency(SHIELD_SPRITE, newA);
         }
     }
 
@@ -98,7 +98,7 @@ public class TurretShield : CustomBehaviour
             // Don't play fade animation if shield is already on
             if (!IsOn)
             {
-                Helper.SetTransparency(SHIELD_SPRITE, 0.0f);
+                SetTransparency(SHIELD_SPRITE, 0.0f);
                 fadeTimeTotal = 0.0f;
                 isFading = true;
             }

@@ -28,11 +28,5 @@ public static class Helper
     public static float RandomSign()
     {
         return Random.value < .5 ? 1.0f : -1.0f;
-    }
-
-    public static void SetTransparency(SpriteRenderer sprite, float newAlpha)
-    {
-        sprite.color = new Color(sprite.color.r,
-            sprite.color.g, sprite.color.b, newAlpha); 
-    }
+    } 
 }

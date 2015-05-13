@@ -41,12 +41,12 @@ public class Meteor : CustomBehaviour
 
     GameStates.MeteorTypes type = GameStates.MeteorTypes.NORMAL;
 
-    Rigidbody2D rigidBody2D;
+    Rigidbody2D rb;
 
     // Functions
     void Awake()
     {
-        rigidBody2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
 // Functions
@@ -59,7 +59,7 @@ public class Meteor : CustomBehaviour
 
             case state.EXPLODING:
                 // Freeze the meteor in place as the death animation plays
-                rigidBody2D.velocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
                 break;
         }
     }
@@ -68,7 +68,7 @@ public class Meteor : CustomBehaviour
     void UpdateSize(float newScale)
     {
         transform.localScale = new Vector3(newScale, newScale, 1);
-        rigidBody2D.mass = newScale * MASS_SCALE_RATIO;
+        rb.mass = newScale * MASS_SCALE_RATIO;
     }
 
     // Collision events
@@ -81,7 +81,7 @@ public class Meteor : CustomBehaviour
                 // Remove meteor from play once it has left the screen
                 if (other.CompareTag("KillBoundary"))
                 {
-                    MeteorController.Instance.StoreMeteor(this.gameObject);
+                    StartCoroutine(RemoveFromPlay());
                 }
                 // Play death animation if colliding with a turret
                 else if (other.CompareTag("TurretBody"))
@@ -100,7 +100,7 @@ public class Meteor : CustomBehaviour
     {
         currentState = state.EXPLODING;
 
-        Helper.SetTransparency(Sprite, DEATH_ALPHA);
+        SetTransparency(Sprite, DEATH_ALPHA);
 
         // Start flashing
         StartCoroutine(FlashSprite(Sprite, true,
@@ -108,6 +108,17 @@ public class Meteor : CustomBehaviour
         // Freeze the meteor in position
         yield return new WaitForSeconds(DEATH_FLASH_DURATION);
         // Remove from play after animation is finished
+
+        StartCoroutine(RemoveFromPlay());
+    }
+
+    IEnumerator RemoveFromPlay()
+    {
+        // Reset the meteors angular velocity and velocity
+        rb.isKinematic = true;
+        yield return new WaitForFixedUpdate();
+        rb.isKinematic = false;
+
         MeteorController.Instance.StoreMeteor(this.gameObject);
     }
 
@@ -121,8 +132,9 @@ public class Meteor : CustomBehaviour
         transform.position = newPosition;
         UpdateSize(newSize);
         Sprite.enabled = true;
-        Helper.SetTransparency(Sprite, 1.0f);
+        SetTransparency(Sprite, 1.0f);
         type = newType;
+        
 
         gameObject.SetActive(true);        
 
@@ -133,18 +145,18 @@ public class Meteor : CustomBehaviour
         // Get the force
         // Direction horizontally * (Force, adjusted with meteor mass)
         forceToPlayer = Vector2.Scale(forceToPlayer.normalized
-            , new Vector2(FORCE_TO_PLAYER * rigidBody2D.mass, 0));
+            , new Vector2(FORCE_TO_PLAYER * rb.mass, 0));
         // Add the force
-        rigidBody2D.AddForce(forceToPlayer, ForceMode2D.Impulse);
+        rb.AddForce(forceToPlayer, ForceMode2D.Impulse);
 
         // Rotate the meteor towards the player
         if (transform.position.x > 0)
         {
-            rigidBody2D.AddTorque(ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+            rb.AddTorque(ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
         }
         else
         {
-            rigidBody2D.AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
+            rb.AddTorque(-ANGULAR_FORCE_TO_PLAYER, ForceMode2D.Impulse);
         }
 
         currentState = state.ACTIVE;

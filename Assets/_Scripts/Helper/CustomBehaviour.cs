@@ -31,4 +31,30 @@ public class CustomBehaviour : MonoBehaviour
         sprite.enabled = endState;
         IsFlashing = false;
     }
+
+    // Zeros out the object's velocity and angular velocity
+    protected IEnumerator StopRigidBody2D(Rigidbody2D rb)
+    {
+        rb.isKinematic = true;
+        yield return new WaitForFixedUpdate();
+        rb.isKinematic = false;
+    }
+
+    /// <summary>
+    /// Calls GetComponent. Use StopRigidBody2D(Rigidbody2D rb) if rigidbody2D is already cached
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator StopRigidBody2D()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = true;
+        yield return new WaitForFixedUpdate();
+        rb.isKinematic = false;
+    }
+
+    protected void SetTransparency(SpriteRenderer sprite, float newAlpha)
+    {
+        sprite.color = new Color(sprite.color.r,
+            sprite.color.g, sprite.color.b, newAlpha);
+    }   
 }
