@@ -98,7 +98,10 @@ public class PowerUpController : MonoBehaviour
             // Randomise which power up
             int newPUp = Random.Range(0, PowerUpGOs.Length);
             // DEBUG ONLY
-            //newPUp = 3;
+            if (Debug.isDebugBuild)
+            {
+                //newPUp = 3;
+            }
 
             // Set spawn position
             float spawnY = Random.Range(MinSpawnHeight, MaxSpawnHeight);
