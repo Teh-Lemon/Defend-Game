@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turret: {fileID: 83505702}
-  BigBulletLength: 3
+  BigBulletLength: 5
   BigBulletWarning: 1
   BigBulletFlashSpeed: .200000003
 --- !u!50 &43329702
@@ -1456,7 +1456,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21290552, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
       propertyPath: m_Color.a
-      value: .788235307
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11455600, guid: 18999216b088f6a43bb7cf2c3c6fe5a5, type: 2}
       propertyPath: BIG_CAMERA_SHAKE_MAGNITUDE
