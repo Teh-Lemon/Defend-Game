@@ -22,11 +22,11 @@ Done:
 - Player turret with a working animated shield and limited fire-able ammo. Camera shakes when hit.
 - Game states: Can start, end with score and restart the game.
 - Options and pause menu
-- AI friendly turrets (still needs a way to spawn them, like via power ups)
-- Sound effects (button select still needs work)
+- AI friendly turrets
+- Sound effects
+- Power ups
 
 Potential future updates:
-- Power ups
-- Mobile port. Already supported in the code though I haven't been directly testing it.
+- Mobile port.
 - Different meteor types. The code has already been structured with this feature in mind.
 - Environmental changes
