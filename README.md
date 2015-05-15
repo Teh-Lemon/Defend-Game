@@ -5,10 +5,9 @@ Defend (WIP)
 
 - Use the mouse to aim and fire to defend your base
 - Don't forget to watch your ammo
-- Your shield is good for 1 meteor
 - Don't get hit by the meteors or it's game over
-
-Video link: After I get some more features done
+ 
+### Play here: [https://tehlemon.com/Defend-Game/](https://tehlemon.com/Defend-Game/)
 
 ![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Defend%20Game/2015-04-06_04-42-18.png "")
  
@@ -26,7 +25,10 @@ Done:
 - Sound effects
 - Power ups
 
+TODO:
+- Music
+- Mobile port
+
 Potential future updates:
-- Mobile port.
-- Different meteor types. The code has already been structured with this feature in mind.
+- Different meteor types.
 - Environmental changes
