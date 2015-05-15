@@ -4,7 +4,9 @@ using System.Collections;
 public class GameController : MonoBehaviour 
 {
     public static GameController Instance { get; set; }
-    const float DEFAULT_VOLUME = 0.5f;
+
+    [SerializeField]
+    float DEFAULT_VOLUME;
 
     #region Inspector Variables
     // Does the game go on forever despite being hit?

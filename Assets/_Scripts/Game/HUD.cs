@@ -188,6 +188,8 @@ public class HUD : MonoBehaviour
             VolumeGO.gameObject.SetActive(true);
             VolumeSlider.gameObject.SetActive(true);
             OptionsBackButton.gameObject.SetActive(true);
+
+            VolumeSlider.value = AudioListener.volume;
         }
         else
         {
