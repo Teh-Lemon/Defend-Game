@@ -1730,7 +1730,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 184f8277b3cbcee4493510d8f3dee88a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5109,6 +5109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9fc969fe8a5f54fbe73e5174182d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEFAULT_VOLUME: .75
   CAN_GAME_OVER: 1
   TIME_TILL_GAMEOVER: 0
   SCORE_INCREASE_RATE: 1
