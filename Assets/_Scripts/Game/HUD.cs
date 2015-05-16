@@ -12,6 +12,7 @@ public class HUD : MonoBehaviour
     // Index of the space character in the digits font sheet
     const int FONT_SPACE_INDEX = 10;
     List<GameObject> activeDigits;
+    // In Options menu?
 
     // Used to display the score number at the end
     GameObjectPool digitsPool;
@@ -30,6 +31,8 @@ public class HUD : MonoBehaviour
     Button OptionsButton;
     [SerializeField]
     Button StartGameButton;
+    [SerializeField]
+    Button QuitButton;
 
     [Header("Options")]
     [SerializeField]
@@ -176,13 +179,13 @@ public class HUD : MonoBehaviour
     }
 
     // Event handler for options button and options back button
-    void ShowOptionsMenu(bool entering)
+    public void ShowOptionsMenu(bool entering)
     {
         if (entering)
         {
             // Hide main menu
             StartGameButton.gameObject.SetActive(false);
-            OptionsButton.gameObject.SetActive(false);
+            OptionsButton.gameObject.SetActive(false);            
 
             // Show options menu
             VolumeGO.gameObject.SetActive(true);
@@ -251,12 +254,19 @@ public class HUD : MonoBehaviour
             TitleGO.SetActive(true);
             StartGameButton.gameObject.SetActive(true);
             OptionsButton.gameObject.SetActive(true);
+
+#if UNITY_STANDALONE_WIN
+            QuitButton.gameObject.SetActive(true);
+#endif
         }
         else
         {
             TitleGO.SetActive(false);
             StartGameButton.gameObject.SetActive(false);
             OptionsButton.gameObject.SetActive(false);
+#if UNITY_STANDALONE_WIN
+            QuitButton.gameObject.SetActive(false);
+#endif
         }
     }
 
@@ -309,6 +319,12 @@ public class HUD : MonoBehaviour
     {
         AudioSelect.Play();
         ShowOptionsMenu(false);
+    }
+
+    // Quit button on the main menu
+    public void ClickQuitButton()
+    {
+        Application.Quit();
     }
     #endregion
 }

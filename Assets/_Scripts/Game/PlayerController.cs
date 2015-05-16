@@ -41,7 +41,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         switch (GameStates.Current)
-        { 
+        {
+            case GameStates.States.MENU:
+                if (Input.GetButton("Cancel"))
+                {
+                    HUD.Instance.ShowOptionsMenu(false);
+                }
+                break;
+
             case GameStates.States.PLAYING:
                 // Fire a bullet at the crosshair
                 // If the player clicks with the mouse
@@ -60,6 +67,21 @@ public class PlayerController : MonoBehaviour
                         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                         turret.ShootBullet(worldPos);
+
+                        if (Input.touchCount > 1)
+                        {
+                            Cursor.visible = true;
+                        }
+                        else
+                        {
+                            Cursor.visible = false;
+                        }
+                    }
+                    else
+                    {
+#if UNITY_ANDROID
+                        Cursor.visible = false;
+#endif
                     }
                 }
 

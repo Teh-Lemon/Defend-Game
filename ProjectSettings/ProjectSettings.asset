@@ -5,23 +5,23 @@ PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   AndroidProfiler: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 2
   targetDevice: 2
   targetGlesGraphics: 1
   targetIOSGraphics: -1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: Unity Technologies
-  productName: Unity Remote 4
+  companyName: Teh Lemon
+  productName: Defend
   cloudProjectId: 
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 3eab2c39811b39a40ac40234d5246820, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
-  defaultScreenWidth: 1920
-  defaultScreenHeight: 1080
+  defaultScreenWidth: 1280
+  defaultScreenHeight: 720
   defaultScreenWidthWeb: 840
   defaultScreenHeightWeb: 480
-  m_RenderingPath: 1
+  m_RenderingPath: 3
   m_MobileRenderingPath: 1
   m_ActiveColorSpace: 0
   m_MTRendering: 1
@@ -127,7 +127,7 @@ PlayerSettings:
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -137,20 +137,8 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: c379656594f91445898d48eb96df3e0f, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 03a9c19966837864293c7cd8e7a4c2ad, type: 3}
       m_Size: 128
-  - m_BuildTarget: Android
-    m_Icons:
-    - m_Icon: {fileID: 2800000, guid: c94506069dd2c484780fb8bbe4a4eb17, type: 3}
-      m_Size: 144
-    - m_Icon: {fileID: 2800000, guid: c815034ffc16f4a0e98e42b9304188bf, type: 3}
-      m_Size: 96
-    - m_Icon: {fileID: 2800000, guid: fdd4612c583e9480dac1f3782facd476, type: 3}
-      m_Size: 72
-    - m_Icon: {fileID: 2800000, guid: e6d951d4c4e37458f970b728b0e40808, type: 3}
-      m_Size: 48
-    - m_Icon: {fileID: 2800000, guid: 56c95f39c06654eae9f6f8c3c03943db, type: 3}
-      m_Size: 36
   - m_BuildTarget: iPhone
     m_Icons:
     - m_Icon: {fileID: 2800000, guid: cb5a31c1dac864b5f90811c410e7e572, type: 3}
@@ -169,6 +157,9 @@ PlayerSettings:
       m_Size: 57
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
+  - m_BuildTarget: Android
     m_StaticBatching: 1
     m_DynamicBatching: 1
   webPlayerTemplate: APPLICATION:No Context Menu
