@@ -22,13 +22,24 @@ Done:
 - Game states: Can start, end with score and restart the game.
 - Options and pause menu
 - AI friendly turrets
+  - Turrets can pick and fire at meteors
+  - Turrets can die, dying animation
 - Sound effects
 - Power ups
+  - Shield
+    - Activate fade in animation
+  - Turret
+    - Can spawn the AI turrets with spawning animation
+  - Big Bullet
+    - Visual effect to show it's on, flashing to show it's almost over
+	- Camera shake to show recoil
+  - Ammo refill
+    - Particle effect to draw attention to ammo bar
+- Android port
 
 TODO:
 - Music
-- Mobile port
 
-Potential future updates:
+Possible future updates:
 - Different meteor types.
 - Environmental changes
