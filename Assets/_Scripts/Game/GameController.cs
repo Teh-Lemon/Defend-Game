@@ -76,6 +76,14 @@ public class GameController : MonoBehaviour
         }
 	}
 
+    void OnApplicationPause(bool paused)
+    {
+        if (paused && InGame)
+        {
+            GameController.Instance.ChangeState(GameStates.States.PAUSED);
+        }
+    }
+
     // Start the scoring system, it ends itself on game over
     IEnumerator StartScoring()
     {

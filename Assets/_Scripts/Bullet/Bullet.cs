@@ -8,13 +8,20 @@ public class Bullet : MonoBehaviour
     float defaultScale;
     float defaultMass;
 
+    enum state
+    {
+        ACTIVE,
+        STORED
+    }
+    state currentState = state.STORED;
+
     // Bullets are deactivated before first frame
     void Awake()
     {
         bulletRB = GetComponent<Rigidbody2D>();
 
         //Spawn(Vector2.zero, null);
-        
+
         defaultScale = transform.localScale.x;
         defaultMass = bulletRB.mass;
     }
@@ -22,28 +29,29 @@ public class Bullet : MonoBehaviour
     void FixedUpdate()
     {
         bulletRB.velocity =
-            bulletRB.velocity.normalized * BulletController.Instance.BULLET_SPEED;            
+            bulletRB.velocity.normalized * BulletController.Instance.BULLET_SPEED;
     }
 
     // When the bullet leaves the play area, remove from play
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (this.enabled)
+        if (this.enabled
+            && other.CompareTag("KillBoundary")
+            && currentState == state.ACTIVE)
         {
-            if (other.CompareTag("KillBoundary"))
-            {
-                BulletController.Instance.StoreBullet(this.gameObject);
-            }
+            currentState = state.STORED;
+            BulletController.Instance.StoreBullet(this.gameObject);
         }
     }
 
     // Reset the bullet, required interface declaration
     public void Spawn(Vector2 spawnPosition, GameObjectPool pool)
     {
+        currentState = state.ACTIVE;
         //GetComponent<Rigidbody2D>().mass = transform.localScale.x;
         ChangeSize(defaultScale, defaultMass);
-        transform.position = spawnPosition;        
-        gameObject.SetActive(true);        
+        transform.position = spawnPosition;
+        gameObject.SetActive(true);
     }
 
     // Change the size and mass of the bullet

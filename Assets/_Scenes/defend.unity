@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turret: {fileID: 83505702}
-  BigBulletLength: 5
+  BigBulletLength: 10
   BigBulletWarning: 1
   BigBulletFlashSpeed: .200000003
 --- !u!50 &43329702

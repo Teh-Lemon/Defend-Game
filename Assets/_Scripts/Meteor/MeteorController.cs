@@ -96,7 +96,8 @@ public class MeteorController : MonoBehaviour
 
     // Store away all the meteors in-play
     public void ClearMeteors()
-    {   
+    {
+        //Debug.Log("Clearing");
         for (int i = 0; i < activeMeteors.Count; i++)
         {
             StoreMeteor(activeMeteors[i]);
@@ -211,6 +212,7 @@ public class MeteorController : MonoBehaviour
     // Disable a meteor and add it back into the pool to be re-used
     public void StoreMeteor(GameObject meteor)
     {
+        //Debug.Log("Storing");
         if (meteorPool != null)
         {
             meteorPool.Store(meteor);

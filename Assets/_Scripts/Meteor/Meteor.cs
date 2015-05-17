@@ -33,9 +33,10 @@ public class Meteor : CustomBehaviour
     {
         SETUP,
         ACTIVE,
-        EXPLODING
+        EXPLODING,
+        STORED
     }
-    state currentState = state.ACTIVE;
+    state currentState = state.STORED;
 
     // Is the meteor a big meteor? Affects conditions when to remove from play
 
@@ -97,7 +98,7 @@ public class Meteor : CustomBehaviour
 
     // Play death animation
     IEnumerator Explode()
-    {
+    {        
         currentState = state.EXPLODING;
 
         SetTransparency(Sprite, DEATH_ALPHA);
@@ -108,18 +109,23 @@ public class Meteor : CustomBehaviour
         // Freeze the meteor in position
         yield return new WaitForSeconds(DEATH_FLASH_DURATION);
         // Remove from play after animation is finished
-
+        //Debug.Log("Exploding");
         StartCoroutine(RemoveFromPlay());
     }
 
     IEnumerator RemoveFromPlay()
     {
-        // Reset the meteors angular velocity and velocity
-        rb.isKinematic = true;
-        yield return new WaitForFixedUpdate();
-        rb.isKinematic = false;
+        if (currentState != state.STORED)
+        {
+            //Debug.Log("Removing from play");
+            currentState = state.STORED;
+            // Reset the meteors angular velocity and velocity
+            rb.isKinematic = true;
+            yield return new WaitForFixedUpdate();
+            rb.isKinematic = false;
 
-        MeteorController.Instance.StoreMeteor(this.gameObject);
+            MeteorController.Instance.StoreMeteor(this.gameObject);
+        }
     }
 
     // Reset the meteor, update it's starting position and size
