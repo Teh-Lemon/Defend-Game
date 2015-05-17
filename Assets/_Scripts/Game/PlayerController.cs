@@ -30,11 +30,13 @@ public class PlayerController : MonoBehaviour
     {
         Instance = this;
 
+#if !UNITY_ANDROID
         // Set the custom mouse cursor
         Texture2D mouseCursor = Resources.Load<Texture2D>("Cursor");
         // Centre it
         Vector2 hotspot = Vector2.one * (mouseCursor.height / 2);
-        Cursor.SetCursor(mouseCursor, hotspot, CursorMode.Auto);
+        Cursor.SetCursor(mouseCursor, hotspot, CursorMode.Auto);        
+#endif
     }
 
     // Update is called once per frame
@@ -67,21 +69,6 @@ public class PlayerController : MonoBehaviour
                         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                         turret.ShootBullet(worldPos);
-
-                        if (Input.touchCount > 1)
-                        {
-                            Cursor.visible = true;
-                        }
-                        else
-                        {
-                            Cursor.visible = false;
-                        }
-                    }
-                    else
-                    {
-#if UNITY_ANDROID
-                        Cursor.visible = false;
-#endif
                     }
                 }
 

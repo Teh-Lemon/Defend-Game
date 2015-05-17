@@ -46,7 +46,8 @@ public class PowerUp : MonoBehaviour
     // Remove the power up and turn on it's power
     public virtual void Activate()
     {
-        PowerUpController.Instance.PlayActivateSound();
+        //PowerUpController.Instance.PlayActivateSound();
+        AudioController.Instance.Play(AudioController.Sounds.POWERUP);
         gameObject.SetActive(false);
     }
 

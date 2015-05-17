@@ -239,13 +239,8 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: {x: 1, y: 1, z: 1}
-        inSlope: {x: -.25000006, y: -.25000006, z: 0}
-        outSlope: {x: -.25000006, y: -.25000006, z: 0}
-        tangentMode: 0
-      - time: .200000003
-        value: {x: .949999988, y: .949999988, z: 1}
-        inSlope: {x: -.25000006, y: -.25000006, z: 0}
-        outSlope: {x: -.25000006, y: -.25000006, z: 0}
+        inSlope: {x: -.25000006, y: 0, z: 0}
+        outSlope: {x: -.25000006, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -255,15 +250,15 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 339c88f45eeab5e4989cce55e39e7686, type: 3}
-    - time: .100000001
+    - time: .111111112
       value: {fileID: 21300002, guid: 339c88f45eeab5e4989cce55e39e7686, type: 3}
-    - time: .200000003
+    - time: .222222224
       value: {fileID: 21300004, guid: 339c88f45eeab5e4989cce55e39e7686, type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
     script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_SampleRate: 10
+  m_SampleRate: 9
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -289,7 +284,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .300000012
+    m_StopTime: .333333343
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -312,11 +307,6 @@ AnimationClip:
         inSlope: -.25000006
         outSlope: -.25000006
         tangentMode: 10
-      - time: .200000003
-        value: .949999988
-        inSlope: -.25000006
-        outSlope: -.25000006
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalScale.x
@@ -331,11 +321,6 @@ AnimationClip:
         inSlope: -.25000006
         outSlope: -.25000006
         tangentMode: 10
-      - time: .200000003
-        value: .949999988
-        inSlope: -.25000006
-        outSlope: -.25000006
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalScale.y
@@ -346,11 +331,6 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 10
-      - time: .200000003
         value: 1
         inSlope: 0
         outSlope: 0
@@ -379,25 +359,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Highlighted
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Pressed
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Disabled
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -410,7 +390,7 @@ AnimatorController:
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_MultiThreadedStateMachine: 1
 --- !u!1101 &110104904
 AnimatorStateTransition:

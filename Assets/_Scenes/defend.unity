@@ -2575,6 +2575,7 @@ Transform:
   - {fileID: 961074491}
   - {fileID: 1697031389}
   - {fileID: 393984287}
+  - {fileID: 1358479562}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &865637331
@@ -3474,6 +3475,11 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 50, y: 2}
+--- !u!82 &1197602268 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 8269106, guid: 18999216b088f6a43bb7cf2c3c6fe5a5,
+    type: 2}
+  m_PrefabInternal: {fileID: 160622113}
 --- !u!1 &1251655960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3783,6 +3789,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1289085088}
+--- !u!1 &1358479561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1358479562}
+  - 114: {fileID: 1358479563}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358479562
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358479561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 846037956}
+  m_RootOrder: 5
+--- !u!114 &1358479563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358479561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abccf8cf05949a84bb12143233023095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectAS: {fileID: 2051442019}
+  hitAS: {fileID: 1197602268}
+  powerupAS: {fileID: 393984289}
 --- !u!1 &1382157841
 GameObject:
   m_ObjectHideFlags: 0

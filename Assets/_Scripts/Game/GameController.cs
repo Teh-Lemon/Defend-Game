@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
         Instance = this;
         score = 0;
         AudioListener.volume = DEFAULT_VOLUME;
+        
 	}
 
     void Start()

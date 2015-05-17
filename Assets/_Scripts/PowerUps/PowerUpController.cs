@@ -19,7 +19,9 @@ public class PowerUpController : MonoBehaviour
     [Header("Spawning")]
     // Where the power up will spawn
     [SerializeField]
-    float MinSpawnHeight, MaxSpawnHeight;
+    float MinSpawnHeight;
+    [SerializeField]
+    float MaxSpawnHeight;
     // How far from the centre of the screen the power up spawns
     [SerializeField]
     float SpawnX;
@@ -134,8 +136,9 @@ public class PowerUpController : MonoBehaviour
         }
     }
 
+    /*
     public void PlayActivateSound()
     {
         activateAudioSource.Play();
-    }
+    }*/
 }

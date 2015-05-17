@@ -92,7 +92,8 @@ public class Turret : CustomBehaviour
     // Called by the Meteor when colliding with player Body
     public void HitByMeteor()
     {
-        HitAudio.Play();
+        //HitAudio.Play();
+        AudioController.Instance.Play(AudioController.Sounds.HIT);
 
         StartCoroutine(mainCamera.RandomShake());
         //mainCamera.ResetPosition();

@@ -12,10 +12,11 @@ public class HUD : MonoBehaviour
     // Index of the space character in the digits font sheet
     const int FONT_SPACE_INDEX = 10;
     List<GameObject> activeDigits;
-    // In Options menu?
 
     // Used to display the score number at the end
     GameObjectPool digitsPool;
+
+    int selectAudioID;
 
     #region Inspector Variables
 
@@ -85,6 +86,9 @@ public class HUD : MonoBehaviour
 
         //Adds a listener to the main slider and invokes a method when the value changes.
         VolumeSlider.onValueChanged.AddListener(delegate { VolumeSliderChanged(); });
+
+        // Load audio assets
+        //selectAudioID = AudioCenter.loadSound("Resources/Audio/select.wav");
     }
 
     // Update the size of the ammo bar
@@ -213,6 +217,11 @@ public class HUD : MonoBehaviour
         AudioListener.volume = VolumeSlider.value;
     }
 
+    void PlayButtonSound()
+    {
+        AudioController.Instance.Play(AudioController.Sounds.SELECT);
+    }
+
     #region states
     // Show/Hide the game over buttons
     public void SetUpGameOver(bool entering, int score)
@@ -253,8 +262,12 @@ public class HUD : MonoBehaviour
         {
             TitleGO.SetActive(true);
             StartGameButton.gameObject.SetActive(true);
-            OptionsButton.gameObject.SetActive(true);
 
+            // Don't show options menu on Android since volume is unused there
+#if !UNITY_ANDROID
+            OptionsButton.gameObject.SetActive(true);
+#endif
+            // Only show quit button on Windows version
 #if UNITY_STANDALONE_WIN
             QuitButton.gameObject.SetActive(true);
 #endif
@@ -263,7 +276,9 @@ public class HUD : MonoBehaviour
         {
             TitleGO.SetActive(false);
             StartGameButton.gameObject.SetActive(false);
+#if !UNITY_ANDROID
             OptionsButton.gameObject.SetActive(false);
+#endif
 #if UNITY_STANDALONE_WIN
             QuitButton.gameObject.SetActive(false);
 #endif
@@ -290,40 +305,42 @@ public class HUD : MonoBehaviour
     public void ClickStartGameButton()
     {
             GameController.Instance.ChangeState(GameStates.States.GAME_START);
-            AudioSelect.Play();
+            PlayButtonSound();
     }
 
     // Main menu button event handler
     public void ClickMainMenuButton()
     {
             GameController.Instance.ChangeState(GameStates.States.MENU);
-            AudioSelect.Play();
+            PlayButtonSound();
     }
 
     // Restart button event handler
     public void ClickRetryButton()
     {
             GameController.Instance.ChangeState(GameStates.States.GAME_START);
-            AudioSelect.Play();
+            PlayButtonSound();
     }
 
     // Options button on main menu
     public void ClickOptionsButton()
     {
-        AudioSelect.Play();
+        PlayButtonSound();
+        
         ShowOptionsMenu(true);
     }
 
     // Back to main menu button in options menu
     public void ClickOptionsBackButton()
     {
-        AudioSelect.Play();
+        PlayButtonSound();
         ShowOptionsMenu(false);
     }
 
     // Quit button on the main menu
     public void ClickQuitButton()
     {
+        PlayButtonSound();
         Application.Quit();
     }
     #endregion
