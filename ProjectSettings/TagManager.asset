@@ -11,6 +11,7 @@ TagManager:
   - TurretBody
   - BigMBoundary
   - PUpBoundary
+  - BulletBoundary
   layers:
   - Default
   - TransparentFX

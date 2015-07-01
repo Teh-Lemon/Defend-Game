@@ -36,11 +36,11 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (this.enabled
-            && other.CompareTag("KillBoundary")
+            && (other.CompareTag("KillBoundary") || other.CompareTag("BulletBoundary") )
             && currentState == state.ACTIVE)
         {
             currentState = state.STORED;
-            BulletController.Instance.StoreBullet(this.gameObject);
+            BulletController.Instance.StoreBullet(this.gameObject);            
         }
     }
 
