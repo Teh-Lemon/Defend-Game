@@ -87,10 +87,13 @@ public class Meteor : CustomBehaviour
                 // Play death animation if colliding with a turret
                 else if (other.CompareTag("TurretBody"))
                 {
-                    // Tell the turret it has been hit
-                    other.GetComponentInParent<Turret>().HitByMeteor();
-                    // Play animation and remove from play
-                    StartCoroutine(Explode());
+                    //if (other.enabled)
+                    {
+                        // Tell the turret it has been hit
+                        other.GetComponentInParent<Turret>().HitByMeteor();
+                        // Play animation and remove from play
+                        StartCoroutine(Explode());
+                    }
                 }
                 break;
         }

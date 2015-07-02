@@ -77,6 +77,7 @@ PlayerSettings:
   metroEnableIndependentInputSource: 1
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
+  virtualRealitySupported: 0
   productGUID: 5c596556decb141888be121e4494e18f
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
@@ -282,7 +283,6 @@ PlayerSettings:
   psp2InfoBarOnStartup: 0
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
-  virtualRealitySupported: 0
   spritePackerPolicy: 
   scriptingDefineSymbols:
     1: 
@@ -421,8 +421,10 @@ PlayerSettings:
   boolPropertyNames:
   - WebGL::analyzeBuildSize
   - WebGL::dataCaching
+  - WebGL::useEmbeddedResources
   WebGL::analyzeBuildSize: 0
   WebGL::dataCaching: 0
+  WebGL::useEmbeddedResources: 0
   stringPropertyNames:
   - WebGL::emscriptenArgs
   - WebGL::template
