@@ -8,13 +8,18 @@ public class PowerUpController : MonoBehaviour
     // Is there a power up on screen
     bool PowerUpActive;
 
-    // Activation sound effect
-    AudioSource activateAudioSource;
+    // Activation sound effect // DEPRECATED FOR NEW AUDIO CONTROLLER PUBLIC METHODS
+    //AudioSource activateAudioSource;
 
     #region Inspector Variables
+    [Header("List")]
     // List of all the power up game objects
     [SerializeField]
     GameObject[] PowerUpGOs;
+    [SerializeField]
+    int ShieldIndex;
+    // Holds the index of each power up in the PowerUpGOs list excluding the shield power up
+    int[] PUpGOsIndexesNoShield;
 
     [Header("Spawning")]
     // Where the power up will spawn
@@ -59,7 +64,20 @@ public class PowerUpController : MonoBehaviour
             PowerUpGOs[i].GetComponent<PowerUp>().SetUp(MoveSpeed, FloatSpeed, FloatDeviation);
         }
 
-        activateAudioSource = GetComponent<AudioSource>();
+        PUpGOsIndexesNoShield = new int[PowerUpGOs.Length - 1];
+
+        int current = 0;
+        for (int i = 0; i < PowerUpGOs.Length; i++)
+        {
+            if (i != ShieldIndex)
+            {
+                //Debug.Log("Adding " + i);
+                PUpGOsIndexesNoShield[current] = i;
+                current++;
+            }
+        }
+
+        //activateAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -98,10 +116,27 @@ public class PowerUpController : MonoBehaviour
             }
 
             // Randomise which power up
-            int newPUp = Random.Range(0, PowerUpGOs.Length);
+            int newPUp = 0;
+            if (PlayerController.Instance.HasShield)
+            {
+                // If the player has a shield active
+                // Grab the index of the power up for the power up list
+                // From the list of indexes which exclude the shield power up
+                newPUp = PUpGOsIndexesNoShield[Random.Range(0, PUpGOsIndexesNoShield.Length)];
+                //Debug.Log("no " + newPUp);
+            }
+            else
+            {
+                // Else pick a random power up from the list of power ups
+                newPUp = Random.Range(0, PowerUpGOs.Length);
+                //Debug.Log("yes " + newPUp);
+            }
+            
+
             // DEBUG ONLY
             if (Debug.isDebugBuild)
             {
+                // Only spawn this power up
                 //newPUp = 3;
             }
 

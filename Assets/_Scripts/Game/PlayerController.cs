@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Reset the turret to default spawned state
     public void Reset()
     {
         turret.Shield.ToggleShield(true);
@@ -128,16 +129,19 @@ public class PlayerController : MonoBehaviour
         get { return turret.gameObject.transform.position; }
     }
 
+    // Has the player's turret died
     public bool HasDied
     {
         get { return !turret.IsAlive; }
     }
 
+    // Re-activate the player's shield
     public void RestoreShield()
     {
         turret.Shield.ToggleShield(true);
     }
 
+    // Set the player's current ammo to full
     public void FillUpAmmo()
     {
         turret.AmmoCount = turret.AmmoCapacity;
@@ -157,5 +161,11 @@ public class PlayerController : MonoBehaviour
             turret.BigBullet = false;
             bigBulletWarnOn = false;
         }
+    }
+
+    // Is the player's shield currently active
+    public bool HasShield
+    {
+        get { return turret.Shield.IsOn; }
     }
 }
