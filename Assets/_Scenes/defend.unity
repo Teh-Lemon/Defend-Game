@@ -462,7 +462,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b260646689ab64c4f8e0f6f8fa064f0b, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -749,11 +749,12 @@ MonoBehaviour:
   - {fileID: 1419898165}
   - {fileID: 1783003023}
   - {fileID: 1975730115}
+  ShieldIndex: 0
   MinSpawnHeight: 0
   MaxSpawnHeight: 4
   SpawnX: 10
-  DiceRollInterval: 10
-  DiceRollChance: .5
+  DiceRollInterval: 1
+  DiceRollChance: 1
   MoveSpeed: 2
   FloatSpeed: 1
   FloatDeviation: .00999999978

@@ -291,10 +291,17 @@ public class HUD : MonoBehaviour
         if (entering)
         {
             PausedGO.SetActive(true);
+
+#if UNITY_STANDALONE_WIN
+            QuitButton.gameObject.SetActive(true);
+#endif
         }
         else
         {
             PausedGO.SetActive(false);
+#if UNITY_STANDALONE_WIN
+            QuitButton.gameObject.SetActive(false);
+#endif
         }
     }
     #endregion
