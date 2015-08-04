@@ -69,6 +69,11 @@ public class MeteorController : MonoBehaviour
     int waveNumber = 0;
     // Used to adjust the difficulty curve
     LinerBiGraph difficultyCurve;
+    // Position of previous spawned meteor
+    // Used to prevent 2 meteors spawning on top of each other
+    float prevSpawnX = 0.0f;
+    float prevSpawnSize = 0.0f;
+    const float POS_TO_SCALE_RATIO = 2.0f;
 
     void Awake()
     {
@@ -87,6 +92,8 @@ public class MeteorController : MonoBehaviour
         StopCoroutine("SpawnWaves");
         waveNumber = 0;
         difficultyCurve.ResetMidPoint();
+        prevSpawnX = 0.0f;
+        prevSpawnSize = 0.0f;
 
         if (ENABLED)
         {
@@ -125,6 +132,15 @@ public class MeteorController : MonoBehaviour
                 spawnSize = Random.Range(MIN_METEOR_SIZE, MAX_METEOR_SIZE);
                 // Randomise a spawn point
                 spawnPointX = Random.Range(MIN_SPAWN_X, MAX_SPAWN_X);
+
+                // Make sure the spawn point doesn't overlap with the previous meteor
+                if (Mathf.Abs(spawnPointX - prevSpawnX) < (spawnSize * POS_TO_SCALE_RATIO))
+                {
+                    // Shift the meteor aside by the size of the bigger meteor between the 2
+                    // If meteor spawns on right side shift more to right and vise versa
+                    float shift = Mathf.Max(spawnSize, prevSpawnSize);
+                    spawnPointX += (shift * SCREEN_SCALE_RATIO * Helper.GetSign(spawnPointX));
+                }
             }
             // big meteor
             else if (meteorType == GameStates.MeteorTypes.BIG)
@@ -133,6 +149,10 @@ public class MeteorController : MonoBehaviour
                 // centre of screen
                 spawnPointX = 0;
             }
+
+            // Update prev values
+            prevSpawnX = spawnPointX;
+            prevSpawnSize = spawnSize;
 
             // Bottom of the meteor + the radius in world co-ordinates
             float spawnPointY = SPAWN_Y + (spawnSize * SCREEN_SCALE_RATIO);
