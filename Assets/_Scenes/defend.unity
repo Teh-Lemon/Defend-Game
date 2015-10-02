@@ -753,8 +753,9 @@ MonoBehaviour:
   MinSpawnHeight: 0
   MaxSpawnHeight: 4
   SpawnX: 10
-  DiceRollInterval: 1
-  DiceRollChance: 1
+  DiceRollInterval: 15
+  DiceRollChance: .5
+  SpawnStartDelay: 15
   MoveSpeed: 2
   FloatSpeed: 1
   FloatDeviation: .00999999978

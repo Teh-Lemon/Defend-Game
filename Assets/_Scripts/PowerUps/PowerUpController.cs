@@ -36,6 +36,9 @@ public class PowerUpController : MonoBehaviour
     // Chance of spawning power up per diceroll
     [SerializeField]
     float DiceRollChance;
+    // How long into the game before powerups start to spawn
+    [SerializeField]
+    float SpawnStartDelay;
 
     [Header("Properties")]
     // How fast the power up moves across the screen
@@ -103,6 +106,8 @@ public class PowerUpController : MonoBehaviour
     // Spawn power ups while the game is playing
     IEnumerator SpawnNewPowerUp()
     {
+        //yield return new WaitForSeconds(SpawnStartDelay);
+
         // Keep running while game is playing
         while (GameController.Instance.InGame)
         {

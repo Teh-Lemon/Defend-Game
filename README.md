@@ -1,4 +1,4 @@
-Defend (WIP)
+Defend
 ==============
 
 2D Game made with Unity 5 using C#, done in my spare time after work.
@@ -36,9 +36,6 @@ Done:
   - Ammo refill
     - Particle effect to draw attention to ammo bar
 - Android port
-
-TODO:
-- Music
 
 Possible future updates:
 - Different meteor types.
