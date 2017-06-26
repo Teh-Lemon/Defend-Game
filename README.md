@@ -9,7 +9,7 @@ Defend
  
 ### Play here: [https://tehlemon.com/Defend-Game/](https://tehlemon.com/Defend-Game/)
 
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Defend%20Game/2015-04-06_04-42-18.png "")
+![alt text](Screenshot.png "")
  
 Progress
 ------------
