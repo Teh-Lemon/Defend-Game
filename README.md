@@ -7,7 +7,7 @@ Defend
 - Don't forget to watch your ammo
 - Don't get hit by the meteors or it's game over
  
-### Play here: [https://tehlemon.com/Defend-Game/](https://tehlemon.com/Defend-Game/)
+### Play here: https://github.com/Teh-Lemon/Defend-Game/releases/tag/1.0
 
 ![alt text](Screenshot.png "")
  
